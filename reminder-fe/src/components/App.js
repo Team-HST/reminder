@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from 'assets/images/logo.svg';
+import 'assets/css/App.css';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <strong><i class="fa fa-github icon"></i> Login with Github</strong>        
         <a
           className="App-link"
           href="https://reactjs.org"
