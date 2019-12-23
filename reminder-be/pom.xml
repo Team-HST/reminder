@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hst</groupId>
-	<artifactId>reminder</artifactId>
+	<artifactId>reminder-be</artifactId>
 	<version>1.0.0</version>
 	<name>reminder</name>
-	<description>Demo project for Spring Boot</description>
+	<description>RE:Minder Backend Application</description>
 
 	<properties>
 		<java.version>1.8</java.version>
