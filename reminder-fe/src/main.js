@@ -5,12 +5,14 @@ import App from './App.vue'
 import Vue from 'vue'
 
 // Import Modules
+import store from '@/modules/store'
 import vuetify from '@/modules/vuetify'
 import router from '@/modules/router'
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   vuetify,
   router,
   render: h => h(App)
