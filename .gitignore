@@ -1,5 +1,45 @@
-### IntelliJ IDEA ###
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse #
+.settings
+.project
+.classpath
+.studio
+target
+
+# Apple # 
+.DS_Store
+
+# Intellij #
 .idea
-*.iws
 *.iml
-*.ipr
+*.log
+
+# VSCode
+.vscode
+
+# logback
+logback.out.xml
+
+reminder-be/target
+reminder-fe/dist/
+reminder-fe/node/
+reminder-fe/node_modules/
+reminder-fe/npm-debug.log
+reminder-fe/target
+reminder-fe/test-output
+reminder-fece/tests/e2e/reports
+reminder-fe/tests/unit/coverage
+reminder-fe/yarn-error.log
+reminder-fe/yarn.lock
+
+
+security/target/
+selenium-debug.log
+
+!.mvn/wrapper/maven-wrapper.jar
