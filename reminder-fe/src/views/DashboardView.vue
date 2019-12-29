@@ -1,10 +1,10 @@
 <template>
-  <h1>Home View</h1>
+  <h1>Dashboard View</h1>
 </template>
 
 <script>
 export default {
-  name: 'HomeView'
+  name: 'DashboardView'
 }
 </script>
 

@@ -17,6 +17,12 @@ public class OAuthController {
 
 	private static final Logger logger = LoggerFactory.getLogger(OAuthController.class);
 
+	@GetMapping("github")
+	public String githubLogin() {
+		logger.info("Login with github");
+		return null;
+	}
+
 	@GetMapping("authorized")
 	public String authorizationSuccessCallback(Map<String, String> map) {
 		logger.info("map: {}", map);

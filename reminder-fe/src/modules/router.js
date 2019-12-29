@@ -7,9 +7,9 @@ import LoginView from '@/views/LoginView'
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', redirect: {name: 'homeView'}, meta: { publicView: true } },
+  { path: '/', redirect: {name: 'dashboardView'}, meta: { publicView: true } },
   { path: '/login', name: 'loginView', component: LoginView, meta: { publicView: true } },
-  { path: '/home', name: 'homeView', component: () => import('@/views/HomeView'), meta: { publicView: false } },
+  { path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false } },
 ]
 
 const router = new VueRouter({
