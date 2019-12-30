@@ -1,20 +1,23 @@
+server:
+  port: 8000
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://133.186.219.16:3306/reminder_db?characterEncoding=utf8&useUnicode=true&serverTimezone=Asia/Seoul
     username: hst
     password: hst123!@#
-    jpa:
-      database: mysql
-      database-platform: org.hibernate.dialect.MySQL5Dialect
-      show-sql: true
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
       hibernate:
-        ddl-auto: none
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      properties:
-        hibernate:
-          format_sql: true
+        format_sql: true
   mail:
     host: smtp.gmail.com
     port: 587
@@ -28,3 +31,15 @@ spring:
           auth: true
           starttls:
             enable: true
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMs: 864000000
+  oauth2:
+    # After successfully authenticating with the OAuth2 Provider,
+    # we'll be generating an auth token for the user and sending the token to the
+    # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
+    # We're not using cookies because they won't work well in mobile clients.
+    authorizedRedirectUris:
+      - http://localhost:8080/oauth2/redirect

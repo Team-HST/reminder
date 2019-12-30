@@ -3,13 +3,15 @@ import VueRouter from 'vue-router'
 import store from '@/modules/store'
 
 import LoginView from '@/views/LoginView'
+import LoginSuccessView from '@/views/LoginSuccessView'
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', redirect: {name: 'homeView'}, meta: { publicView: true } },
+  { path: '/', redirect: {name: 'dashboardView'}, meta: { publicView: true } },
   { path: '/login', name: 'loginView', component: LoginView, meta: { publicView: true } },
-  { path: '/home', name: 'homeView', component: () => import('@/views/HomeView'), meta: { publicView: false } },
+  { path: '/login-success', name: 'loginSuccessView', component: LoginSuccessView,  meta: { publicView: true }},  
+  { path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false } },
 ]
 
 const router = new VueRouter({
