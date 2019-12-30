@@ -13,7 +13,6 @@ export default {
   name: "LoginView",
   methods: {
     githubLogin() {
-      console.log('aa')
       location.href = 'http://localhost:8000/sso/github'
     }
   }

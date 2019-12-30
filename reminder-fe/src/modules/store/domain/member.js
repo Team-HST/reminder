@@ -1,6 +1,7 @@
 import router from '@/modules/router'
 
 const state = {
+  authenticationToken: null,
   authorized: false
 }
 
@@ -11,7 +12,8 @@ const getters = {
 }
 
 const mutations = {  
-  processAuthorize(state) {
+  processAuthorize(state, authenticationToken) {
+    state.authenticationToken = authenticationToken;
     state.authorized = true
   },
   processDeAuthorize(state) {
@@ -23,6 +25,9 @@ const actions = {
   deAuthorize(context) {
     context.commit('processDeAuthorize');
     router.push('/login')
+  },
+  authorize({commit}, authenticationToken) {
+    commit('processAuthorize', authenticationToken)
   }
 }
 
