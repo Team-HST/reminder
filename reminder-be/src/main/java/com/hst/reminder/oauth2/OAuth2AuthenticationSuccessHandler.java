@@ -41,7 +41,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		this.tokenProvider = tokenProvider;
 		this.props = props;
 		this.cookieOAuth2AuthorizationRequestRepository = cookieOAuth2AuthorizationRequestRepository;
-		this.setDefaultTargetUrl("http://localhost:8080");
+		this.setDefaultTargetUrl("/oauth2/finalize-authorization");
 	}
 
 	@Override
