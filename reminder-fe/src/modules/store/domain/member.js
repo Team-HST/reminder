@@ -1,7 +1,7 @@
 import router from '@/modules/router'
 
 const state = {
-  authorized: true
+  authorized: false
 }
 
 const getters = {

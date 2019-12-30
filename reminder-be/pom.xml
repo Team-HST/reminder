@@ -29,6 +29,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+<!--		&lt;!&ndash; Configurations API &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--		</dependency>-->
+
 		<!-- Persistent API -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,6 +60,13 @@
 			<artifactId>spring-security-oauth2-jose</artifactId>
 		</dependency>
 
+		<!-- JWT library -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.5.1</version>
+		</dependency>
+
 		<!-- Mail API -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,6 +89,13 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- Commons API -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
 		</dependency>
 	</dependencies>
 

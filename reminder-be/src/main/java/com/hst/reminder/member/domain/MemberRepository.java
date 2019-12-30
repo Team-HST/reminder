@@ -1,15 +1,15 @@
 package com.hst.reminder.member.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
 public interface MemberRepository {
+	Optional<Member> findById(Long memberId);
 
-	List<Member> findAll();
+	Member save(Member member);
 
-	Member findById(MemberId memberId);
-
-	void save(Member member);
+	Optional<Member> findByEmail(String email);
 }

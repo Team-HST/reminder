@@ -14,7 +14,7 @@ export default {
   methods: {
     githubLogin() {
       console.log('aa')
-      location.href = 'http://localhost:8000/oauth/github'
+      location.href = 'http://localhost:8000/sso/github'
     }
   }
 };

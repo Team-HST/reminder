@@ -2,7 +2,6 @@ package com.hst.reminder.member.application;
 
 import com.hst.reminder.member.application.command.SignupRequest;
 import com.hst.reminder.member.domain.Member;
-import com.hst.reminder.member.domain.MemberId;
 import com.hst.reminder.member.domain.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +23,9 @@ public class MemberService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return memberRepository.findById(MemberId.of(Long.valueOf(username)));
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		return memberRepository.findById(Long.valueOf(id))
+				.orElseThrow(() -> new UsernameNotFoundException(String.format("Not found id %s", id)));
 	}
 
 	@Autowired

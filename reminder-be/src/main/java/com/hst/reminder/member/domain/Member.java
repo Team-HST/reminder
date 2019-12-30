@@ -1,17 +1,19 @@
 package com.hst.reminder.member.domain;
 
 import com.hst.reminder.member.application.command.SignupRequest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.hst.reminder.oauth2.OAuth2Provider;
+import com.hst.reminder.oauth2.user.OAuth2UserInfo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -21,21 +23,32 @@ import java.util.Set;
 @Table(name = "MEMBER")
 @Getter
 @RequiredArgsConstructor
-public class Member implements UserDetails {
-	@EmbeddedId
-	private MemberId id;
+public class Member implements OAuth2User, UserDetails {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Embedded
+	@AttributeOverrides(
+		@AttributeOverride(name = "value", column = @Column(name ="password"))
+	)
 	private Password password;
 
+	@Column(unique = true)
 	private String email;
 
+	@Column
 	private String name;
 
-	@Column(name = "SSO_TYPE")
-	private SSOType ssoType;
+	@Column(name = "profile_image_url")
+	private String profileImageUrl;
 
-	// TODO 권한 관련 부분은 우선 ROLE_USER 만 고려해서 구현 (추후 admin 추가 시 구현할 것)
+	@Column(name = "sso_provider")
+	private OAuth2Provider ssoProvider;
+
+	@Transient
+	private Map<String, Object> attributes;
+
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -46,7 +59,7 @@ public class Member implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.id.getId().toString();
+		return this.id.toString();
 	}
 
 	@Override
@@ -74,12 +87,35 @@ public class Member implements UserDetails {
 		return true;
 	}
 
-	public static Member createMemberByReminder(SignupRequest request) {
+	public void setAttributes(Map<String, Object> attributes) {
+		this.attributes = attributes;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+
+	public static Member createMemberByReminder(SignupRequest request, Password password) {
 		Member member = new Member();
 		member.email = request.getEmail();
 		member.name = request.getName();
-		// member.password = request.getPassword();
+		member.password = password;
 		return member;
 	}
 
+	public static Member createMemberBySosial(OAuth2UserInfo userInfo, OAuth2Provider oAuth2Provider) {
+		Member member = new Member();
+		member.email = userInfo.getEmail();
+		member.name = userInfo.getName();
+		member.profileImageUrl = userInfo.getImageUrl();
+		member.ssoProvider = oAuth2Provider;
+		return member;
+	}
+
+	public void updateMemberInfo(OAuth2UserInfo oAuth2UserInfo) {
+		this.name = oAuth2UserInfo.getName();
+		this.email = oAuth2UserInfo.getEmail();
+		this.profileImageUrl = oAuth2UserInfo.getImageUrl();
+	}
 }

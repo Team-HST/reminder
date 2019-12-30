@@ -1,14 +1,17 @@
 package com.hst.reminder.configuration;
 
 import com.hst.reminder.member.application.MemberService;
+import com.hst.reminder.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.hst.reminder.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.hst.reminder.security.RestAuthenticationEntryPoint;
+import com.hst.reminder.security.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,55 +30,82 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private OAuth2AuthenticationSuccessHandler authenticationSuccessHandler;
+
+	private static final String[] PUBLIC_URI = {"/", "/error", "/sso/**", "/oauth2/**"};
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/**").permitAll()
+		http
+			.cors()
 				.and()
-			.headers()
-				.defaultsDisabled()
-				.frameOptions().sameOrigin()
-				.and()
-			.oauth2Login()
-				.clientRegistrationRepository(clientRegistrationRepository())
-				.authorizedClientService(authorizedClientService())
+			.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 			.csrf()
-				.disable();
+				.disable()
+			.formLogin()
+				.disable()
+			.httpBasic()
+				.disable()
+			.exceptionHandling()
+				.authenticationEntryPoint(new RestAuthenticationEntryPoint())
+				.and()
+			.authorizeRequests()
+				.antMatchers(PUBLIC_URI)
+					.permitAll()
+				.anyRequest()
+					.authenticated()
+					.and()
+			.oauth2Login()
+				// OAuth2 로그인 시작점 설정 (e.g. /sso/github, /sso/google)
+				// authorizationRequestRepository 는 OAuth2 인증 성공 후 HTTP Request 에 인증정보 담을 방법을 결정
+				// Spring 기본제공 구현체는 세션기반 HttpSessionOAuth2AuthorizationRequestRepository
+				// REST API Service 를 위해 세션 STATELESS 설정하기 때문에, 쿠키 기반 커스텀 구현체를 사용함
+				.authorizationEndpoint()
+					.baseUri("/sso")
+					.authorizationRequestRepository(cookieOAuthAuthorizationRequestRepository())
+					.and()
+				// OAuth2 인증이 완료된 후 처리할 Handler
+				.successHandler(authenticationSuccessHandler)
+				// 시스템에서 제공할 OAuth2 클라이언트 등록 (이 코드에선 github)
+				.clientRegistrationRepository(clientRegistrationRepository())
+				.authorizedClientService(authorizedClientService());
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(authenticationProvider());
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(memberService)
+			.passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
-	public AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(memberService);
-		authenticationProvider.setPasswordEncoder(passwordEncoder());
-		authenticationProvider.setHideUserNotFoundExceptions(false);
-		return authenticationProvider;
-	}
-
-	@Bean
-	PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
 	@Bean
-	public ClientRegistrationRepository clientRegistrationRepository() {
-		return new InMemoryClientRegistrationRepository(githubClientRegistration());
+	public HttpCookieOAuth2AuthorizationRequestRepository cookieOAuthAuthorizationRequestRepository() {
+		return new HttpCookieOAuth2AuthorizationRequestRepository();
 	}
 
 	@Bean
+	public TokenAuthenticationFilter tokenAuthenticationFilter() {
+		return new TokenAuthenticationFilter();
+	}
+
+	@Bean
+	public ClientRegistrationRepository clientRegistrationRepository() {
+		return new InMemoryClientRegistrationRepository(github());
+	}
+
 	public OAuth2AuthorizedClientService authorizedClientService() {
 		return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
 	}
 
-	private ClientRegistration githubClientRegistration() {
+	private ClientRegistration github() {
 		return CommonOAuth2Provider.GITHUB.getBuilder("github")
-				.userNameAttributeName("name")
 				.clientId("bd8b003f5fe25b1ba86e")
 				.clientSecret("ecfde69bb487af3705b4eb316123c3acd72847e9")
 				.build();
