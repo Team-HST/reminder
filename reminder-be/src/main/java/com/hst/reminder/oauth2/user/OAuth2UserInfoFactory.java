@@ -1,6 +1,6 @@
 package com.hst.reminder.oauth2.user;
 
-import com.hst.reminder.oauth2.OAuth2Provider;
+import com.hst.reminder.oauth2.OAuth2ProviderType;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 public class OAuth2UserInfoFactory {
 
 	public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
-		if (registrationId.equalsIgnoreCase(OAuth2Provider.GITHUB.toString())) {
+		if (registrationId.equalsIgnoreCase(OAuth2ProviderType.GITHUB.toString())) {
 			return new GithubOAuth2UserInfo(attributes);
 		} else {
 			throw new UnsupportedOperationException(String.format("Sorry! Login with %s is not supported yet.", registrationId));

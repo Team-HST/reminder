@@ -1,7 +1,7 @@
 package com.hst.reminder.member.domain;
 
-import com.hst.reminder.member.application.command.SignupRequest;
-import com.hst.reminder.oauth2.OAuth2Provider;
+import com.hst.reminder.member.application.command.MemberProfile;
+import com.hst.reminder.oauth2.OAuth2ProviderType;
 import com.hst.reminder.oauth2.user.OAuth2UserInfo;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -44,13 +44,38 @@ public class Member implements OAuth2User, UserDetails {
 	private String profileImageUrl;
 
 	@Column(name = "sso_provider")
-	private OAuth2Provider ssoProvider;
+	@Convert(converter = OAuth2ProviderType.Converter.class)
+	private OAuth2ProviderType ssoProvider;
 
 	@Transient
 	private Map<String, Object> attributes;
 
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+	public static Member createMemberBySocial(OAuth2UserInfo userInfo, OAuth2ProviderType oAuth2ProviderType) {
+		Member member = new Member();
+		member.email = userInfo.getEmail();
+		member.name = userInfo.getName();
+		member.profileImageUrl = userInfo.getImageUrl();
+		member.ssoProvider = oAuth2ProviderType;
+		return member;
+	}
+
+	public void updateMemberInfo(OAuth2UserInfo oAuth2UserInfo) {
+		this.name = oAuth2UserInfo.getName();
+		this.email = oAuth2UserInfo.getEmail();
+		this.profileImageUrl = oAuth2UserInfo.getImageUrl();
+	}
+
+	public MemberProfile getMemberProfile() {
+		return MemberProfile.builder()
+				.id(this.id)
+				.name(this.name)
+				.email(this.email)
+				.profileImageUrl(this.profileImageUrl)
+				.build();
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -64,7 +89,10 @@ public class Member implements OAuth2User, UserDetails {
 
 	@Override
 	public String getPassword() {
-		return password.getValue();
+		if (ssoProvider == OAuth2ProviderType.LOCAL)  {
+			return password.getValue();
+		}
+		return null;
 	}
 
 	@Override
@@ -96,26 +124,4 @@ public class Member implements OAuth2User, UserDetails {
 		return attributes;
 	}
 
-	public static Member createMemberByReminder(SignupRequest request, Password password) {
-		Member member = new Member();
-		member.email = request.getEmail();
-		member.name = request.getName();
-		member.password = password;
-		return member;
-	}
-
-	public static Member createMemberBySosial(OAuth2UserInfo userInfo, OAuth2Provider oAuth2Provider) {
-		Member member = new Member();
-		member.email = userInfo.getEmail();
-		member.name = userInfo.getName();
-		member.profileImageUrl = userInfo.getImageUrl();
-		member.ssoProvider = oAuth2Provider;
-		return member;
-	}
-
-	public void updateMemberInfo(OAuth2UserInfo oAuth2UserInfo) {
-		this.name = oAuth2UserInfo.getName();
-		this.email = oAuth2UserInfo.getEmail();
-		this.profileImageUrl = oAuth2UserInfo.getImageUrl();
-	}
 }

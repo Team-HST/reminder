@@ -3,6 +3,7 @@ package com.hst.reminder.configuration;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.hst.reminder.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.hst.reminder.security.ExceptionHandlerFilter;
 import com.hst.reminder.security.RestAuthenticationEntryPoint;
 import com.hst.reminder.security.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,21 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	private static final String[] PUBLIC_URI = {"/", "/error", "/sso/**", "/oauth2/**"};
 
 	@Autowired
 	private MemberService memberService;
 
 	@Autowired
 	private OAuth2AuthenticationSuccessHandler authenticationSuccessHandler;
-
-	private static final String[] PUBLIC_URI = {"/", "/error", "/sso/**", "/oauth2/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -72,12 +74,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// 시스템에서 제공할 OAuth2 클라이언트 등록 (이 코드에선 github)
 				.clientRegistrationRepository(clientRegistrationRepository())
 				.authorizedClientService(authorizedClientService());
+
+		// Controller 도달 전 발생한 예외를 처리하기 위한 Filter
+		http.addFilterBefore(exceptionHandlerFilter(), CorsFilter.class);
+
+		// 토큰기반 인증을 위해 토큰검사를 수행하는 Filter 추가
+		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(memberService)
 			.passwordEncoder(passwordEncoder());
+	}
+
+	@Bean
+	public ExceptionHandlerFilter exceptionHandlerFilter() {
+		return new ExceptionHandlerFilter();
 	}
 
 	@Bean
