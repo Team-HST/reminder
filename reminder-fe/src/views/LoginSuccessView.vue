@@ -8,8 +8,7 @@ import { mapActions } from "vuex";
 export default {
   name: 'loginSuccessView',
   created() {
-    this.authorize(this.$route.query.token);
-    this.$router.push('/');
+    this.authorize(this.$route.query);
   },
   methods: {
     ...mapActions("member", ["authorize"])

@@ -17,8 +17,9 @@ public class OAuth2Controller {
 	private static final Logger logger = LoggerFactory.getLogger(OAuth2Controller.class);
 
 	@GetMapping("finalize-authorization")
-	public String authorized(@RequestParam String token) {
-		return "redirect:http://localhost:8080/login-success?token=" + token;
+	public String authorized(@RequestParam String token, @RequestParam Long memberId) {
+		String parameters = String.format("?token=%s&memberId=%d", token, memberId);
+		return "redirect:http://localhost:8080/login-success" + parameters;
 	}
 
 }
