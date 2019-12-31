@@ -16,10 +16,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ReportableException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorDescription handleInvalidTokenException(ReportableException e) {
-		return ErrorDescription.builder()
-				.statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-				.message(e.getLocalizedMessage())
-				.build();
+		return ErrorDescription.internalServerError(e);
 	}
 
 }

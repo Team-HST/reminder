@@ -3,6 +3,7 @@ package com.hst.reminder.security;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.security.exception.InvalidTokenException;
+import com.hst.reminder.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -36,7 +36,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		String token = getJwtFromRequest(request);
-		if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+		if (StringUtils.isNotBlank(token) && tokenProvider.validateToken(token)) {
 			Long memberId = tokenProvider.fetchMemberId(token);
 			try {
 				Member member = (Member) memberService.loadUserByUsername(memberId.toString());
@@ -54,7 +54,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
-		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
 			return bearerToken.substring(7);
 		}
 		return null;

@@ -11,7 +11,6 @@ import java.util.List;
 @ConfigurationProperties(prefix = "app")
 @Data
 public class AppProperties {
-	private String test;
 	private Auth auth;
 	private OAuth2 oauth2;
 
@@ -24,6 +23,8 @@ public class AppProperties {
 
 	@Data
 	public static class OAuth2 {
+		private String authorizationFinalizeUrlTemplate;
+		private String reminderServiceFE;
 		private List<String> authorizedRedirectUris;
 	}
 }

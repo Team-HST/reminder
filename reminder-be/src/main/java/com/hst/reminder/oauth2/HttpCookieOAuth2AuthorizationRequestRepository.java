@@ -1,7 +1,7 @@
 package com.hst.reminder.oauth2;
 
 import com.hst.reminder.utils.CookieUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.hst.reminder.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;

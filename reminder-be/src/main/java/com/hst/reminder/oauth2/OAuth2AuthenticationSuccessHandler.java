@@ -61,13 +61,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	@Override
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response,
 										Authentication authentication) {
-		Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-				.map(Cookie::getValue);
-
-		if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-			throw new AccessDeniedException("Unauthorized Redirect URI and can't proceed with the authentication");
-		}
-
+		Optional<String> redirectUri = checkUnauthorizedRedirectUrl(request);
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 		String token = tokenProvider.createToken(authentication);
 
@@ -75,6 +69,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 				.queryParam("token", token)
 				.queryParam("memberId", tokenProvider.fetchMemberId(token))
 				.build().toUriString();
+	}
+
+	// HTTP cookie 에 비인가 redirect url 이 포함되어있는지 검사
+	private Optional<String> checkUnauthorizedRedirectUrl(HttpServletRequest request) {
+		Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
+		if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
+			throw new AccessDeniedException("Unauthorized Redirect URI and can't proceed with the authentication");
+		}
+		return redirectUri;
 	}
 
 	private boolean isAuthorizedRedirectUri(String uri) {

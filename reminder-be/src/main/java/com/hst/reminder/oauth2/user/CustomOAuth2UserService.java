@@ -3,7 +3,7 @@ package com.hst.reminder.oauth2.user;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.oauth2.OAuth2ProviderType;
-import org.apache.commons.lang3.StringUtils;
+import com.hst.reminder.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -30,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		OAuth2User oauth2User = super.loadUser(userRequest);
 		OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, oauth2User.getAttributes());
 
-		if (StringUtils.isEmpty(userInfo.getEmail())) {
+		if (StringUtils.isBlank(userInfo.getEmail())) {
 			throw new AccessDeniedException("Email not present from OAuth2 Provider Information");
 		}
 

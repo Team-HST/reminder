@@ -31,14 +31,9 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
 	}
 
 	private void sendErrorResponse(Exception e, HttpServletResponse response) throws IOException {
-		ErrorDescription errorDescription = ErrorDescription.builder()
-				.statusCode(HttpStatus.UNAUTHORIZED.value())
-				.message(e.getLocalizedMessage())
-				.build();
-
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-		response.getWriter().write(JsonUtils.serialize(errorDescription));
+		response.getWriter().write(JsonUtils.serialize(ErrorDescription.unauthorized(e)));
 	}
 
 }
