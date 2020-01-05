@@ -1,8 +1,8 @@
 package com.hst.reminder.member.domain;
 
 import com.hst.reminder.member.application.command.MemberProfile;
-import com.hst.reminder.oauth2.OAuth2ProviderType;
-import com.hst.reminder.oauth2.user.OAuth2UserInfo;
+import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
+import com.hst.reminder.oauth2.domain.OAuth2ProviderType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +23,7 @@ import java.util.Set;
 @Table(name = "MEMBER")
 @Getter
 @RequiredArgsConstructor
-public class Member implements OAuth2User, UserDetails {
+public class Member implements UserDetails, OAuth2User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -48,33 +48,14 @@ public class Member implements OAuth2User, UserDetails {
 	private OAuth2ProviderType ssoProvider;
 
 	@Transient
-	private Map<String, Object> attributes;
-
-	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
 
-	public static Member createMemberBySocial(OAuth2UserInfo userInfo, OAuth2ProviderType oAuth2ProviderType) {
-		Member member = new Member();
-		member.email = userInfo.getEmail();
-		member.name = userInfo.getName();
-		member.profileImageUrl = userInfo.getImageUrl();
-		member.ssoProvider = oAuth2ProviderType;
-		return member;
-	}
+	@Transient
+	private Map<String, Object> attributes;
 
-	public void updateMemberInfo(OAuth2UserInfo oAuth2UserInfo) {
-		this.name = oAuth2UserInfo.getName();
-		this.email = oAuth2UserInfo.getEmail();
-		this.profileImageUrl = oAuth2UserInfo.getImageUrl();
-	}
-
-	public MemberProfile getMemberProfile() {
-		return MemberProfile.builder()
-				.id(this.id)
-				.name(this.name)
-				.email(this.email)
-				.profileImageUrl(this.profileImageUrl)
-				.build();
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
 	}
 
 	@Override
@@ -115,13 +96,28 @@ public class Member implements OAuth2User, UserDetails {
 		return true;
 	}
 
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
+	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo, OAuth2ProviderType oAuth2ProviderType) {
+		Member member = new Member();
+		member.email = userInfo.getEmail();
+		member.name = userInfo.getName();
+		member.profileImageUrl = userInfo.getImageUrl();
+		member.ssoProvider = oAuth2ProviderType;
+		return member;
 	}
 
-	@Override
-	public Map<String, Object> getAttributes() {
-		return attributes;
+	public void updateMemberInfo(OAuth2AuthorizedUser oAuth2AuthorizedUser) {
+		this.name = oAuth2AuthorizedUser.getName();
+		this.email = oAuth2AuthorizedUser.getEmail();
+		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
+	}
+
+	public MemberProfile getMemberProfile() {
+		return MemberProfile.builder()
+				.id(this.id)
+				.name(this.name)
+				.email(this.email)
+				.profileImageUrl(this.profileImageUrl)
+				.build();
 	}
 
 }

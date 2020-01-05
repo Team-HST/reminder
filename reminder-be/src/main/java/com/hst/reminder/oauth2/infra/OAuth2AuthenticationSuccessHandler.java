@@ -1,13 +1,17 @@
-package com.hst.reminder.oauth2;
+package com.hst.reminder.oauth2.infra;
 
+import com.hst.reminder.authentication.domain.AuthenticationToken;
+import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
 import com.hst.reminder.configuration.AppProperties;
-import com.hst.reminder.security.TokenProvider;
+import com.hst.reminder.configuration.aware.AppPropertiesAware;
+import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.utils.CookieUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,26 +24,24 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-import static com.hst.reminder.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.hst.reminder.oauth2.infra.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
 @Component
-public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AppPropertiesAware {
 
 	private static final Logger logger = LoggerFactory.getLogger(OAuth2AuthenticationSuccessHandler.class);
 
-	private TokenProvider tokenProvider;
-	private AppProperties props;
+	private AuthenticationTokenProvider authenticationTokenProvider;
 	private HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository;
+	private AppProperties appProperties;
 
 	@Autowired
-	public OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider,
-											  AppProperties props,
+	public OAuth2AuthenticationSuccessHandler(AuthenticationTokenProvider authenticationTokenProvider,
 											  HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository) {
-		this.tokenProvider = tokenProvider;
-		this.props = props;
+		this.authenticationTokenProvider = authenticationTokenProvider;
 		this.cookieOAuth2AuthorizationRequestRepository = cookieOAuth2AuthorizationRequestRepository;
 		this.setDefaultTargetUrl("/oauth2/finalize-authorization");
 	}
@@ -63,11 +65,11 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 										Authentication authentication) {
 		Optional<String> redirectUri = checkUnauthorizedRedirectUrl(request);
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-		String token = tokenProvider.createToken(authentication);
+		AuthenticationToken authenticationToken = authenticationTokenProvider.issue(((Member)authentication.getPrincipal()).getId());
 
 		return UriComponentsBuilder.fromUriString(targetUrl)
-				.queryParam("token", token)
-				.queryParam("memberId", tokenProvider.fetchMemberId(token))
+				.queryParam("token", authenticationToken.getToken())
+				.queryParam("memberId", authenticationToken.getTokenOwnerId())
 				.build().toUriString();
 	}
 
@@ -82,7 +84,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 	private boolean isAuthorizedRedirectUri(String uri) {
 		URI clientRedirectUri = URI.create(uri);
-		return props.getOauth2().getAuthorizedRedirectUris()
+		return appProperties.getOauth2().getAuthorizedRedirectUris()
 				.stream()
 				.anyMatch(authorizedRedirectUri -> {
 					URI authorizedURI = URI.create(authorizedRedirectUri);
@@ -96,4 +98,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		cookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
 	}
 
+	@Override
+	public void setAppProperties(AppProperties appProperties) {
+		this.appProperties = appProperties;
+	}
 }

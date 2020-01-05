@@ -1,14 +1,14 @@
-package com.hst.reminder.oauth2.user;
+package com.hst.reminder.oauth2.domain;
 
 import java.util.Map;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
-public abstract class OAuth2UserInfo {
+public abstract class OAuth2AuthorizedUser {
 	protected Map<String, Object> attributes;
 
-	public OAuth2UserInfo(Map<String, Object> attributes) {
+	public OAuth2AuthorizedUser(Map<String, Object> attributes) {
 		this.attributes = attributes;
 	}
 

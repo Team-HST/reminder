@@ -1,4 +1,4 @@
-package com.hst.reminder.security;
+package com.hst.reminder.security.exception.entrypoint;
 
 import com.hst.reminder.common.exception.ErrorDescription;
 import com.hst.reminder.utils.JsonUtils;

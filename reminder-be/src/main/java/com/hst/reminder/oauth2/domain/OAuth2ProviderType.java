@@ -1,4 +1,4 @@
-package com.hst.reminder.oauth2;
+package com.hst.reminder.oauth2.domain;
 
 import com.hst.reminder.common.converter.EnumAttributeConverter;
 import com.hst.reminder.common.type.PersistableType;

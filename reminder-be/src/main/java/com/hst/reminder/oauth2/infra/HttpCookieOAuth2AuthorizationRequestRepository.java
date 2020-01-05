@@ -1,9 +1,7 @@
-package com.hst.reminder.oauth2;
+package com.hst.reminder.oauth2.infra;
 
 import com.hst.reminder.utils.CookieUtils;
 import com.hst.reminder.utils.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
@@ -11,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * save -> remove -> load 순 호출
+ *
  * @author dlgusrb0808@gmail.com
  */
 public class HttpCookieOAuth2AuthorizationRequestRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
@@ -19,11 +19,8 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
 	public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
 	private static final int COOKIE_EXPIRE_SEC = 180;
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpCookieOAuth2AuthorizationRequestRepository.class);
-
 	@Override
 	public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
-		logger.info("loadAuthorizationRequest: {}", request);
 		return CookieUtils.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME)
 				.map(cookie -> CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class))
 				.orElse(null);
@@ -32,7 +29,6 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
 	@Override
 	public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, HttpServletRequest request,
 										 HttpServletResponse response) {
-		logger.info("saveAuthorizationRequest: {}", request);
 		if (authorizationRequest == null) {
 			removeAuthorizationRequestCookies(request, response);
 			return;
@@ -47,7 +43,6 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements Authoriza
 
 	@Override
 	public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request) {
-		logger.info("removeAuthorizationRequest: {}", request);
 		return this.loadAuthorizationRequest(request);
 	}
 

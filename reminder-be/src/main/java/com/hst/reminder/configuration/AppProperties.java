@@ -14,7 +14,6 @@ public class AppProperties {
 	private Auth auth;
 	private OAuth2 oauth2;
 
-
 	@Data
 	public static class Auth {
 		private String tokenSecret;
