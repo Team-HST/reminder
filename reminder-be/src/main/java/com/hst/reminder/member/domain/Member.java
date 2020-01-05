@@ -3,7 +3,9 @@ package com.hst.reminder.member.domain;
 import com.hst.reminder.member.application.command.MemberProfile;
 import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
 import com.hst.reminder.oauth2.domain.OAuth2ProviderType;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +24,6 @@ import java.util.Set;
 @Entity
 @Table(name = "MEMBER")
 @Getter
-@RequiredArgsConstructor
 public class Member implements UserDetails, OAuth2User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
