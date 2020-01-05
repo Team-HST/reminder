@@ -1,11 +1,11 @@
 package com.hst.reminder.configuration;
 
 import com.hst.reminder.member.application.MemberService;
-import com.hst.reminder.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.hst.reminder.oauth2.OAuth2AuthenticationSuccessHandler;
-import com.hst.reminder.security.ExceptionHandlerFilter;
-import com.hst.reminder.security.RestAuthenticationEntryPoint;
-import com.hst.reminder.security.TokenAuthenticationFilter;
+import com.hst.reminder.oauth2.infra.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.hst.reminder.oauth2.infra.OAuth2AuthenticationSuccessHandler;
+import com.hst.reminder.security.exception.ExceptionHandlerFilter;
+import com.hst.reminder.security.exception.entrypoint.RestAuthenticationEntryPoint;
+import com.hst.reminder.security.filter.TokenAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.and()
 				// OAuth2 인증이 완료된 후 처리할 Handler
 				.successHandler(authenticationSuccessHandler)
+				// .failureHandler() -> failureHandler 추가 고려
 				// 시스템에서 제공할 OAuth2 클라이언트 등록 (이 코드에선 github)
 				.clientRegistrationRepository(clientRegistrationRepository())
 				.authorizedClientService(authorizedClientService());

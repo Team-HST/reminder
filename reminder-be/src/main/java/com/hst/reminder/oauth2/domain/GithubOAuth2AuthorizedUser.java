@@ -1,12 +1,14 @@
-package com.hst.reminder.oauth2.user;
+package com.hst.reminder.oauth2.domain;
+
+import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
 
 import java.util.Map;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
-public class GithubOAuth2UserInfo extends OAuth2UserInfo {
-	public GithubOAuth2UserInfo(Map<String, Object> attributes) {
+public class GithubOAuth2AuthorizedUser extends OAuth2AuthorizedUser {
+	public GithubOAuth2AuthorizedUser(Map<String, Object> attributes) {
 		super(attributes);
 	}
 

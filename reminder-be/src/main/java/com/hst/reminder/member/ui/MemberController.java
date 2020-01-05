@@ -23,7 +23,7 @@ public class MemberController {
 	}
 
 	@GetMapping("{memberId}")
-	public ResponseEntity<MemberProfile> me(@PathVariable Long memberId) {
+	public ResponseEntity<MemberProfile> getMemberProfile(@PathVariable Long memberId) {
 		return ResponseEntity.ok(memberService.getMemberProfile(memberId));
 	}
 

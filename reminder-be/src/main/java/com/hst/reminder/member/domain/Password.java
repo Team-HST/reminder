@@ -1,6 +1,5 @@
 package com.hst.reminder.member.domain;
 
-import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
