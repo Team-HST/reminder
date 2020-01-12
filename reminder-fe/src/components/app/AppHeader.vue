@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
+      <ProfileCard></ProfileCard>
       <v-list dense>
         <v-list-item link to="/dashboard">
           <v-list-item-action>
@@ -33,17 +34,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
+import ProfileCard from '@/components/common/ProfileCard'
 
 export default {
-  name: 'AppHeader',
+  name: "AppHeader",
+  components: { ProfileCard },
   data() {
     return {
       drawer: true
     };
   },
   methods: {
-    ...mapActions('member', ['deAuthorize'])
+    ...mapActions("member", ["deAuthorize"])
   }
 };
 </script>
