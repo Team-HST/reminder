@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppHeader v-if="authorized" />
+    <AppDrawer v-if="authorized" />
     <v-content>
       <v-container>
         <router-view></router-view>
@@ -14,12 +14,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import AppHeader from '@/components/app/AppHeader'
+import AppDrawer from '@/components/app/AppDrawer'
 
 export default {
   name: "App",
   components: {
-    AppHeader
+    AppDrawer
   },
   created() {
     if (this.authorized) {

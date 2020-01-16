@@ -12,6 +12,8 @@ const routes = [
   { path: '/login', name: 'loginView', component: LoginView, meta: { publicView: true } },
   { path: '/login-success', name: 'loginSuccessView', component: LoginSuccessView,  meta: { publicView: true }},  
   { path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false } },
+  { path: '/channel', name: 'channelView', component: () => import('@/views/ChannelView'), meta: { publicView: false } },    
+  { path: '/notification', name: 'notificationView', component: () => import('@/views/NotificationView'), meta: { publicView: false } },  
 ]
 
 const router = new VueRouter({

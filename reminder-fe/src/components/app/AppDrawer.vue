@@ -2,24 +2,7 @@
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
       <ProfileCard></ProfileCard>
-      <v-list dense>
-        <v-list-item link to="/dashboard">
-          <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Settings</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <Menu></Menu>
       <template v-slot:append>
         <div class="pa-2">
           <v-btn color="blue-gray" block @click="deAuthorize">Logout</v-btn>
@@ -36,10 +19,11 @@
 <script>
 import { mapActions } from "vuex";
 import ProfileCard from '@/components/common/ProfileCard'
+import Menu from '@/components/menu/Menu'
 
 export default {
-  name: "AppHeader",
-  components: { ProfileCard },
+  name: "AppDrawer",
+  components: { ProfileCard, Menu },
   data() {
     return {
       drawer: true
