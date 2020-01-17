@@ -8,12 +8,24 @@ import LoginSuccessView from '@/views/LoginSuccessView'
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', redirect: {name: 'dashboardView'}, meta: { publicView: true } },
-  { path: '/login', name: 'loginView', component: LoginView, meta: { publicView: true } },
-  { path: '/login-success', name: 'loginSuccessView', component: LoginSuccessView,  meta: { publicView: true }},  
-  { path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false } },
-  { path: '/channel', name: 'channelView', component: () => import('@/views/ChannelView'), meta: { publicView: false } },    
-  { path: '/notification', name: 'notificationView', component: () => import('@/views/NotificationView'), meta: { publicView: false } },  
+  {
+    path: '/', redirect: { name: 'dashboardView' }, meta: { publicView: true }
+  },
+  {
+    path: '/login', name: 'loginView', component: LoginView, meta: { publicView: true }
+  },
+  {
+    path: '/login-success', name: 'loginSuccessView', component: LoginSuccessView, meta: { publicView: true }
+  },
+  {
+    path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false, menu: { name: 'DashBoard', icon: 'mdi-view-dashboard' } }
+  },
+  {
+    path: '/channel', name: 'channelView', component: () => import('@/views/ChannelView'), meta: { publicView: false, menu: { name: 'Channel', icon: 'mdi-arrow-right-bold-box' } }
+  },
+  {
+    path: '/notification', name: 'notificationView', component: () => import('@/views/NotificationView'), meta: { publicView: false, menu: { name: 'Notification', icon: 'mdi-telegram' } }
+  },
 ]
 
 const router = new VueRouter({
