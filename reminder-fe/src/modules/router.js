@@ -18,14 +18,21 @@ const routes = [
     path: '/login-success', name: 'loginSuccessView', component: LoginSuccessView, meta: { publicView: true }
   },
   {
-    path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), meta: { publicView: false, menu: { name: 'DashBoard', icon: 'mdi-view-dashboard' } }
+    path: '/dashboard', name: 'dashboardView', component: () => import('@/views/DashboardView'), 
+    meta: { publicView: false, menu: { name: 'DashBoard', icon: 'mdi-view-dashboard' } }
   },
   {
-    path: '/channel', name: 'channelView', component: () => import('@/views/ChannelView'), meta: { publicView: false, menu: { name: 'Channel', icon: 'mdi-arrow-right-bold-box' } }
+    path: '/channels', name: 'channelView', component: () => import('@/views/ChannelView'), 
+    meta: { publicView: false, menu: { name: 'Channels', icon: 'mdi-arrow-right-bold-box' } }
   },
   {
-    path: '/notification', name: 'notificationView', component: () => import('@/views/NotificationView'), meta: { publicView: false, menu: { name: 'Notification', icon: 'mdi-telegram' } }
+    path: '/tickets', name: 'ticketView', component: () => import('@/views/TicketView'), 
+    meta: { publicView: false, menu: { name: 'Tickets', icon: 'mdi-telegram' } }
   },
+  {
+    path: '/settings', name: 'settingView', component: () => import('@/views/SettingView'), 
+    meta: { publicView: false, menu: { name: 'Settings', icon: 'mdi-settings' } }
+  },  
 ]
 
 const router = new VueRouter({

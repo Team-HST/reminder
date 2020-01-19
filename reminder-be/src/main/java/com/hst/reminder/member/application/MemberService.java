@@ -37,7 +37,7 @@ public class MemberService implements UserDetailsService {
 		if (!memberOpt.isPresent()) {
 			throw new MemberNotFoundException("사용자 정보를 찾을수 없습니다. memberId: %d", memberId);
 		}
-		return memberOpt.get().getMemberProfile();
+		return MemberProfile.of(memberOpt.get());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.hst.reminder.member.application.command;
 
+import com.hst.reminder.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,4 +16,12 @@ public class MemberProfile {
 	private String email;
 	private String profileImageUrl;
 
+	public static MemberProfile of(Member member) {
+		return MemberProfile.builder()
+				.id(member.getId())
+				.name(member.getName())
+				.email(member.getEmail())
+				.profileImageUrl(member.getProfileImageUrl())
+				.build();
+	}
 }

@@ -1,12 +1,8 @@
 package com.hst.reminder.member.domain;
 
-import com.hst.reminder.member.application.command.MemberProfile;
 import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
 import com.hst.reminder.oauth2.domain.OAuth2ProviderType;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -110,15 +106,6 @@ public class Member implements UserDetails, OAuth2User {
 		this.name = oAuth2AuthorizedUser.getName();
 		this.email = oAuth2AuthorizedUser.getEmail();
 		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
-	}
-
-	public MemberProfile getMemberProfile() {
-		return MemberProfile.builder()
-				.id(this.id)
-				.name(this.name)
-				.email(this.email)
-				.profileImageUrl(this.profileImageUrl)
-				.build();
 	}
 
 }
