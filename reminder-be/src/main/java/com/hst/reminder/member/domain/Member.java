@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -20,10 +21,12 @@ import java.util.Set;
 @Entity
 @Table(name = "MEMBER")
 @Getter
-public class Member implements UserDetails, OAuth2User {
-	@Id
+public class Member implements UserDetails, OAuth2User, Serializable {
+	private static final long serialVersionUID = 5191342461225391114L;
+
+	@EmbeddedId
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private MemberId id;
 
 	@Embedded
 	@AttributeOverrides(
@@ -62,7 +65,7 @@ public class Member implements UserDetails, OAuth2User {
 
 	@Override
 	public String getUsername() {
-		return this.id.toString();
+		return this.id.getValueAsString();
 	}
 
 	@Override
@@ -107,5 +110,4 @@ public class Member implements UserDetails, OAuth2User {
 		this.email = oAuth2AuthorizedUser.getEmail();
 		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
 	}
-
 }

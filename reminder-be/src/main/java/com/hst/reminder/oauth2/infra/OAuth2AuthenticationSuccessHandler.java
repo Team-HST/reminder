@@ -64,11 +64,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 										Authentication authentication) {
 		Optional<String> redirectUri = checkUnauthorizedRedirectUrl(request);
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-		AuthenticationToken authenticationToken = authenticationTokenProvider.issue(((Member)authentication.getPrincipal()).getId());
+		AuthenticationToken authenticationToken = authenticationTokenProvider
+				.issue(((Member)authentication.getPrincipal()).getId());
 
 		return UriComponentsBuilder.fromUriString(targetUrl)
 				.queryParam("token", authenticationToken.getToken())
-				.queryParam("memberId", authenticationToken.getTokenOwnerId())
+				.queryParam("memberId", authenticationToken.getTokenOwnerId().getValue())
 				.build().toUriString();
 	}
 

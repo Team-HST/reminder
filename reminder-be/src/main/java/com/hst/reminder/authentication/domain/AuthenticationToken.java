@@ -1,5 +1,6 @@
 package com.hst.reminder.authentication.domain;
 
+import com.hst.reminder.member.domain.MemberId;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,5 +11,5 @@ import lombok.Getter;
 @Getter
 public class AuthenticationToken {
 	private String token;
-	private Long tokenOwnerId;
+	private MemberId tokenOwnerId;
 }

@@ -18,7 +18,7 @@ public class MemberProfile {
 
 	public static MemberProfile of(Member member) {
 		return MemberProfile.builder()
-				.id(member.getId())
+				.id(member.getId().getValue())
 				.name(member.getName())
 				.email(member.getEmail())
 				.profileImageUrl(member.getProfileImageUrl())

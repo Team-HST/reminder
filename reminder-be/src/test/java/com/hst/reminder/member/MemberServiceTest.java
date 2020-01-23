@@ -3,6 +3,7 @@ package com.hst.reminder.member;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.application.command.MemberProfile;
 import com.hst.reminder.member.domain.Member;
+import com.hst.reminder.member.domain.MemberId;
 import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.member.domain.exception.MemberNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public class MemberServiceTest {
 
 		// then
 		verify(memberRepository).findById(member.getId());
-		assertEquals(member.getId(), memberProfile.getId());
+		assertEquals(member.getId().getValue(), memberProfile.getId());
 		assertEquals(member.getName(), memberProfile.getName());
 		assertEquals(member.getEmail(), memberProfile.getEmail());
 		assertEquals(member.getProfileImageUrl(), memberProfile.getProfileImageUrl());
@@ -56,7 +57,7 @@ public class MemberServiceTest {
 
 	@Test
 	public void 멤버_프로필_조회_실패() {
-		Long memberId = 1L;
+		MemberId memberId = new MemberId(1L);
 		when(memberRepository.findById(memberId)).thenReturn(Optional.empty());
 
 		MemberNotFoundException e = assertThrows(MemberNotFoundException.class, () -> {
@@ -64,12 +65,12 @@ public class MemberServiceTest {
 		});
 
 		verify(memberRepository).findById(memberId);
-		assertEquals(String.format("사용자 정보를 찾을수 없습니다. memberId: %d", memberId), e.getMessage());
+		assertEquals(String.format("사용자 정보를 찾을수 없습니다. memberId: %d", memberId.getValue()), e.getMessage());
 	}
 
 	private Member createMember(Long id) {
 		Member member = new Member();
-		ReflectionTestUtils.setField(member, "id", id);
+		ReflectionTestUtils.setField(member, "memberId", new MemberId(id));
 		ReflectionTestUtils.setField(member, "name", "이현규");
 		ReflectionTestUtils.setField(member, "email", "gusrb0808@naver.com");
 		ReflectionTestUtils.setField(member, "profileImageUrl", "profile.com/profile.jpg");
