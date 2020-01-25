@@ -1,0 +1,3 @@
+GET http://localhost:8000/member/2
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNTc5NzQ4MTM2LCJleHAiOjE1ODA2MTIxMzZ9.0DEn2cZ1MYDyPfbtTxoDTlHlyqqyzhnTiQTLnjbuqm6-n2zFvCakrJ8nG0B_p33DZC7NLxi23z-W7pVJvi7k9A

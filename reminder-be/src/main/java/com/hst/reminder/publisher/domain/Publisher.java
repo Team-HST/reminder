@@ -1,5 +1,6 @@
 package com.hst.reminder.publisher.domain;
 
+import com.hst.reminder.member.domain.MemberId;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -24,4 +25,10 @@ public class Publisher implements Serializable {
 
 	@Embedded
 	private PublisherDestination destination;
+
+	@Embedded
+	@AttributeOverrides(
+		@AttributeOverride(name = "value", column = @Column(name = "member_id"))
+	)
+	private MemberId memberId;
 }

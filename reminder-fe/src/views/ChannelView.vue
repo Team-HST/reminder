@@ -9,7 +9,7 @@
   <h4>채널 수정 (채널 내 발송수단 추가 삭제)</h4> -->
   <v-container fluid>
     <!-- 채널목록 -->
-    <h4>List of Channel</h4>
+    <h2>List of Channel</h2>
     <v-row>
       <v-col v-for="n in 4" :key="n" cols="12" md="4" sm="6" xs="12">
         <Channel></Channel>

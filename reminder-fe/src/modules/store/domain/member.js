@@ -32,13 +32,12 @@ const actions = {
     router.push('/login')
   },
   authorize({ commit }, params) {
-    commit('processAuthorize', params)
-
     let headers = { Authorization: `Bearer ${params.token}`};
 
     axios.get(`/api/member/${params.memberId}`, { headers })
       .then((response) => { 
         commit('setProfile', response.data)
+        commit('processAuthorize', params)
         router.push('/'); 
       }).catch((e) => console.error(e))
   }

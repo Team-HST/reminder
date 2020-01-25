@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <ProfileCard></ProfileCard>
+      <ProfileCard v-if="authorized"></ProfileCard>
       <Menu></Menu>
       <template v-slot:append>
         <div class="pa-2">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import ProfileCard from '@/components/common/ProfileCard'
 import Menu from '@/components/menu/Menu'
 
@@ -28,6 +28,9 @@ export default {
     return {
       drawer: true
     };
+  },
+  computed: {
+    ...mapState('member', ['authorized'])
   },
   methods: {
     ...mapActions("member", ["deAuthorize"])
