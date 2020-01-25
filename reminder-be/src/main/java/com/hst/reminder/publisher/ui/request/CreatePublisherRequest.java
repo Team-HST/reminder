@@ -9,5 +9,8 @@ import lombok.ToString;
 @ToString
 @Getter
 public class CreatePublisherRequest {
-	private String attachment;
+	private Long memberId;
+	private String protocol;
+	private String target;
+	private String parameters;
 }

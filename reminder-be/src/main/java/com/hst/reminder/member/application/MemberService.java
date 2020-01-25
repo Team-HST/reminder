@@ -1,6 +1,6 @@
 package com.hst.reminder.member.application;
 
-import com.hst.reminder.member.application.command.MemberProfile;
+import com.hst.reminder.member.application.command.MemberProfileResponse;
 import com.hst.reminder.member.application.command.SignupRequest;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberId;
@@ -35,12 +35,12 @@ public class MemberService implements UserDetailsService {
 	 * @param memberId 멤버 ID
 	 * @return 멤버 프로필
 	 */
-	public MemberProfile getMemberProfile(MemberId memberId) {
+	public MemberProfileResponse getMemberProfile(MemberId memberId) {
 		Optional<Member> memberOpt = memberRepository.findById(memberId);
 		if (!memberOpt.isPresent()) {
 			throw new MemberNotFoundException("사용자 정보를 찾을수 없습니다. memberId: %d", memberId.getValue());
 		}
-		return MemberProfile.of(memberOpt.get());
+		return MemberProfileResponse.of(memberOpt.get());
 	}
 
 	@Override

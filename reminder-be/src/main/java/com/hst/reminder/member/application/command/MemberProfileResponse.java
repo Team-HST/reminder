@@ -9,15 +9,14 @@ import lombok.Getter;
  */
 @Builder
 @Getter
-public class MemberProfile {
-
+public class MemberProfileResponse {
 	private Long id;
 	private String name;
 	private String email;
 	private String profileImageUrl;
 
-	public static MemberProfile of(Member member) {
-		return MemberProfile.builder()
+	public static MemberProfileResponse of(Member member) {
+		return MemberProfileResponse.builder()
 				.id(member.getId().getValue())
 				.name(member.getName())
 				.email(member.getEmail())

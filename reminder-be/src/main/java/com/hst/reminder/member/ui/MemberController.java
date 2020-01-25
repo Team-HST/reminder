@@ -1,7 +1,7 @@
 package com.hst.reminder.member.ui;
 
 import com.hst.reminder.member.application.MemberService;
-import com.hst.reminder.member.application.command.MemberProfile;
+import com.hst.reminder.member.application.command.MemberProfileResponse;
 import com.hst.reminder.member.application.command.SignupRequest;
 import com.hst.reminder.member.domain.MemberId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class MemberController {
 	}
 
 	@GetMapping("{memberId}")
-	public ResponseEntity<MemberProfile> getMemberProfile(@PathVariable Long memberId) {
+	public ResponseEntity<MemberProfileResponse> getMemberProfile(@PathVariable Long memberId) {
 		return ResponseEntity.ok(memberService.getMemberProfile(new MemberId(memberId)));
 	}
 

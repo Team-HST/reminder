@@ -1,7 +1,7 @@
 package com.hst.reminder.member;
 
 import com.hst.reminder.member.application.MemberService;
-import com.hst.reminder.member.application.command.MemberProfile;
+import com.hst.reminder.member.application.command.MemberProfileResponse;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberId;
 import com.hst.reminder.member.domain.MemberRepository;
@@ -45,14 +45,14 @@ public class MemberServiceTest {
 		when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
 
 		// when
-		MemberProfile memberProfile = memberService.getMemberProfile(member.getId());
+		MemberProfileResponse memberProfileResponse = memberService.getMemberProfile(member.getId());
 
 		// then
 		verify(memberRepository).findById(member.getId());
-		assertEquals(member.getId().getValue(), memberProfile.getId());
-		assertEquals(member.getName(), memberProfile.getName());
-		assertEquals(member.getEmail(), memberProfile.getEmail());
-		assertEquals(member.getProfileImageUrl(), memberProfile.getProfileImageUrl());
+		assertEquals(member.getId().getValue(), memberProfileResponse.getId());
+		assertEquals(member.getName(), memberProfileResponse.getName());
+		assertEquals(member.getEmail(), memberProfileResponse.getEmail());
+		assertEquals(member.getProfileImageUrl(), memberProfileResponse.getProfileImageUrl());
 	}
 
 	@Test
