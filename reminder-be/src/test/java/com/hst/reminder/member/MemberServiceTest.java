@@ -45,7 +45,7 @@ public class MemberServiceTest {
 		when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
 
 		// when
-		MemberProfileResponse memberProfileResponse = memberService.getMemberProfile(member.getId());
+		MemberProfileResponse memberProfileResponse = memberService.getMemberProfile(member.getId().getValue());
 
 		// then
 		verify(memberRepository).findById(member.getId());
@@ -61,7 +61,7 @@ public class MemberServiceTest {
 		when(memberRepository.findById(memberId)).thenReturn(Optional.empty());
 
 		MemberNotFoundException e = assertThrows(MemberNotFoundException.class, () -> {
-			memberService.getMemberProfile(memberId);
+			memberService.getMemberProfile(memberId.getValue());
 		});
 
 		verify(memberRepository).findById(memberId);

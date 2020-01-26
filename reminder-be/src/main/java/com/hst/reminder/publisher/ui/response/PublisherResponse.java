@@ -13,6 +13,7 @@ public class PublisherResponse {
 	private String protocol;
 	private String target;
 	private String parameters;
+	private String description;
 
 	public static PublisherResponse of(Publisher entity) {
 		return PublisherResponse.builder()
@@ -20,6 +21,7 @@ public class PublisherResponse {
 				.protocol(entity.getProtocol().getCode())
 				.target(entity.getDestination().getTarget())
 				.parameters(entity.getDestination().getParamterValue())
+				.description(entity.getDescription())
 				.build();
 	}
 }

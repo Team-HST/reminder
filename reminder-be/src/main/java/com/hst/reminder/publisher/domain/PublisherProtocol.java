@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
  * @author dlgusrb0808@gmail.com
  */
 public enum PublisherProtocol implements PersistableType<String> {
-	EMAIL("email", "발행자 이메일 프로토콜")
+	EMAIL("email", "발행자 이메일 프로토콜"),
+	SLACK("slack", "발행자 슬랙 프로토콜")
 	;
 
 	private String code;

@@ -30,15 +30,19 @@ public class Publisher implements Serializable {
 	@Embedded
 	private PublisherDestination destination;
 
+	@Column
+	private String description;
+
 	@Embedded
 	@AttributeOverrides(
 		@AttributeOverride(name = "value", column = @Column(name = "member_id"))
 	)
 	private MemberId memberId;
 
-	public Publisher(Long memberId, String protocol, String target, String parameters) {
+	public Publisher(Long memberId, String protocol, String target, String parameters, String description) {
 		this.memberId = new MemberId(memberId);
 		this.protocol = PublisherProtocol.get(protocol);
 		this.destination = new PublisherDestination(target, parameters);
+		this.description = description;
 	}
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @author dlgusrb0808@gmail.com
  */
 @RestController
-@RequestMapping("member")
+@RequestMapping("members")
 public class MemberController {
 
 	private MemberService memberService;
@@ -25,7 +25,7 @@ public class MemberController {
 
 	@GetMapping("{memberId}")
 	public ResponseEntity<MemberProfileResponse> getMemberProfile(@PathVariable Long memberId) {
-		return ResponseEntity.ok(memberService.getMemberProfile(new MemberId(memberId)));
+		return ResponseEntity.ok(memberService.getMemberProfile(memberId));
 	}
 
 	@Autowired

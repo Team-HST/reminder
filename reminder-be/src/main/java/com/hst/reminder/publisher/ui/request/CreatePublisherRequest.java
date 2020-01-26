@@ -13,4 +13,5 @@ public class CreatePublisherRequest {
 	private String protocol;
 	private String target;
 	private String parameters;
+	private String description;
 }

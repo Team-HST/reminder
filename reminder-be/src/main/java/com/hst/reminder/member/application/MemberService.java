@@ -32,10 +32,11 @@ public class MemberService implements UserDetailsService {
 
 	/***
 	 * 멤버 프로필 조회
-	 * @param memberId 멤버 ID
+	 * @param memberIdValue 멤버 ID
 	 * @return 멤버 프로필
 	 */
-	public MemberProfileResponse getMemberProfile(MemberId memberId) {
+	public MemberProfileResponse getMemberProfile(Long memberIdValue) {
+		MemberId memberId = new MemberId(memberIdValue);
 		Optional<Member> memberOpt = memberRepository.findById(memberId);
 		if (!memberOpt.isPresent()) {
 			throw new MemberNotFoundException("사용자 정보를 찾을수 없습니다. memberId: %d", memberId.getValue());

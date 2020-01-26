@@ -10,6 +10,9 @@ const state = {
 const getters = {
   authorized() {
     return state.authorized;
+  },
+  authorization() {
+    return { Authorization: `Bearer ${state.authenticationToken}`};
   }
 }
 
@@ -34,7 +37,7 @@ const actions = {
   authorize({ commit }, params) {
     let headers = { Authorization: `Bearer ${params.token}`};
 
-    axios.get(`/api/member/${params.memberId}`, { headers })
+    axios.get(`/api/members/${params.memberId}`, { headers })
       .then((response) => { 
         commit('setProfile', response.data)
         commit('processAuthorize', params)
