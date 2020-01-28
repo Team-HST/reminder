@@ -24,9 +24,9 @@ import java.util.Set;
 public class Member implements UserDetails, OAuth2User, Serializable {
 	private static final long serialVersionUID = 5191342461225391114L;
 
-	@EmbeddedId
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private MemberId id;
+	private Long id;
 
 	@Embedded
 	@AttributeOverrides(
@@ -65,7 +65,7 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 
 	@Override
 	public String getUsername() {
-		return this.id.getValueAsString();
+		return this.id.toString();
 	}
 
 	@Override
@@ -99,14 +99,14 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo, OAuth2ProviderType oAuth2ProviderType) {
 		Member member = new Member();
 		member.email = userInfo.getEmail();
-		member.name = userInfo.getName();
+		member.name = userInfo.getResolvedName();
 		member.profileImageUrl = userInfo.getImageUrl();
 		member.ssoProvider = oAuth2ProviderType;
 		return member;
 	}
 
 	public void updateMemberInfo(OAuth2AuthorizedUser oAuth2AuthorizedUser) {
-		this.name = oAuth2AuthorizedUser.getName();
+		this.name = oAuth2AuthorizedUser.getResolvedName();
 		this.email = oAuth2AuthorizedUser.getEmail();
 		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
 	}

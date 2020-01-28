@@ -1,10 +1,7 @@
 package com.hst.reminder.publisher.domain;
 
-import com.hst.reminder.member.domain.Member;
-import com.hst.reminder.member.domain.MemberId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -33,14 +30,11 @@ public class Publisher implements Serializable {
 	@Column
 	private String description;
 
-	@Embedded
-	@AttributeOverrides(
-		@AttributeOverride(name = "value", column = @Column(name = "member_id"))
-	)
-	private MemberId memberId;
+	@Column(name = "member_id")
+	private Long memberId;
 
 	public Publisher(Long memberId, String protocol, String target, String parameters, String description) {
-		this.memberId = new MemberId(memberId);
+		this.memberId = memberId;
 		this.protocol = PublisherProtocol.get(protocol);
 		this.destination = new PublisherDestination(target, parameters);
 		this.description = description;

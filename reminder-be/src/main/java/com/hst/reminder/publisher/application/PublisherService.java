@@ -1,6 +1,5 @@
 package com.hst.reminder.publisher.application;
 
-import com.hst.reminder.member.domain.MemberId;
 import com.hst.reminder.publisher.domain.Publisher;
 import com.hst.reminder.publisher.domain.PublisherRepository;
 import com.hst.reminder.publisher.domain.exception.PublisherNotFoundException;
@@ -44,7 +43,7 @@ public class PublisherService {
 	 * @return 발행자 목록
 	 */
 	public PublisherListResponse getPublishersByMemberId(Long memberId) {
-		List<Publisher> publishers = publisherRepository.findByMemberId(new MemberId(memberId));
+		List<Publisher> publishers = publisherRepository.findByMemberId(memberId);
 		return PublisherListResponse.of(publishers);
 	}
 

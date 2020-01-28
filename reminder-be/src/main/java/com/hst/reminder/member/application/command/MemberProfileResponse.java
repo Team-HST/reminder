@@ -17,7 +17,7 @@ public class MemberProfileResponse {
 
 	public static MemberProfileResponse of(Member member) {
 		return MemberProfileResponse.builder()
-				.id(member.getId().getValue())
+				.id(member.getId())
 				.name(member.getName())
 				.email(member.getEmail())
 				.profileImageUrl(member.getProfileImageUrl())

@@ -3,7 +3,6 @@ package com.hst.reminder.authentication.infra;
 import com.hst.reminder.authentication.domain.AuthenticationToken;
 import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
 import com.hst.reminder.configuration.AppProperties;
-import com.hst.reminder.member.domain.MemberId;
 import com.hst.reminder.utils.TimeUtils;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -24,10 +23,10 @@ public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvid
 	private AppProperties appProperties;
 
 	@Override
-	public AuthenticationToken issue(MemberId tokenOwnerId) {
+	public AuthenticationToken issue(Long tokenOwnerId) {
 		return AuthenticationToken.builder()
 				.tokenOwnerId(tokenOwnerId)
-				.token(buildToken(tokenOwnerId.getValue()))
+				.token(buildToken(tokenOwnerId))
 				.build();
 	}
 

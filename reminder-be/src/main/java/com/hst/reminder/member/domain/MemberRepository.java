@@ -6,7 +6,7 @@ import java.util.Optional;
  * @author dlgusrb0808@gmail.com
  */
 public interface MemberRepository {
-	Optional<Member> findById(MemberId memberId);
+	Optional<Member> findById(Long memberId);
 
 	Member save(Member member);
 

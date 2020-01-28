@@ -3,7 +3,6 @@ package com.hst.reminder.member.ui;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.application.command.MemberProfileResponse;
 import com.hst.reminder.member.application.command.SignupRequest;
-import com.hst.reminder.member.domain.MemberId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
