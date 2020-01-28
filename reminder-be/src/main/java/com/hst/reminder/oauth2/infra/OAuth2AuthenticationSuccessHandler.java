@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -65,7 +64,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 										Authentication authentication) {
 		Optional<String> redirectUri = checkUnauthorizedRedirectUrl(request);
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-		AuthenticationToken authenticationToken = authenticationTokenProvider.issue(((Member)authentication.getPrincipal()).getId());
+		AuthenticationToken authenticationToken = authenticationTokenProvider
+				.issue(((Member)authentication.getPrincipal()).getId());
 
 		return UriComponentsBuilder.fromUriString(targetUrl)
 				.queryParam("token", authenticationToken.getToken())

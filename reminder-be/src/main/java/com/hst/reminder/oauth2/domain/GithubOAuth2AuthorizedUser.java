@@ -1,7 +1,5 @@
 package com.hst.reminder.oauth2.domain;
 
-import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
-
 import java.util.Map;
 
 /**
@@ -13,13 +11,23 @@ public class GithubOAuth2AuthorizedUser extends OAuth2AuthorizedUser {
 	}
 
 	@Override
-	public String getId() {
-		return ((Integer) attributes.get("id")).toString();
+	protected boolean isNamePresent() {
+		return attributes.get("name") != null;
 	}
 
 	@Override
-	public String getName() {
+	protected String getNameSubstitute() {
+		return (String) attributes.get("login");
+	}
+
+	@Override
+	protected String getName() {
 		return (String) attributes.get("name");
+	}
+
+	@Override
+	public String getId() {
+		return ((Integer) attributes.get("id")).toString();
 	}
 
 	@Override

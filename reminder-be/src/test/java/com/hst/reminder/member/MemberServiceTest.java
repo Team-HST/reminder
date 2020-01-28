@@ -1,7 +1,7 @@
 package com.hst.reminder.member;
 
 import com.hst.reminder.member.application.MemberService;
-import com.hst.reminder.member.application.command.MemberProfile;
+import com.hst.reminder.member.application.command.MemberProfileResponse;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.member.domain.exception.MemberNotFoundException;
@@ -44,14 +44,14 @@ public class MemberServiceTest {
 		when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
 
 		// when
-		MemberProfile memberProfile = memberService.getMemberProfile(member.getId());
+		MemberProfileResponse memberProfileResponse = memberService.getMemberProfile(member.getId());
 
 		// then
 		verify(memberRepository).findById(member.getId());
-		assertEquals(member.getId(), memberProfile.getId());
-		assertEquals(member.getName(), memberProfile.getName());
-		assertEquals(member.getEmail(), memberProfile.getEmail());
-		assertEquals(member.getProfileImageUrl(), memberProfile.getProfileImageUrl());
+		assertEquals(member.getId(), memberProfileResponse.getId());
+		assertEquals(member.getName(), memberProfileResponse.getName());
+		assertEquals(member.getEmail(), memberProfileResponse.getEmail());
+		assertEquals(member.getProfileImageUrl(), memberProfileResponse.getProfileImageUrl());
 	}
 
 	@Test
@@ -69,7 +69,7 @@ public class MemberServiceTest {
 
 	private Member createMember(Long id) {
 		Member member = new Member();
-		ReflectionTestUtils.setField(member, "id", id);
+		ReflectionTestUtils.setField(member, "memberId", id);
 		ReflectionTestUtils.setField(member, "name", "이현규");
 		ReflectionTestUtils.setField(member, "email", "gusrb0808@naver.com");
 		ReflectionTestUtils.setField(member, "profileImageUrl", "profile.com/profile.jpg");

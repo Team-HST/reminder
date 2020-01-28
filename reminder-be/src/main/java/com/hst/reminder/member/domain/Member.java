@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -20,7 +21,9 @@ import java.util.Set;
 @Entity
 @Table(name = "MEMBER")
 @Getter
-public class Member implements UserDetails, OAuth2User {
+public class Member implements UserDetails, OAuth2User, Serializable {
+	private static final long serialVersionUID = 5191342461225391114L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -96,16 +99,15 @@ public class Member implements UserDetails, OAuth2User {
 	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo, OAuth2ProviderType oAuth2ProviderType) {
 		Member member = new Member();
 		member.email = userInfo.getEmail();
-		member.name = userInfo.getName();
+		member.name = userInfo.getResolvedName();
 		member.profileImageUrl = userInfo.getImageUrl();
 		member.ssoProvider = oAuth2ProviderType;
 		return member;
 	}
 
 	public void updateMemberInfo(OAuth2AuthorizedUser oAuth2AuthorizedUser) {
-		this.name = oAuth2AuthorizedUser.getName();
+		this.name = oAuth2AuthorizedUser.getResolvedName();
 		this.email = oAuth2AuthorizedUser.getEmail();
 		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
 	}
-
 }
