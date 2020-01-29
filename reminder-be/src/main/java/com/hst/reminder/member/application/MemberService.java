@@ -37,7 +37,7 @@ public class MemberService implements UserDetailsService {
 	public MemberProfileResponse getMemberProfile(Long memberId) {
 		Optional<Member> memberOpt = memberRepository.findById(memberId);
 		if (!memberOpt.isPresent()) {
-			throw new MemberNotFoundException("사용자 정보를 찾을수 없습니다. memberId: %d", memberId);
+			throw new MemberNotFoundException(memberId);
 		}
 		return MemberProfileResponse.of(memberOpt.get());
 	}
