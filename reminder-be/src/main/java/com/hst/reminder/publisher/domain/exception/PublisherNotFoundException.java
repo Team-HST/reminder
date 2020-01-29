@@ -1,13 +1,13 @@
 package com.hst.reminder.publisher.domain.exception;
 
-import com.hst.reminder.common.exception.ReportableException;
+import com.hst.reminder.common.exception.NotFoundException;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
-public class PublisherNotFoundException extends ReportableException {
+public class PublisherNotFoundException extends NotFoundException {
 	private static final long serialVersionUID = -4849616454050079202L;
-	public PublisherNotFoundException(String message, Object... args) {
-		super(message, args);
+	public PublisherNotFoundException(Long id) {
+		super("Publisher", id);
 	}
 }

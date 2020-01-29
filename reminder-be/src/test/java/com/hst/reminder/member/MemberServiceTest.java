@@ -64,12 +64,12 @@ public class MemberServiceTest {
 		});
 
 		verify(memberRepository).findById(memberId);
-		assertEquals(String.format("사용자 정보를 찾을수 없습니다. memberId: %d", memberId), e.getMessage());
+		assertEquals(String.format("Member(Id: %s)를 찾을 수 없습니다.", memberId), e.getMessage());
 	}
 
 	private Member createMember(Long id) {
 		Member member = new Member();
-		ReflectionTestUtils.setField(member, "memberId", id);
+		ReflectionTestUtils.setField(member, "id", id);
 		ReflectionTestUtils.setField(member, "name", "이현규");
 		ReflectionTestUtils.setField(member, "email", "gusrb0808@naver.com");
 		ReflectionTestUtils.setField(member, "profileImageUrl", "profile.com/profile.jpg");

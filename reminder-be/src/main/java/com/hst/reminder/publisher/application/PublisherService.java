@@ -54,8 +54,9 @@ public class PublisherService {
 	 */
 	public PublisherResponse getPublisher(Long publisherId) {
 		Optional<Publisher> publisherOpt = publisherRepository.findById(publisherId);
-		if (!publisherOpt.isPresent())
-			throw new PublisherNotFoundException("발행자 정보를 찾을수 없습니다. publisherId: %d", publisherId);
+		if (!publisherOpt.isPresent()) {
+			throw new PublisherNotFoundException(publisherId);
+		}
 		return publisherOpt.map(PublisherResponse::of).get();
 	}
 }
