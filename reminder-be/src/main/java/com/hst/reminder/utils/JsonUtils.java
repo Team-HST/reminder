@@ -4,14 +4,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.hst.reminder.common.exception.ReportableException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
-
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	public static String serialize(Object obj) {
@@ -54,6 +56,4 @@ public class JsonUtils {
 			return false;
 		}
 	}
-
-
 }

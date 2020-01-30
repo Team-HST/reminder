@@ -1,6 +1,7 @@
 package com.hst.reminder.publisher.ui.response;
 
 import com.hst.reminder.publisher.domain.Publisher;
+import com.hst.reminder.publisher.mapper.PublisherMapper;
 import lombok.Getter;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class PublisherListResponse {
 
 	public static PublisherListResponse of(List<Publisher> publishers) {
 		PublisherListResponse response = new PublisherListResponse();
-		response.publishers = publishers.stream().map(PublisherResponse::of).collect(Collectors.toList());
+		response.publishers = publishers.stream().map(PublisherMapper::toPublisherResponse).collect(Collectors.toList());
 		return response;
 	}
 }
