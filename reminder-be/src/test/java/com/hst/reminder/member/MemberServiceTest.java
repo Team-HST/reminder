@@ -4,7 +4,7 @@ import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
-import com.hst.reminder.member.domain.exception.MemberNotFoundException;
+import com.hst.reminder.member.application.exception.MemberNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

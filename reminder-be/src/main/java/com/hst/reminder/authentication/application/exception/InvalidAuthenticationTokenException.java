@@ -1,4 +1,4 @@
-package com.hst.reminder.authentication.domain.exception;
+package com.hst.reminder.authentication.application.exception;
 
 import com.hst.reminder.common.exception.ReportableException;
 import org.springframework.http.HttpStatus;

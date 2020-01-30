@@ -2,7 +2,7 @@ package com.hst.reminder.member.application;
 
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
-import com.hst.reminder.member.domain.exception.MemberNotFoundException;
+import com.hst.reminder.member.application.exception.MemberNotFoundException;
 import com.hst.reminder.member.mapper.MemberMapper;
 import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import org.springframework.security.core.userdetails.UserDetails;
