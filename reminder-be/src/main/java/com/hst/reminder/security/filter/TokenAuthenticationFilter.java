@@ -1,9 +1,9 @@
 package com.hst.reminder.security.filter;
 
 import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
+import com.hst.reminder.authentication.domain.exception.InvalidAuthenticationTokenException;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.domain.Member;
-import com.hst.reminder.authentication.domain.exception.InvalidAuthenticationTokenException;
 import com.hst.reminder.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

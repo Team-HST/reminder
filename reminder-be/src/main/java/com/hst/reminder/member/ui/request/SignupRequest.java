@@ -1,4 +1,4 @@
-package com.hst.reminder.member.application.command;
+package com.hst.reminder.member.ui.request;
 
 import lombok.Data;
 
@@ -8,8 +8,6 @@ import lombok.Data;
 @Data
 public class SignupRequest {
 	private String email;
-
 	private String name;
-
 	private String password;
 }

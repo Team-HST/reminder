@@ -6,14 +6,24 @@ import java.util.Map;
  * @author dlgusrb0808@gmail.com
  */
 public abstract class OAuth2AuthorizedUser {
-	protected Map<String, Object> attributes;
+	private OAuth2ProviderType oAuth2ProviderType;
+	private Map<String, Object> attributes;
 
-	public OAuth2AuthorizedUser(Map<String, Object> attributes) {
+	public OAuth2AuthorizedUser(OAuth2ProviderType oAuth2ProviderType, Map<String, Object> attributes) {
+		this.oAuth2ProviderType = oAuth2ProviderType;
 		this.attributes = attributes;
+	}
+
+	public OAuth2ProviderType getoAuth2ProviderType() {
+		return oAuth2ProviderType;
 	}
 
 	public Map<String, Object> getAttributes() {
 		return attributes;
+	}
+
+	protected Object getAttributeValue(String attributeName) {
+		return this.attributes.get(attributeName);
 	}
 
 	/***

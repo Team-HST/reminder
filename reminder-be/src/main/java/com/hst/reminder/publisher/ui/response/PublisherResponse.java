@@ -1,7 +1,7 @@
 package com.hst.reminder.publisher.ui.response;
 
-import com.hst.reminder.publisher.domain.Publisher;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -14,14 +14,4 @@ public class PublisherResponse {
 	private String target;
 	private String parameters;
 	private String description;
-
-	public static PublisherResponse of(Publisher entity) {
-		return PublisherResponse.builder()
-				.id(entity.getId())
-				.protocol(entity.getProtocol().getCode())
-				.target(entity.getDestination().getTarget())
-				.parameters(entity.getDestination().getParamterValue())
-				.description(entity.getDescription())
-				.build();
-	}
 }

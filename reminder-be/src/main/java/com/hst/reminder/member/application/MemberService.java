@@ -1,10 +1,10 @@
 package com.hst.reminder.member.application;
 
-import com.hst.reminder.member.application.command.MemberProfileResponse;
-import com.hst.reminder.member.application.command.SignupRequest;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.member.domain.exception.MemberNotFoundException;
+import com.hst.reminder.member.mapper.MemberMapper;
+import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,11 +24,6 @@ public class MemberService implements UserDetailsService {
 		this.memberRepository = memberRepository;
 	}
 
-	public void signup(SignupRequest request) {
-		Member member = new Member();
-		memberRepository.save(member);
-	}
-
 	/***
 	 * 멤버 프로필 조회
 	 * @param memberId 멤버 ID
@@ -39,7 +34,7 @@ public class MemberService implements UserDetailsService {
 		if (!memberOpt.isPresent()) {
 			throw new MemberNotFoundException(memberId);
 		}
-		return MemberProfileResponse.of(memberOpt.get());
+		return MemberMapper.toMemberProfileResponse(memberOpt.get());
 	}
 
 	@Override

@@ -2,9 +2,8 @@ package com.hst.reminder.oauth2.infra;
 
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
-import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
-import com.hst.reminder.oauth2.domain.OAuth2ProviderType;
 import com.hst.reminder.oauth2.application.OAuth2AuthorizedUserFactory;
+import com.hst.reminder.oauth2.domain.OAuth2AuthorizedUser;
 import com.hst.reminder.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -27,31 +26,31 @@ public class OAuth2AuthorizedUserService extends DefaultOAuth2UserService {
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		String registrationId = userRequest.getClientRegistration().getRegistrationId();
-		OAuth2ProviderType oAuth2ProviderType = OAuth2ProviderType.get(registrationId);
 		OAuth2User oauth2User = super.loadUser(userRequest);
-		OAuth2AuthorizedUser userInfo = OAuth2AuthorizedUserFactory.getOAuth2UserInfo(registrationId, oauth2User.getAttributes());
+		OAuth2AuthorizedUser userInfo = OAuth2AuthorizedUserFactory.createOAuth2AuthorizedUser(registrationId,
+				oauth2User.getAttributes());
 
 		if (StringUtils.isBlank(userInfo.getEmail())) {
 			throw new AccessDeniedException("OAuth2 제공자로부터 이메일 정보를 확인할 수 없습니다.");
 		}
 
-		Member member = processOAuth2User(oAuth2ProviderType, userInfo);
+		Member member = processOAuth2User(userInfo);
 		return memberRepository.save(member);
 	}
 
 	// OAuth2 가입 여부 확인 & 가입 처리
-	private Member processOAuth2User(OAuth2ProviderType oAuth2ProviderType, OAuth2AuthorizedUser userInfo) {
+	private Member processOAuth2User(OAuth2AuthorizedUser userInfo) {
 		Member member;
 		Optional<Member> memberOpt = memberRepository.findByEmail(userInfo.getEmail());
 		if (memberOpt.isPresent()) {
 			member = memberOpt.get();
-			if (member.getSsoProvider() != oAuth2ProviderType) {
+			if (!member.isOriginalSSOProvider(userInfo.getoAuth2ProviderType())) {
 				throw new AccessDeniedException(String.format("동일한 메일로 가입한 계정이 존재합니다. %s(%s)",
 						userInfo.getEmail(), member.getSsoProvider().getDescription()));
 			}
 			member.updateMemberInfo(userInfo);
 		} else {
-			member = Member.createMemberBySocial(userInfo, oAuth2ProviderType);
+			member = Member.createMemberBySocial(userInfo);
 		}
 		return member;
 	}
