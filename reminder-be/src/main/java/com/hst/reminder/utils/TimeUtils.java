@@ -1,5 +1,8 @@
 package com.hst.reminder.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -7,9 +10,8 @@ import java.util.Date;
 /**
  * @author dlgusrb0808@gmail.com
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TimeUtils {
-	public static final String DATETIME_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-	public static final String DATETIME_S_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss.S";
 
 	/***
 	 * LocalDateTime to java.util.Date 변환
