@@ -37,47 +37,70 @@ public class TimeUtils {
 		return instantToDate(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
+	/***
+	 * 두 날짜간 시간(h) 차이 계산
+	 * @param start
+	 * @param end
+	 * @return 시간
+	 */
+	public static long diffHours(LocalDateTime start, LocalDateTime end) {
+		return Math.abs(Duration.between(end, start).toHours());
+	}
+
+	/***
+	 * ms to LocalDateTime
+	 * @param ms ms
+	 * @return LocalDateTime
+	 */
+	public static LocalDateTime fromMills(long ms) {
+		return Instant.ofEpochSecond(ms).atZone(ZoneId.systemDefault()).toLocalDateTime();
+	}
+
+	/***
+	 * text to LocalDateTime
+	 * @param text text
+	 * @param pattern pattern
+	 * @return LocalDateTime
+	 */
+	public static LocalDateTime fromText(String text, String pattern) {
+		return LocalDateTime.parse(text, pattern(pattern));
+	}
+
+	/***
+	 * Now to Formatted String
+	 * @param pattern format
+	 * @return Formatted String
+	 */
+	public static String format(String pattern) {
+		return format(LocalDateTime.now(), pattern);
+	}
+
+	/***
+	 * LocalDateTime to Formatted String
+	 * @param at at
+	 * @param pattern pattern
+	 * @return Formatted String
+	 */
+	public static String format(LocalDateTime at, String pattern) {
+		return at.format(pattern(pattern));
+	}
+
+	/***
+	 * at between start, end
+	 * @param at at
+	 * @param start start
+	 * @param end end
+	 * @return true/false
+	 */
+	public static boolean isBetween(LocalDateTime at, LocalDateTime start, LocalDateTime end) {
+		return at.isAfter(start) && at.isBefore(end);
+	}
+
 	private static Date instantToDate(Instant instant) {
 		return Date.from(instant);
 	}
 
-	public static long diffHours(LocalDateTime first, LocalDateTime second) {
-		return Math.abs(Duration.between(second, first).toHours());
-	}
-
-	public static LocalDateTime parseEpochSecond(long second) {
-		return Instant.ofEpochSecond(second).atZone(ZoneId.systemDefault()).toLocalDateTime();
-	}
-
-	public static String format(LocalDateTime time, String pattern) {
-		return time.format(pattern(pattern));
-	}
-
-	public static String nowFormat(String pattern) {
-		return format(LocalDateTime.now(), pattern);
-	}
-
-	public static LocalDateTime parse(String source, String pattern) {
-		return LocalDateTime.parse(source, pattern(pattern));
-	}
-
 	private static DateTimeFormatter pattern(String pattern) {
 		return DateTimeFormatter.ofPattern(pattern);
-	}
-
-
-	public static LocalDateTime getNextTime(LocalDateTime target, int hour, int minute, int second) {
-		LocalDateTime today = LocalDateTime.now();
-		LocalDateTime pivot = LocalDateTime.of(today.getYear(), today.getMonth(), today.getDayOfMonth(), hour, minute, second);
-
-		if (target.isBefore(pivot)) {
-			return pivot;
-		} else {
-			return target.plusDays(1L).withHour(hour).withMinute(minute).withSecond(second);
-		}
-	}
-
-	public static boolean isBetween(LocalDateTime target, LocalDateTime begin, LocalDateTime end) {
-		return target.isAfter(begin) && target.isBefore(end);
 	}
 }

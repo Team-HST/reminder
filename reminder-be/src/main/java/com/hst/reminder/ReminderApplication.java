@@ -6,7 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-// @EnableConfigurationProperties
 public class ReminderApplication {
 
 	public static void main(String[] args) {
