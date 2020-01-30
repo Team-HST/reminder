@@ -1,4 +1,4 @@
-package com.hst.reminder.member.domain.exception;
+package com.hst.reminder.member.application.exception;
 
 import com.hst.reminder.common.exception.NotFoundException;
 

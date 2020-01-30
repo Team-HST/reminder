@@ -35,7 +35,7 @@ spring:
 app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpirationMs: 864000000
+    tokenExpirationMs: 864000000 # 10 days
   oauth2:
     authorizationFinalizeUrlTemplate: '${host}/login-success?token=${token}&memberId=${memberId}'
     reminderServiceFE: http://localhost:8080

@@ -7,36 +7,36 @@ import java.util.Map;
  */
 public class GithubOAuth2AuthorizedUser extends OAuth2AuthorizedUser {
 	public GithubOAuth2AuthorizedUser(Map<String, Object> attributes) {
-		super(attributes);
+		super(OAuth2ProviderType.GITHUB, attributes);
 	}
 
 	@Override
 	protected boolean isNamePresent() {
-		return attributes.get("name") != null;
+		return getAttributeValue("name") != null;
 	}
 
 	@Override
 	protected String getNameSubstitute() {
-		return (String) attributes.get("login");
+		return (String) getAttributeValue("login");
 	}
 
 	@Override
 	protected String getName() {
-		return (String) attributes.get("name");
+		return (String) getAttributeValue("name");
 	}
 
 	@Override
 	public String getId() {
-		return ((Integer) attributes.get("id")).toString();
+		return ((Integer) getAttributeValue("id")).toString();
 	}
 
 	@Override
 	public String getEmail() {
-		return (String) attributes.get("email");
+		return (String) getAttributeValue("email");
 	}
 
 	@Override
 	public String getImageUrl() {
-		return (String) attributes.get("avatar_url");
+		return (String) getAttributeValue("avatar_url");
 	}
 }

@@ -96,12 +96,12 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 		return true;
 	}
 
-	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo, OAuth2ProviderType oAuth2ProviderType) {
+	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo) {
 		Member member = new Member();
 		member.email = userInfo.getEmail();
 		member.name = userInfo.getResolvedName();
 		member.profileImageUrl = userInfo.getImageUrl();
-		member.ssoProvider = oAuth2ProviderType;
+		member.ssoProvider = userInfo.getoAuth2ProviderType();
 		return member;
 	}
 
@@ -109,5 +109,9 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 		this.name = oAuth2AuthorizedUser.getResolvedName();
 		this.email = oAuth2AuthorizedUser.getEmail();
 		this.profileImageUrl = oAuth2AuthorizedUser.getImageUrl();
+	}
+
+	public boolean isOriginalSSOProvider(OAuth2ProviderType oAuth2ProviderType) {
+		return this.ssoProvider == oAuth2ProviderType;
 	}
 }

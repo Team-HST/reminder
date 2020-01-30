@@ -1,4 +1,4 @@
-package com.hst.reminder.publisher.domain.exception;
+package com.hst.reminder.publisher.application.exception;
 
 import com.hst.reminder.common.exception.NotFoundException;
 

@@ -2,7 +2,8 @@ package com.hst.reminder.publisher.application;
 
 import com.hst.reminder.publisher.domain.Publisher;
 import com.hst.reminder.publisher.domain.PublisherRepository;
-import com.hst.reminder.publisher.domain.exception.PublisherNotFoundException;
+import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
+import com.hst.reminder.publisher.mapper.PublisherMapper;
 import com.hst.reminder.publisher.ui.request.CreatePublisherRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
@@ -57,6 +58,6 @@ public class PublisherService {
 		if (!publisherOpt.isPresent()) {
 			throw new PublisherNotFoundException(publisherId);
 		}
-		return publisherOpt.map(PublisherResponse::of).get();
+		return publisherOpt.map(PublisherMapper::toPublisherResponse).get();
 	}
 }

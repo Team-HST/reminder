@@ -1,10 +1,10 @@
 package com.hst.reminder.member;
 
 import com.hst.reminder.member.application.MemberService;
-import com.hst.reminder.member.application.command.MemberProfileResponse;
+import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
-import com.hst.reminder.member.domain.exception.MemberNotFoundException;
+import com.hst.reminder.member.application.exception.MemberNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,7 +40,7 @@ public class MemberServiceTest {
 	@Test
 	public void 멤버_프로필_조회() {
 		// given
-		Member member = createMember(1L);
+		Member member = createSampleMember(1L);
 		when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
 
 		// when
@@ -67,7 +67,7 @@ public class MemberServiceTest {
 		assertEquals(String.format("Member(Id: %s)를 찾을 수 없습니다.", memberId), e.getMessage());
 	}
 
-	private Member createMember(Long id) {
+	private Member createSampleMember(Long id) {
 		Member member = new Member();
 		ReflectionTestUtils.setField(member, "id", id);
 		ReflectionTestUtils.setField(member, "name", "이현규");
