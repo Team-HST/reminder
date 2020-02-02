@@ -43,9 +43,9 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 	@Column(name = "profile_image_url")
 	private String profileImageUrl;
 
-	@Column(name = "sso_provider")
+	@Column(name = "sso_type")
 	@Convert(converter = OAuth2ProviderType.Converter.class)
-	private OAuth2ProviderType ssoProvider;
+	private OAuth2ProviderType ssoType;
 
 	@Transient
 	private Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
@@ -70,7 +70,7 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 
 	@Override
 	public String getPassword() {
-		if (ssoProvider == OAuth2ProviderType.LOCAL)  {
+		if (ssoType == OAuth2ProviderType.LOCAL)  {
 			return password.getValue();
 		}
 		return null;
@@ -96,12 +96,13 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 		return true;
 	}
 
-	public static Member createMemberBySocial(OAuth2AuthorizedUser userInfo) {
+	public static Member createMemberBySSO(OAuth2AuthorizedUser userInfo) {
 		Member member = new Member();
+		member.password = Password.empty();
 		member.email = userInfo.getEmail();
 		member.name = userInfo.getResolvedName();
 		member.profileImageUrl = userInfo.getImageUrl();
-		member.ssoProvider = userInfo.getoAuth2ProviderType();
+		member.ssoType = userInfo.getoAuth2ProviderType();
 		return member;
 	}
 
@@ -112,6 +113,6 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 	}
 
 	public boolean isOriginalSSOProvider(OAuth2ProviderType oAuth2ProviderType) {
-		return this.ssoProvider == oAuth2ProviderType;
+		return this.ssoType == oAuth2ProviderType;
 	}
 }

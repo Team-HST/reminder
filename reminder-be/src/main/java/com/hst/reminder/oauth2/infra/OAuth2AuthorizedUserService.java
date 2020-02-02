@@ -46,11 +46,11 @@ public class OAuth2AuthorizedUserService extends DefaultOAuth2UserService {
 			member = memberOpt.get();
 			if (!member.isOriginalSSOProvider(userInfo.getoAuth2ProviderType())) {
 				throw new AccessDeniedException(String.format("동일한 메일로 가입한 계정이 존재합니다. %s(%s)",
-						userInfo.getEmail(), member.getSsoProvider().getDescription()));
+						userInfo.getEmail(), member.getSsoType().getDescription()));
 			}
 			member.updateMemberInfo(userInfo);
 		} else {
-			member = Member.createMemberBySocial(userInfo);
+			member = Member.createMemberBySSO(userInfo);
 		}
 		return member;
 	}
