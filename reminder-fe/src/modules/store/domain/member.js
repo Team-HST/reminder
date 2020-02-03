@@ -31,11 +31,11 @@ const mutations = {
 
 const actions = {
   deAuthorize(context) {
-    context.commit('processDeAuthorize');
+    context.commit('processDeAuthorize')
     router.push('/login')
   },
   authorize({ commit }, params) {
-    let headers = { Authorization: `Bearer ${params.token}`};
+    let headers = { Authorization: `Bearer ${params.token}`}
 
     axios.get(`/api/members/${params.memberId}`, { headers })
       .then((response) => { 

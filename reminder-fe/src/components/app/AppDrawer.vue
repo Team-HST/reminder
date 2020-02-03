@@ -5,7 +5,7 @@
       <Menu></Menu>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn color="blue-gray" block @click="deAuthorize">Logout</v-btn>
+          <v-btn color="blue-gray" block @click="logout">Logout</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import ProfileCard from '@/components/common/ProfileCard'
 import Menu from '@/components/menu/Menu'
 
@@ -33,7 +33,12 @@ export default {
     ...mapState('member', ['authorized'])
   },
   methods: {
-    ...mapActions("member", ["deAuthorize"])
+    ...mapActions("member", ["deAuthorize"]),
+    ...mapMutations('common', ['setLayout']),
+    logout() {
+      this.deAuthorize();
+      this.setLayout('single-layout');
+    }
   }
 };
 </script>

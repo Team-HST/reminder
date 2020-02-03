@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+// import createPersistedState from 'vuex-persistedstate'
+
+import common from './domain/common'
 import member from './domain/member'
 import publisher from './domain/publisher'
 
@@ -8,8 +11,14 @@ Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
+// const plugins = [
+//     createPersistedState()
+// ]
+
 export default new Vuex.Store({
+  // plugins,
   modules: {
+    common,
     member,
     publisher
   },

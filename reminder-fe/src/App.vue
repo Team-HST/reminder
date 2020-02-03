@@ -1,25 +1,19 @@
 <template>
   <v-app>
-    <AppDrawer v-if="authorized" />
-    <v-content>
-      <v-container>
-        <router-view></router-view>
-      </v-container>
-    </v-content>
-    <v-footer app>
-      <span>&copy; 2019</span>
-    </v-footer>
+    <component v-bind:is="layout"></component>
   </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import AppDrawer from '@/components/app/AppDrawer'
+import { mapState, mapMutations, mapActions } from 'vuex'
+import DrawerLayout from '@/layouts/DrawerLayout'
+import SingleLayout from '@/layouts/SingleLayout'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    AppDrawer
+    'drawer-layout': DrawerLayout,
+    'single-layout': SingleLayout
   },
   created() {
     if (this.authorized) {
@@ -27,10 +21,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('member', ['authorized'])
+    ...mapState('member', ['authorized']),
+    ...mapState('common', ['layout'])
   },
   methods: {
-    ...mapActions('member', ['getProfile'])
+    ...mapActions('member', ['getProfile']),
+    ...mapMutations('common', ['setLayout'])
   }
 };
 </script>

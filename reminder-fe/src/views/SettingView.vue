@@ -59,7 +59,7 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "SettingView",
+  name: 'SettingView',
   computed: {
     ...mapState('member', ['profile']),
     ...mapState('publisher', ['publishers'])    

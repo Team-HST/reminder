@@ -3,15 +3,17 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapMutations, mapActions } from "vuex"
 
 export default {
   name: 'loginSuccessView',
   created() {
-    this.authorize(this.$route.query);
+    this.authorize(this.$route.query)
+    this.setLayout('drawer-layout')
   },
   methods: {
-    ...mapActions("member", ["authorize"])
+    ...mapActions("member", ["authorize"]),
+    ...mapMutations('common', ['setLayout'])
   }
 }
 </script>
