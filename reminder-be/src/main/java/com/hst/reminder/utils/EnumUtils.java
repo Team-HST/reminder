@@ -18,7 +18,7 @@ public class EnumUtils {
 
 	public static <E extends Enum<E> & PersistableType<K>, K> Map<K, E> asMap(Class<E> enumClass) {
 		return EnumSet.allOf(enumClass).stream()
-				.collect(toMap(PersistableType::getCode, Function.identity()));
+				.collect(toMap(e -> e.getCode(), Function.identity()));
 	}
 
 }
