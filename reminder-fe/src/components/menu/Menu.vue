@@ -25,7 +25,7 @@ export default {
     this.menus = this.$router.options.routes.filter(route => 'menu' in route.meta).map(this.routeMenuMapper);
   },
   methods: {
-    routeMenuMapper(route) {
+    routeMenuMapper: (route) => {
       return {
         to: route.path,
         icon: route.meta.menu.icon,

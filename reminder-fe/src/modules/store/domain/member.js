@@ -1,4 +1,4 @@
-import router from '@/modules/router'
+import router from '@/router'
 import axios from 'axios'
 
 const state = {
@@ -41,7 +41,7 @@ const actions = {
       .then((response) => { 
         commit('setProfile', response.data)
         commit('processAuthorize', params)
-        router.push('/'); 
+        router.push('/').catch(()=>{})
       }).catch((e) => console.error(e))
   }
 }
