@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<asciidoc.version>1.5.3</asciidoc.version>
 	</properties>
 
 	<dependencies>
@@ -72,7 +73,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Test API -->
+		<!-- Test & Documentation API -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -83,6 +84,11 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Commons API -->
@@ -107,6 +113,34 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>${asciidoc.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.restdocs</groupId>
+						<artifactId>spring-restdocs-asciidoctor</artifactId>
+						<version>2.0.2.RELEASE</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>generate-docs</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<backend>html5</backend>
+							<doctype>book</doctype>
+							<sourceHighlighter>coderay</sourceHighlighter>
+							<preserveDirectories>true</preserveDirectories>
+							<outputDirectory>src/main/resources/static/docs</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
