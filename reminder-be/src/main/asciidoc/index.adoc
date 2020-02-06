@@ -13,7 +13,7 @@ endif::[]
 :sectlinks:
 
 // APIs
-:member-api: {snippets}/member-api
+:member-api: {snippets}/member-api-test
 
 
 [[introduction]]
@@ -50,21 +50,15 @@ RE:Minder REST API를 사용하기 위해 다음 사항을 확인해주세요.
 |===
 
 = APIs
-== Member
-=== 1. 사용자 프로필 조회
+== Member API
+=== # 사용자 프로필 조회
 사용자 프로필 정보를 조회합니다.
 
-include::{member-api}/get-member-profile/curl-request.adoc[]
-
-=== 요청 구조
+.Request
 include::{member-api}/get-member-profile/http-request.adoc[]
 
-==== 요청 파라미터들
-include::{member-api}/get-member-profile/request-body.adoc[]
+.Request Parametersaa
+include::{member-api}/get-member-profile/path-parameters.adoc[]
 
-=== 응답 구조
+.Response
 include::{member-api}/get-member-profile/http-response.adoc[]
-
-==== Response Data
-include::{member-api}/get-member-profile/response-body.adoc[]
-
