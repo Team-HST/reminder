@@ -1,0 +1,64 @@
+ifdef::snippets[]
+:snippets: ../../../target/generated-snippets
+endif::[]
+
+
+= RE:Minder REST API Guide
+@deveely;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+
+// APIs
+:member-api: {snippets}/member-api-test
+
+
+[[introduction]]
+== 소개
+
+RE:Minder REST API 입니다.
+
+[[common]]
+== 공통 사항
+
+RE:Minder REST API를 사용하기 위해 다음 사항을 확인해주세요.
+
+=== Domain
+
+|===
+| 환경 | domain
+
+| 개발
+| `dev-api.reminder.com`
+
+| 운영
+| `api.reminder.com`
+
+|===
+
+=== Header
+
+|===
+| name | 설명
+
+| `Authorization`
+| API 사용을 위한 인증키
+
+|===
+
+= APIs
+== Member API
+=== # 사용자 프로필 조회
+사용자 프로필 정보를 조회합니다.
+
+.Request
+include::{member-api}/get-member-profile/http-request.adoc[]
+
+.Request Parametersaa
+include::{member-api}/get-member-profile/path-parameters.adoc[]
+
+.Response
+include::{member-api}/get-member-profile/http-response.adoc[]
