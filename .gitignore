@@ -26,6 +26,7 @@ target
 # logback
 logback.out.xml
 
+reminder-be/src/main/resources/static/docs
 reminder-be/target
 reminder-fe/dist/
 reminder-fe/node/

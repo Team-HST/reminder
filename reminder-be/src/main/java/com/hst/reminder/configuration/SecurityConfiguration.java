@@ -29,7 +29,14 @@ import org.springframework.web.filter.CorsFilter;
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	private static final String[] PUBLIC_URI = {"/", "/error", "/sso/**", "/oauth2/**"};
+	private static final String[] PUBLIC_URI = {
+			"/",
+			"/favicon.ico",
+			"/error",
+			"/docs/**",
+			"/sso/**",
+			"/oauth2/**"
+	};
 
 	@Autowired
 	private MemberService memberService;

@@ -5,6 +5,7 @@ import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.member.application.exception.MemberNotFoundException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,8 +38,9 @@ public class MemberServiceTest {
 	@InjectMocks
 	private MemberService memberService;
 
+	@DisplayName("멤버 프로필 조회 성공")
 	@Test
-	public void 멤버_프로필_조회() {
+	public void successToGetMemberProfile() {
 		// given
 		Member member = createSampleMember(1L);
 		when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
@@ -54,8 +56,9 @@ public class MemberServiceTest {
 		assertEquals(member.getProfileImageUrl(), memberProfileResponse.getProfileImageUrl());
 	}
 
+	@DisplayName("멤버 프로필 조회 실패")
 	@Test
-	public void 멤버_프로필_조회_실패() {
+	public void failToGetMemberProfile() {
 		Long memberId = 1L;
 		when(memberRepository.findById(memberId)).thenReturn(Optional.empty());
 
