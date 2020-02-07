@@ -9,20 +9,22 @@ const state = {
 
 const getters = {
   authorized() {
-    return state.authorized;
+    return state.authorized
   },
-  authorization() {
-    return { Authorization: `Bearer ${state.authenticationToken}`};
+  getAuthorizeToken() {
+    return state.authenticationToken
   }
 }
 
 const mutations = {
-  processAuthorize(state, params) {
-    state.authenticationToken = params.token
+  processAuthorize(state) {
     state.authorized = true
   },
   processDeAuthorize(state) {
     state.authorized = false
+  },
+  setAuthorizeToken(state, token) {
+    state.authenticationToken = token
   },
   setProfile(state, memberProfile) {
     state.profile = memberProfile
@@ -35,9 +37,9 @@ const actions = {
     router.push('/login')
   },
   authorize({ commit }, params) {
-    let headers = { Authorization: `Bearer ${params.token}`}
+    commit('setAuthorizeToken', params.token) 
 
-    axios.get(`/api/members/${params.memberId}`, { headers })
+    axios.get(`/api/members/${params.memberId}`)
       .then((response) => { 
         commit('setProfile', response.data)
         commit('processAuthorize', params)

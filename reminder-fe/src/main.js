@@ -8,6 +8,7 @@ import Vue from 'vue'
 import store from '@/modules/store'
 import vuetify from '@/modules/vuetify'
 import router from '@/router'
+import axiosAuth from '@/modules/axios-auth'
 
 Vue.config.productionTip = false
 
@@ -15,5 +16,6 @@ new Vue({
   store,
   vuetify,
   router,
+  axiosAuth,
   render: h => h(App)
 }).$mount('#app')
