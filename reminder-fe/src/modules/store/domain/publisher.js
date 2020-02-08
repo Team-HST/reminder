@@ -1,4 +1,3 @@
-import member from './member'
 import axios from 'axios'
 
 const state = {
@@ -19,8 +18,7 @@ const mutations = {
 
 const actions = {
   getPublishers({ commit }, memberId) {
-    let headers = member.getters.authorization();
-    axios.get(`/api/publishers/by-member/${memberId}`, { headers })
+    axios.get(`/api/publishers/by-member/${memberId}`)
       .then((response) => { 
         response.data.publishers.forEach((e) => console.log(e))
         commit('setPublishers', response.data.publishers);
