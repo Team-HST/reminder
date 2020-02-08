@@ -2,11 +2,9 @@ package com.hst.reminder.publisher.domain;
 
 import com.hst.reminder.common.converter.EnumAttributeConverter;
 import com.hst.reminder.common.type.PersistableType;
+import com.hst.reminder.utils.EnumUtils;
 
-import java.util.EnumSet;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -24,8 +22,7 @@ public enum PublisherProtocol implements PersistableType<String> {
 		this.description = description;
 	}
 
-	private static final Map<String, PublisherProtocol> FINDER = EnumSet.allOf(PublisherProtocol.class).stream()
-			.collect(Collectors.toMap(e -> e.toString().toLowerCase(), Function.identity()));
+	private static final Map<String, PublisherProtocol> FINDER = EnumUtils.asMap(PublisherProtocol.class);
 
 	public static PublisherProtocol get(String protocol) {
 		return FINDER.get(protocol.toLowerCase());
