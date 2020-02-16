@@ -3,6 +3,7 @@ package com.hst.reminder.authentication.infra;
 import com.hst.reminder.authentication.domain.AuthenticationToken;
 import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
 import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.utils.StringUtils;
 import com.hst.reminder.utils.TimeUtils;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -54,23 +55,24 @@ public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvid
 
 	@Override
 	public boolean validateTokenValue(String token) {
-		try {
-			Jwts.parser()
-				.setSigningKey(appProperties.getAuth().getTokenSecret())
-				.parseClaimsJws(token);
-			return true;
-		} catch (SignatureException e) {
-			logger.error("Invalid JWT signature", e);
-		} catch (MalformedJwtException e) {
-			logger.error("Invalid JWT token", e);
-		} catch (ExpiredJwtException e) {
-			logger.error("Expired JWT token", e);
-		} catch (UnsupportedJwtException e) {
-			logger.error("Unsupported JWT token", e);
-		} catch (IllegalArgumentException e) {
-			logger.error("JWT claims string is empty.", e);
+		if (StringUtils.isNotBlank(token)) {
+			try {
+				Jwts.parser().setSigningKey(appProperties.getAuth().getTokenSecret()).parseClaimsJws(token);
+				return true;
+			} catch (SignatureException e) {
+				logger.error("Invalid JWT signature", e);
+			} catch (MalformedJwtException e) {
+				logger.error("Invalid JWT token", e);
+			} catch (ExpiredJwtException e) {
+				logger.error("Expired JWT token", e);
+			} catch (UnsupportedJwtException e) {
+				logger.error("Unsupported JWT token", e);
+			} catch (IllegalArgumentException e) {
+				logger.error("JWT claims string is empty.", e);
+			}
 		}
 		return false;
+
 	}
 
 	@Override

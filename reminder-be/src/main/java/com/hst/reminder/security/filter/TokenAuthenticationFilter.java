@@ -33,7 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
 		String token = getJwtFromRequest(request);
-		if (StringUtils.isNotBlank(token) && authenticationTokenProvider.validateTokenValue(token)) {
+		if (authenticationTokenProvider.validateTokenValue(token)) {
 			Long memberId = authenticationTokenProvider.getTokenOwnerId(token);
 			try {
 				Member member = (Member) memberService.loadUserByUsername(memberId.toString());
@@ -45,7 +45,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 				throw new InvalidAuthenticationTokenException("유효하지않은 인증토큰 입니다. 인증토큰 회원 정보 오류");
 			}
 		}
-
 		filterChain.doFilter(request, response);
 	}
 

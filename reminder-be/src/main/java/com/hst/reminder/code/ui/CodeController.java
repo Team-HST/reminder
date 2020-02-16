@@ -23,7 +23,8 @@ public class CodeController {
 
 	@GetMapping("{codeGroup}")
 	public ResponseEntity<CodeGroupResponse> getCodeGroup(@PathVariable String codeGroup) {
-		return ResponseEntity.ok(codeService.getCodeGroup(codeGroup));
+		CodeGroupResponse response = codeService.getCodeGroup(codeGroup);
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -1,24 +1,24 @@
 package com.hst.reminder.code.application;
 
-import com.hst.reminder.code.domain.CodeRepository;
+import com.hst.reminder.code.type.CodeInformations;
 import com.hst.reminder.code.ui.response.CodeGroupResponse;
+import com.hst.reminder.common.exception.NotFoundException;
+import com.hst.reminder.common.type.PersistableType;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
 @Service
 public class CodeService {
-
-	private final CodeRepository codeRepository;
-
-	public CodeService(CodeRepository codeRepository) {
-		this.codeRepository = codeRepository;
-	}
-
-	@SuppressWarnings("unchecked")
 	public CodeGroupResponse getCodeGroup(String codeGroup) {
-		return CodeGroupResponse.of(codeGroup, codeRepository.findCodesByCodeGroup(codeGroup));
+		Set<? extends PersistableType<?>> codes = CodeInformations.get(codeGroup);
+		if (codes == null) {
+			throw new NotFoundException("CodeGroup", codeGroup);
+		}
+		return CodeGroupResponse.of(codeGroup, codes);
 	}
 
 }
