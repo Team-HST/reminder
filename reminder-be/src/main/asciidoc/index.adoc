@@ -13,6 +13,7 @@ endif::[]
 :sectlinks:
 
 // APIs
+:code-api: {snippets}/code-api-test
 :member-api: {snippets}/member-api-test
 
 
@@ -50,6 +51,19 @@ RE:Minder REST API를 사용하기 위해 다음 사항을 확인해주세요.
 |===
 
 = APIs
+== Code API
+=== # 코드그룹 조회
+시스템에서 사용하는 코드를 코드그릅으로 조회합니다.
+
+.Request
+include::{code-api}/get-code-group/http-request.adoc[]
+
+.Request Parameters
+include::{code-api}/get-code-group/path-parameters.adoc[]
+
+.Response
+include::{code-api}/get-code-group/http-response.adoc[]
+
 == Member API
 === # 사용자 프로필 조회
 사용자 프로필 정보를 조회합니다.
