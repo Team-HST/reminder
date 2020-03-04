@@ -3,10 +3,6 @@
  */
 export default [
   {
-    path: '/', name: '', component: '',
-    meta: { publicView: true }
-  },
-  {
     path: '/login', name: 'loginView', component: 'LoginView',
     meta: { publicView: true }
   },

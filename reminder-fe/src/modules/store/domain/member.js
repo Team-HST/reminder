@@ -43,7 +43,7 @@ const actions = {
       .then((response) => { 
         commit('setProfile', response.data)
         commit('processAuthorize', params)
-        router.push('/').catch(()=>{})
+        router.push('/dashboard').catch(()=>{})
       }).catch((e) => console.error(e))
   }
 }

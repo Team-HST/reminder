@@ -31,11 +31,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.publicView == false && store.getters['member/authorized'] == false) {
     return next('/login')
-  } else if (to.name === '') {
+  } else if (to.path === '/') {
     if (store.getters['member/authorized'] == true) {
-      next('/dashboard')
+      return next('/dashboard')
     } else {
-      next('/login')
+      return next('/login')
     }
   }
   return next()
