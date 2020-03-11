@@ -23,4 +23,11 @@ public class PublisherDestination implements Serializable {
 
 	@Column(name = "parameters")
 	private String paramterValue;
+
+	public static PublisherDestination of(String target, String parameters) {
+		PublisherDestination destination = new PublisherDestination();
+		destination.target = target;
+		destination.paramterValue = parameters;
+		return destination;
+	}
 }

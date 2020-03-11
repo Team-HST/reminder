@@ -21,12 +21,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * 블로그 쓰기!!!!!
- * 1. JUnit 5는 @RunWith가 필요없음
- * 2. Spring Bean 테스트를 위해 @Autowired 등 어노테이션 필요한경우, @ExtendWith(SpringExtension.class) 사용
- * 3. private 필드 값 세팅을 위해 ReflectionTestUtils 사용
- * 4. Exception 체크는 assertThrows 활용
- *
  * @author dlgusrb0808@gmail.com
  */
 @ExtendWith(SpringExtension.class)

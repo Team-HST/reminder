@@ -8,7 +8,7 @@ import lombok.ToString;
  */
 @ToString
 @Getter
-public class CreatePublisherRequest {
+public class PublisherModifyingRequest {
 	private Long memberId;
 	private String protocol;
 	private String target;

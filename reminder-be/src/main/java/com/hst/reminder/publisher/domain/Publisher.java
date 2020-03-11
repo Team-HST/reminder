@@ -1,5 +1,6 @@
 package com.hst.reminder.publisher.domain;
 
+import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,10 +34,19 @@ public class Publisher implements Serializable {
 	@Column(name = "member_id")
 	private Long memberId;
 
-	public Publisher(Long memberId, String protocol, String target, String parameters, String description) {
-		this.memberId = memberId;
-		this.protocol = PublisherProtocol.get(protocol);
-		this.destination = new PublisherDestination(target, parameters);
-		this.description = description;
+	public static Publisher of(PublisherModifyingRequest request) {
+		Publisher publisher = new Publisher();
+		publisher.memberId = request.getMemberId();
+		publisher.protocol = PublisherProtocol.get(request.getProtocol());
+		publisher.destination = PublisherDestination.of(request.getTarget(), request.getParameters());
+		publisher.description = request.getDescription();
+		return publisher;
+	}
+
+	public void modify(PublisherModifyingRequest request) {
+		this.memberId = request.getMemberId();
+		this.protocol = PublisherProtocol.get(request.getProtocol());
+		this.destination = PublisherDestination.of(request.getTarget(), request.getParameters());
+		this.description = request.getDescription();
 	}
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @author hyungyu.lee@nhn.com
+ * @author dlgusrb0808@gmail.com
  */
 @Getter
 public class CodeGroupResponse {

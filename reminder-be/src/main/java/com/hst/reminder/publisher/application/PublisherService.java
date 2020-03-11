@@ -4,7 +4,7 @@ import com.hst.reminder.publisher.domain.Publisher;
 import com.hst.reminder.publisher.domain.PublisherRepository;
 import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
 import com.hst.reminder.publisher.mapper.PublisherMapper;
-import com.hst.reminder.publisher.ui.request.CreatePublisherRequest;
+import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
 import org.springframework.stereotype.Service;
@@ -31,11 +31,9 @@ public class PublisherService {
 	 * @return 생성된 발행자 ID
 	 */
 	@Transactional
-	public Long createPublisher(CreatePublisherRequest request) {
-		Publisher publisher = new Publisher(request.getMemberId(), request.getProtocol(), request.getTarget(),
-				request.getParameters(), request.getDescription());
-		publisherRepository.save(publisher);
-		return publisher.getId();
+	public Long createPublisher(PublisherModifyingRequest request) {
+		Publisher publisher = Publisher.of(request);
+		return publisherRepository.save(publisher).getId();
 	}
 
 	/***
@@ -54,10 +52,25 @@ public class PublisherService {
 	 * @return 발행자
 	 */
 	public PublisherResponse getPublisher(Long publisherId) {
+		Publisher publisher = findPublisher(publisherId);
+		return PublisherMapper.toPublisherResponse(publisher);
+	}
+
+	/***
+	 *
+	 * @param publisherId
+	 * @param request
+	 */
+	public void modifyPublisher(Long publisherId, PublisherModifyingRequest request) {
+		Publisher publisher = findPublisher(publisherId);
+		publisher.modify(request);
+	}
+
+	private Publisher findPublisher(Long publisherId) {
 		Optional<Publisher> publisherOpt = publisherRepository.findById(publisherId);
 		if (!publisherOpt.isPresent()) {
 			throw new PublisherNotFoundException(publisherId);
 		}
-		return publisherOpt.map(PublisherMapper::toPublisherResponse).get();
+		return publisherOpt.get();
 	}
 }

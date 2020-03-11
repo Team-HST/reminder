@@ -30,12 +30,13 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_URI = {
-			"/",
-			"/favicon.ico",
-			"/error",
-			"/docs/**",
-			"/sso/**",
-			"/oauth2/**"
+//			"/",
+//			"/favicon.ico",
+//			"/error",
+//			"/docs/**",
+//			"/sso/**",
+//			"/oauth2/**"
+			"/**"
 	};
 
 	@Autowired
