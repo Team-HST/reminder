@@ -42,7 +42,7 @@ public class PublisherService {
 	 */
 	public PublisherListResponse getPublishersByMemberId(Long memberId) {
 		List<Publisher> publishers = publisherRepository.findByMemberId(memberId);
-		return PublisherListResponse.of(publishers);
+		return PublisherListResponse.from(publishers);
 	}
 
 	/***
