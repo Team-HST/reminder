@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -34,7 +35,7 @@ public class Publisher implements Serializable {
 	@Column(name = "member_id")
 	private Long memberId;
 
-	public static Publisher of(PublisherModifyingRequest request) {
+	public static Publisher from(PublisherModifyingRequest request) {
 		Publisher publisher = new Publisher();
 		publisher.memberId = request.getMemberId();
 		publisher.protocol = PublisherProtocol.get(request.getProtocol());
@@ -43,10 +44,18 @@ public class Publisher implements Serializable {
 		return publisher;
 	}
 
-	public void modify(PublisherModifyingRequest request) {
-		this.memberId = request.getMemberId();
-		this.protocol = PublisherProtocol.get(request.getProtocol());
-		this.destination = PublisherDestination.of(request.getTarget(), request.getParameters());
-		this.description = request.getDescription();
+	public void changeContent(PublisherModifyingRequest request) {
+		if (Objects.nonNull(request.getProtocol())) {
+			this.protocol = PublisherProtocol.get(request.getProtocol());
+		}
+		if (Objects.nonNull(request.getTarget())) {
+			this.destination.changeTarget(request.getTarget());
+		}
+		if (Objects.nonNull(request.getParameters())) {
+			this.destination.changeParameters(request.getParameters());
+		}
+		if (Objects.nonNull(request.getDescription())) {
+			this.description = request.getDescription();
+		}
 	}
 }

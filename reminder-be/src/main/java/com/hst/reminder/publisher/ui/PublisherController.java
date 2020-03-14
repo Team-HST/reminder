@@ -41,10 +41,16 @@ public class PublisherController {
 	}
 
 	@PutMapping("{publisherId}")
-	public ResponseEntity<String> modifyPublisher(@PathVariable("publisherId") Long publisherId,
+	public ResponseEntity<String> updatePublisher(@PathVariable("publisherId") Long publisherId,
 												  @RequestBody PublisherModifyingRequest request) {
-		publisherService.modifyPublisher(publisherId, request);
-		return null;
+		publisherService.updatePublisher(publisherId, request);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("{publisherId}")
+	public ResponseEntity<String> deletePublisher(@PathVariable("publisherId") Long publisherId) {
+		publisherService.deletePublisher(publisherId);
+		return ResponseEntity.ok().build();
 	}
 
 }

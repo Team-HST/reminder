@@ -12,4 +12,6 @@ public interface PublisherRepository {
 	Publisher save(Publisher publisher);
 
 	List<Publisher> findByMemberId(Long memberId);
+
+	void delete(Publisher publisher);
 }

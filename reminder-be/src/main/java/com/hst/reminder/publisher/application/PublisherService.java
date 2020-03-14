@@ -1,8 +1,8 @@
 package com.hst.reminder.publisher.application;
 
+import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
 import com.hst.reminder.publisher.domain.Publisher;
 import com.hst.reminder.publisher.domain.PublisherRepository;
-import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
 import com.hst.reminder.publisher.mapper.PublisherMapper;
 import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -32,7 +31,7 @@ public class PublisherService {
 	 */
 	@Transactional
 	public Long createPublisher(PublisherModifyingRequest request) {
-		Publisher publisher = Publisher.of(request);
+		Publisher publisher = Publisher.from(request);
 		return publisherRepository.save(publisher).getId();
 	}
 
@@ -57,20 +56,27 @@ public class PublisherService {
 	}
 
 	/***
-	 *
-	 * @param publisherId
-	 * @param request
+	 * 발행자 수정
+	 * @param publisherId 발행자 ID
+	 * @param request 요청
 	 */
-	public void modifyPublisher(Long publisherId, PublisherModifyingRequest request) {
+	@Transactional
+	public void updatePublisher(Long publisherId, PublisherModifyingRequest request) {
 		Publisher publisher = findPublisher(publisherId);
-		publisher.modify(request);
+		publisher.changeContent(request);
 	}
 
+	/***
+	 * 발행자 삭제
+	 * @param publisherId 발행자ID
+	 */
+	public void deletePublisher(Long publisherId) {
+		publisherRepository.delete(findPublisher(publisherId));
+	}
+
+	// 발행자 조회
 	private Publisher findPublisher(Long publisherId) {
-		Optional<Publisher> publisherOpt = publisherRepository.findById(publisherId);
-		if (!publisherOpt.isPresent()) {
-			throw new PublisherNotFoundException(publisherId);
-		}
-		return publisherOpt.get();
+		return publisherRepository.findById(publisherId)
+				.orElseThrow(() -> new PublisherNotFoundException(publisherId));
 	}
 }
