@@ -8,12 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
 @Controller
 @RequestMapping("oauth2")
+@ApiIgnore
 public class OAuth2Controller implements AppPropertiesAware {
 
 	private AppProperties appProperties;

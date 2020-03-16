@@ -2,6 +2,8 @@ package com.hst.reminder.code.ui;
 
 import com.hst.reminder.code.application.CodeService;
 import com.hst.reminder.code.ui.response.CodeGroupResponse;
+import com.hst.reminder.configuration.SwaggerConfiguration;
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("codes")
+@Api(tags = SwaggerConfiguration.CODE_API_TAG)
 public class CodeController {
 
 	private final CodeService codeService;
