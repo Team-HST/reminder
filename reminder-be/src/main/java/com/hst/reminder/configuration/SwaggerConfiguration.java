@@ -22,7 +22,8 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
-	public static final String CODE_API_TAG = "[공통] Code API";
+	public static final String CODE_API_TAG = "Code API";
+	public static final String MEMBER_API_TAG = "Member API";
 
 	@Bean
 	public Docket api() {
@@ -32,7 +33,10 @@ public class SwaggerConfiguration {
 						basePackage("org.springframework.boot")))
 				.paths(PathSelectors.any())
 				.build()
-				.tags(new Tag(CODE_API_TAG, "전체 시스템에서 사용하는 코드 관련 API", 1))
+				.tags(
+					new Tag(CODE_API_TAG, "전체 시스템에서 사용하는 코드 관련 API", 1),
+					new Tag(MEMBER_API_TAG, "회원(사용자) 관련 API", 2)
+				)
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false);
 	}
