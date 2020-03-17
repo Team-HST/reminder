@@ -1,7 +1,7 @@
 package com.hst.reminder.publisher.ui;
 
 import com.hst.reminder.publisher.application.PublisherService;
-import com.hst.reminder.publisher.ui.request.CreatePublisherRequest;
+import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
 import org.slf4j.Logger;
@@ -22,12 +22,6 @@ public class PublisherController {
 	@Autowired
 	private PublisherService publisherService;
 
-	@PostMapping
-	public ResponseEntity<Long> createPublisher(@RequestBody CreatePublisherRequest request) {
-		Long createdPublisherId = publisherService.createPublisher(request);
-		return ResponseEntity.ok(createdPublisherId);
-	}
-
 	@GetMapping("by-member/{memberId}")
 	public ResponseEntity<PublisherListResponse> getPublisherByMemberId(@PathVariable Long memberId) {
 		PublisherListResponse response = publisherService.getPublishersByMemberId(memberId);
@@ -38,6 +32,25 @@ public class PublisherController {
 	public ResponseEntity<PublisherResponse> getPublisherById(@PathVariable Long publisherId) {
 		PublisherResponse response = publisherService.getPublisher(publisherId);
 		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping
+	public ResponseEntity<Long> createPublisher(@RequestBody PublisherModifyingRequest request) {
+		Long createdPublisherId = publisherService.createPublisher(request);
+		return ResponseEntity.ok(createdPublisherId);
+	}
+
+	@PutMapping("{publisherId}")
+	public ResponseEntity<String> updatePublisher(@PathVariable("publisherId") Long publisherId,
+												  @RequestBody PublisherModifyingRequest request) {
+		publisherService.updatePublisher(publisherId, request);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("{publisherId}")
+	public ResponseEntity<String> deletePublisher(@PathVariable("publisherId") Long publisherId) {
+		publisherService.deletePublisher(publisherId);
+		return ResponseEntity.ok().build();
 	}
 
 }

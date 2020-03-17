@@ -1,5 +1,5 @@
 GET http://localhost:8000/codes/publisher-protocols
 Content-Type: application/json;charset=UTF-8
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNTgxMTU2OTgxLCJleHAiOjE1ODIwMjA5ODF9.65kt1LrThKSQ26lCoxdFAnbEiZ3k3PVDb6KJ3by6PjwMsnkCDweZ1xJ_FdYjiXTIFHil2slrP3G0hIaUvpePlQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNTgzOTMxNjQ0LCJleHAiOjE1ODQ3OTU2NDR9.rwm3_hai4y-Qzg7B2cTYE_hXCSiuBBx93oR2SRC6GkHQqEUEFKrvJqVuEjaxaHjWYPItfFdYQBV2-82evh8eyw
 
 ###

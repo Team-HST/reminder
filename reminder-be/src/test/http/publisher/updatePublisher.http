@@ -1,12 +1,11 @@
-POST http://localhost:8000/publishers
+PUT http://localhost:8000/publishers/1
 Content-Type: application/json;charset=UTF-8
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNTg0MjI2MjYwLCJleHAiOjE1ODUwOTAyNjB9.31eCwcfOBGas4-TbWk0lPSIaIyPvMqUOHYCG8taTJLq7vpl1KTlkAy5Mvzy843VZBxwu8y1ix_auXw3BL673FQ
 
 {
-    "memberId": 5,
 	"protocol": "email",
-	"target": "dlgusrb0808@gmail.com",
-    "description": "구글 메일"
+	"target": "gusrb0808@naver.com",
+    "description": "네이버 메일"
 }
 
 ###

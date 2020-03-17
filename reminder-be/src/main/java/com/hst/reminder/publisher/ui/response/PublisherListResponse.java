@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class PublisherListResponse {
 	private List<PublisherResponse> publishers;
 
-	public static PublisherListResponse of(List<Publisher> publishers) {
+	public static PublisherListResponse from(List<Publisher> publishers) {
 		PublisherListResponse response = new PublisherListResponse();
 		response.publishers = publishers.stream().map(PublisherMapper::toPublisherResponse).collect(Collectors.toList());
 		return response;

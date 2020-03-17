@@ -1,10 +1,12 @@
 package com.hst.reminder.publisher.domain;
 
+import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -33,10 +35,27 @@ public class Publisher implements Serializable {
 	@Column(name = "member_id")
 	private Long memberId;
 
-	public Publisher(Long memberId, String protocol, String target, String parameters, String description) {
-		this.memberId = memberId;
-		this.protocol = PublisherProtocol.get(protocol);
-		this.destination = new PublisherDestination(target, parameters);
-		this.description = description;
+	public static Publisher from(PublisherModifyingRequest request) {
+		Publisher publisher = new Publisher();
+		publisher.memberId = request.getMemberId();
+		publisher.protocol = PublisherProtocol.get(request.getProtocol());
+		publisher.destination = PublisherDestination.of(request.getTarget(), request.getParameters());
+		publisher.description = request.getDescription();
+		return publisher;
+	}
+
+	public void changeContent(PublisherModifyingRequest request) {
+		if (Objects.nonNull(request.getProtocol())) {
+			this.protocol = PublisherProtocol.get(request.getProtocol());
+		}
+		if (Objects.nonNull(request.getTarget())) {
+			this.destination.changeTarget(request.getTarget());
+		}
+		if (Objects.nonNull(request.getParameters())) {
+			this.destination.changeParameters(request.getParameters());
+		}
+		if (Objects.nonNull(request.getDescription())) {
+			this.description = request.getDescription();
+		}
 	}
 }

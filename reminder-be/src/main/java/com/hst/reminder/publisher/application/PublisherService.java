@@ -1,17 +1,16 @@
 package com.hst.reminder.publisher.application;
 
+import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
 import com.hst.reminder.publisher.domain.Publisher;
 import com.hst.reminder.publisher.domain.PublisherRepository;
-import com.hst.reminder.publisher.application.exception.PublisherNotFoundException;
 import com.hst.reminder.publisher.mapper.PublisherMapper;
-import com.hst.reminder.publisher.ui.request.CreatePublisherRequest;
+import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -31,11 +30,9 @@ public class PublisherService {
 	 * @return 생성된 발행자 ID
 	 */
 	@Transactional
-	public Long createPublisher(CreatePublisherRequest request) {
-		Publisher publisher = new Publisher(request.getMemberId(), request.getProtocol(), request.getTarget(),
-				request.getParameters(), request.getDescription());
-		publisherRepository.save(publisher);
-		return publisher.getId();
+	public Long createPublisher(PublisherModifyingRequest request) {
+		Publisher publisher = Publisher.from(request);
+		return publisherRepository.save(publisher).getId();
 	}
 
 	/***
@@ -45,7 +42,7 @@ public class PublisherService {
 	 */
 	public PublisherListResponse getPublishersByMemberId(Long memberId) {
 		List<Publisher> publishers = publisherRepository.findByMemberId(memberId);
-		return PublisherListResponse.of(publishers);
+		return PublisherListResponse.from(publishers);
 	}
 
 	/***
@@ -54,10 +51,32 @@ public class PublisherService {
 	 * @return 발행자
 	 */
 	public PublisherResponse getPublisher(Long publisherId) {
-		Optional<Publisher> publisherOpt = publisherRepository.findById(publisherId);
-		if (!publisherOpt.isPresent()) {
-			throw new PublisherNotFoundException(publisherId);
-		}
-		return publisherOpt.map(PublisherMapper::toPublisherResponse).get();
+		Publisher publisher = findPublisher(publisherId);
+		return PublisherMapper.toPublisherResponse(publisher);
+	}
+
+	/***
+	 * 발행자 수정
+	 * @param publisherId 발행자 ID
+	 * @param request 요청
+	 */
+	@Transactional
+	public void updatePublisher(Long publisherId, PublisherModifyingRequest request) {
+		Publisher publisher = findPublisher(publisherId);
+		publisher.changeContent(request);
+	}
+
+	/***
+	 * 발행자 삭제
+	 * @param publisherId 발행자ID
+	 */
+	public void deletePublisher(Long publisherId) {
+		publisherRepository.delete(findPublisher(publisherId));
+	}
+
+	// 발행자 조회
+	private Publisher findPublisher(Long publisherId) {
+		return publisherRepository.findById(publisherId)
+				.orElseThrow(() -> new PublisherNotFoundException(publisherId));
 	}
 }
