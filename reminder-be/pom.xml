@@ -113,13 +113,6 @@
 			<artifactId>commons-text</artifactId>
 			<version>1.8</version>
 		</dependency>
-
-		<!-- Guava -->
-<!--		<dependency>-->
-<!--			<groupId>com.google.guava</groupId>-->
-<!--			<artifactId>guava</artifactId>-->
-<!--			<version>19.0</version>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -129,6 +122,38 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources/${deploy.phase}</directory>
+			</resource>
+		</resources>
 	</build>
 
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<deploy.phase>local</deploy.phase>
+			</properties>
+		</profile>
+		<profile>
+			<id>develop</id>
+			<properties>
+				<deploy.phase>develop</deploy.phase>
+			</properties>
+		</profile>
+		<profile>
+			<id>release</id>
+			<properties>
+				<deploy.phase>release</deploy.phase>
+			</properties>
+		</profile>
+	</profiles>
 </project>
