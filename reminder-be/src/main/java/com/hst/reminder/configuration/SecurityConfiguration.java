@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/",
 			"/favicon.ico",
 			"/error",
+			"/devtools/**",
 			"/sso/**",
 			"/oauth2/**"
 //			"/**"
