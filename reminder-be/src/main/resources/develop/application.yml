@@ -1,0 +1,51 @@
+# Server Configurations
+server:
+  port: 8000
+
+# Application Configurations
+app:
+  host: http://133.186.219.16
+  port: 8000
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMs: 864000000 # 10 days
+  oauth2:
+    authorizationFinalizeUrlTemplate: '${host}/login-success?token=${token}&memberId=${memberId}'
+    reminderServiceFE: ${app.host}:80
+    # 인가된 redirect url
+    authorizedRedirectUris:
+      - ${app.host}:${app.port}/oauth2/finalize-authorization
+
+# Framework Configurations
+spring:
+  profiles:
+    active: develop
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://133.186.219.16:3306/reminder_db?characterEncoding=utf8&useUnicode=true&serverTimezone=Asia/Seoul
+    username: hst
+    password: hst123!@#
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dlgusrb0808@gmail.com
+    password: cjsrn1992!
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          auth: true
+          starttls:
+            enable: true
