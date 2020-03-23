@@ -24,6 +24,6 @@ export default [
   },
   {
     path: '/settings', name: 'settingView', component: 'SettingView', 
-    meta: { publicView: false, menu: { name: 'Settings', icon: 'mdi-settings' } }
+    meta: { publicView: false, menu: { name: 'Settings', icon: 'mdi-cogs' } }
   },  
 ]
