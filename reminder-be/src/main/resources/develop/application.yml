@@ -4,7 +4,7 @@ server:
 
 # Application Configurations
 app:
-  host: http://133.186.219.16
+  host: http://app.reminder.com
   port: 8000
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC

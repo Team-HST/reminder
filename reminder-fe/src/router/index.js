@@ -7,6 +7,13 @@ import paths from './paths'
 
 Vue.use(VueRouter);
 
+const router = new VueRouter({
+  mode: 'history',
+  routes: paths.map((path) => {
+    return route(path.path, path.component, path.name, path.meta)
+  })
+})
+
 function route (path, component, name, meta) {
   return {
     name,
@@ -18,17 +25,19 @@ function route (path, component, name, meta) {
   }
 }
 
-const router = new VueRouter({
-  mode: 'history',
-  routes: paths.map((path) => {
-    return route(path.path, path.component, path.name, path.meta)
-  })
-})
+function checkValidPage(to) {
+  let link = router.resolve(to)
+  return link.resolved.matched.length > 0;
+}
 
 /**
  * @description 전역가드 설정
  */
 router.beforeEach((to, from, next) => {
+  if (!checkValidPage(to)) {
+    return next('/dashboard')
+  }
+
   if (to.meta.publicView == false && store.getters['member/authorized'] == false) {
     return next('/login')
   } else if (to.path === '/') {
@@ -37,8 +46,8 @@ router.beforeEach((to, from, next) => {
     } else {
       return next('/login')
     }
-  }
-  return next()
+  } 
+  return next();
 })
 
 export default router;

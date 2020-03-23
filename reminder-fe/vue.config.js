@@ -1,8 +1,9 @@
 module.exports = {
+  publicPath: '',
   devServer: {
 		proxy: {
 			'/api': {
-        target: 'http://localhost:8000',
+        target: process.env.VUE_APP_REMINDER_SERVICE_API_URL,
         changeOrigin: true,
         pathRewrite: {'^/api': ''}
 			}
