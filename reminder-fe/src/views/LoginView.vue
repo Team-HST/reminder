@@ -13,7 +13,6 @@ export default {
   name: "LoginView",
   methods: {
     githubLogin() {
-      console.log(`${process.env.VUE_APP_REMINDER_SERVICE_API_URL}/sso/github`)
       location.href = `${process.env.VUE_APP_REMINDER_SERVICE_API_URL}/sso/github`
     }
   }
