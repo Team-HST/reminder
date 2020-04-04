@@ -10,15 +10,17 @@ import java.util.Map;
  * @author dlgusrb0808@gmail.com
  */
 public enum PublisherProtocol implements PersistableType<String> {
-	EMAIL("email", "발행자 이메일 프로토콜"),
-	SLACK("slack", "발행자 슬랙 프로토콜")
+	EMAIL("email", "Email", "Using Email System (Gmail, Naver, Kakao, etc...)"),
+	SLACK("slack", "Slack", "Using Slack API")
 	;
 
 	private String code;
+	private String codeName;
 	private String description;
 
-	PublisherProtocol(String code, String description) {
+	PublisherProtocol(String code, String codeName, String description) {
 		this.code = code;
+		this.codeName = codeName;
 		this.description = description;
 	}
 
@@ -31,6 +33,11 @@ public enum PublisherProtocol implements PersistableType<String> {
 	@Override
 	public String getCode() {
 		return this.code;
+	}
+
+	@Override
+	public String getCodeName() {
+		return codeName;
 	}
 
 	@Override

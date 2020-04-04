@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '@/modules/axios-auth'
 
 /**
  * 발행자 API 서비스

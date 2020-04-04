@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -25,6 +27,12 @@ public class CodeController {
 
 	public CodeController(CodeService codeService) {
 		this.codeService = codeService;
+	}
+
+	@ApiOperation(value = "모든 코드그룹 조회", notes = "시스템에서 사용하는 모든 코드그룹을 조회합니다.")
+	@GetMapping
+	public ResponseEntity<List<CodeGroupResponse>> getAllCodeGroups() {
+		return ResponseEntity.ok(codeService.getAllCodeGroup());
 	}
 
 	@ApiOperation(value = "코드그룹 조회", notes = "코드그룹을 조회합니다.")

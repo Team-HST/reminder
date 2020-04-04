@@ -9,13 +9,17 @@
               <v-col cols="12">
                 <v-select 
                   v-model="publisher.protocol" 
-                  :items="[{id: 1, name: 'Email'}, {id: 2, name: 'Slack'}]"
-                  item-text="name"
-                  item-value="id"
-                  label="Protocol*"
+                  :items="codeMap['publisher-protocols']"
+                  item-value="code"
+                  item-text="codeName"
+                  label="Protocol*"                  
                   hint="Type of message to be published" 
                   required
-                />
+                >
+                  <template slot="item" slot-scope="data">
+                    <p>{{ data.item.codeName }} - <small> {{ data.item.description }}</small></p>
+                  </template>
+                </v-select>
               </v-col>
             </v-row>
             <v-row>
@@ -60,6 +64,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     show: {
@@ -76,6 +82,9 @@ export default {
         description: ''
       }
     }
+  },
+  computed: {
+    ...mapState('code', ['codeMap'])
   },
   methods: {
     onClose() {

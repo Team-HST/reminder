@@ -1,4 +1,3 @@
-// TODO 현재 사용하는 곳 없음
 import publisherService from '@/modules/service/publisherService'
 
 const state = {

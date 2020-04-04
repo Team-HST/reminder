@@ -10,10 +10,12 @@ export default {
   created() {
     this.authorize(this.$route.query)
     this.setLayout('drawer-layout')
+    this.initCodeMap()
   },
   methods: {
-    ...mapActions("member", ["authorize"]),
-    ...mapMutations('common', ['setLayout'])
+    ...mapActions('member', ['authorize']),
+    ...mapMutations('common', ['setLayout']),
+    ...mapActions('code', ["initCodeMap"]),
   }
 }
 </script>

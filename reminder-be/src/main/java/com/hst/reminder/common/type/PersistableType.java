@@ -5,5 +5,6 @@ package com.hst.reminder.common.type;
  */
 public interface PersistableType<T> {
 	T getCode();
+	String getCodeName();
 	String getDescription();
 }

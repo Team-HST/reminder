@@ -13,6 +13,7 @@ public class CodeMapper {
 	public static CodeResponse toCodeResponse(PersistableType<?> type) {
 		return CodeResponse.builder()
 				.code(type.getCode().toString())
+				.codeName(type.getCodeName())
 				.description(type.getDescription())
 				.build();
 	}
