@@ -74,7 +74,7 @@ export default {
         headers: [
           { text: 'Protocol', value: 'protocol', align: 'center' },
           { text: 'Target', value: 'target', align: 'center' },
-          { text: 'Paramters', value: 'paramters', align: 'center' },
+          { text: 'Paramters', value: 'parameters', align: 'center' },
           { text: 'Description', value: 'description', align: 'center' }
         ],
         items: []
@@ -92,22 +92,32 @@ export default {
     closeAddPopup() {
       this.addPopupVisible = false
     },
+    setPublisherListTable(memberId) {
+      publisherService.getPublishers(memberId).then((response) => { 
+        this.publisherListTable.items = response.data.publishers
+      }).catch((e) => console.error(e))
+    },
     createPublisher(publisher) {
-      publisherService.createPublisher(publisher).then(result => {
-        console.log('Add Publisher Received', result)
+      publisher['memberId'] = this.profile.id;
+      publisherService.createPublisher(publisher).then(response => {
+        publisher['id'] = response.data;
+        this.publisherListTable.items.push(publisher)
+        this.closeAddPopup()
       }).catch(e => console.error(e))
-
-      this.closeAddPopup()
     },
     deletePublisher() {
       let selectedIds = this.publisherListTable.selectedItems.map(e => e.id);
-      publisherService.deletePublisher(selectedIds);
+      publisherService.deletePublisher(selectedIds).then(() => {
+        selectedIds.forEach(id => {
+          let idx = this.publisherListTable.items.findIndex(item => item.id === id);
+          this.publisherListTable.items.splice(idx, 1);
+        })
+        this.publisherListTable.selectedItems = []
+      }).catch(e => console.error(e));
     }
   },
   created() {
-    publisherService.getPublishers(this.profile.id).then((response) => { 
-      this.publisherListTable.items = response.data.publishers
-    }).catch((e) => console.error(e))
+    this.setPublisherListTable(this.profile.id);
   }
 };
 </script>

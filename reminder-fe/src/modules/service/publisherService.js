@@ -1,5 +1,7 @@
 import axios from '@/modules/axios-auth'
 
+const API = '/api/publishers';
+
 /**
  * 발행자 API 서비스
  * 
@@ -13,7 +15,7 @@ export default {
    * @returns `Promise`
    */
   getPublishers(memberId) {
-    return axios.get(`/api/publishers/by-member/${memberId}`);
+    return axios.get(`${API}/by-member/${memberId}`);
   },
   /**
    * 발행자 등록
@@ -22,13 +24,7 @@ export default {
    * @returns `Promise`
    */
   createPublisher(publisher) {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(publisher)
-      } catch (e) {
-        reject(e)
-      }
-    })
+    return axios.post(`${API}`, publisher);
   },
   /**
    * 발행자 삭제
@@ -37,6 +33,6 @@ export default {
    * @returns `Promise`
    */
   deletePublisher(publisherIds) {
-    console.log(publisherIds)
+    return axios.delete(`${API}`, {data: publisherIds})
   }
 }
