@@ -12,6 +12,8 @@ import lombok.Getter;
 public class CodeResponse {
 	@ApiModelProperty(position = 1, value = "코드명", example = "email")
 	private String code;
-	@ApiModelProperty(position = 2, value = "코드설명", example = "이메일 타입")
+	@ApiModelProperty(position = 2, value = "코드이름", example = "Email")
+	private String codeName;
+	@ApiModelProperty(position = 3, value = "코드설명", example = "이메일 타입")
 	private String description;
 }

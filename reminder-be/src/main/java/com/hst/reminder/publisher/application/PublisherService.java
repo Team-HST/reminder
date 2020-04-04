@@ -25,6 +25,16 @@ public class PublisherService {
 	}
 
 	/***
+	 * 발행자 조회
+	 * @param publisherId 발행자 ID
+	 * @return 발행자
+	 */
+	private Publisher findPublisher(Long publisherId) {
+		return publisherRepository.findById(publisherId)
+				.orElseThrow(() -> new PublisherNotFoundException(publisherId));
+	}
+
+	/***
 	 * 발행자 생성
 	 * @param request 발행자 생성 요청
 	 * @return 생성된 발행자 ID
@@ -70,13 +80,17 @@ public class PublisherService {
 	 * 발행자 삭제
 	 * @param publisherId 발행자ID
 	 */
+	@Transactional
 	public void deletePublisher(Long publisherId) {
 		publisherRepository.delete(findPublisher(publisherId));
 	}
 
-	// 발행자 조회
-	private Publisher findPublisher(Long publisherId) {
-		return publisherRepository.findById(publisherId)
-				.orElseThrow(() -> new PublisherNotFoundException(publisherId));
+	/***
+	 * 발행자 다 건 삭제
+	 * @param publisherIds 발행자 ID 목록
+	 */
+	@Transactional
+	public void deletePublishers(List<Long> publisherIds) {
+		publisherRepository.deleteByIdIn(publisherIds);
 	}
 }

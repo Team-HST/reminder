@@ -10,14 +10,16 @@ import java.util.Map;
  * @author dlgusrb0808@gmail.com
  */
 public enum OAuth2ProviderType implements PersistableType<String> {
-	LOCAL("local", "시스템 자체 인증"),
-	GITHUB("github", "Github 인증");
+	LOCAL("local", "로컬 인증", "시스템 자체 인증"),
+	GITHUB("github", "Github 인증", "Github 인증");
 
 	private String code;
+	private String codeName;
 	private String description;
 
-	OAuth2ProviderType(String code, String description) {
+	OAuth2ProviderType(String code, String codeName, String description) {
 		this.code = code;
+		this.codeName = codeName;
 		this.description = description;
 	}
 
@@ -30,6 +32,11 @@ public enum OAuth2ProviderType implements PersistableType<String> {
 	@Override
 	public String getCode() {
 		return this.code;
+	}
+
+	@Override
+	public String getCodeName() {
+		return codeName;
 	}
 
 	@Override

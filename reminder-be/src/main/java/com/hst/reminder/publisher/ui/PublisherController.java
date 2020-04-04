@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -44,6 +46,12 @@ public class PublisherController {
 	public ResponseEntity<String> updatePublisher(@PathVariable("publisherId") Long publisherId,
 												  @RequestBody PublisherModifyingRequest request) {
 		publisherService.updatePublisher(publisherId, request);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping
+	public ResponseEntity<String> deletePublishers(@RequestBody List<Long> publisherIds) {
+		publisherService.deletePublishers(publisherIds);
 		return ResponseEntity.ok().build();
 	}
 

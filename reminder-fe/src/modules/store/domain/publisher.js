@@ -1,4 +1,4 @@
-import axios from 'axios'
+import publisherService from '@/modules/service/publisherService'
 
 const state = {
   publishers: []
@@ -13,16 +13,15 @@ const getters = {
 const mutations = {
   setPublishers(state, publishers) {
     state.publishers = publishers;
-  }  
+  }
 }
 
 const actions = {
   getPublishers({ commit }, memberId) {
-    axios.get(`/api/publishers/by-member/${memberId}`)
-      .then((response) => { 
-        response.data.publishers.forEach((e) => console.log(e))
-        commit('setPublishers', response.data.publishers);
-      }).catch((e) => console.error(e))
+    publisherService(memberId).then((response) => { 
+      response.data.publishers.forEach((e) => console.log(e))
+      commit('setPublishers', response.data.publishers);
+    }).catch((e) => console.error(e))
   }
 }
 
