@@ -1,6 +1,7 @@
 import axios from '@/modules/axios-auth'
 
 const API = '/api/publishers';
+const MEMBER_API = '/api/members';
 
 /**
  * 발행자 API 서비스
@@ -15,7 +16,7 @@ export default {
    * @returns `Promise`
    */
   getPublishers(memberId) {
-    return axios.get(`${API}/by-member/${memberId}`);
+    return axios.get(`${MEMBER_API}/${memberId}/publishers`);
   },
   /**
    * 발행자 등록

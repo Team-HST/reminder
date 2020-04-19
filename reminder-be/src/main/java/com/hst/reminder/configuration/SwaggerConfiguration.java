@@ -29,6 +29,7 @@ public class SwaggerConfiguration {
 	public static final String CODE_API_TAG = "1. Code APIs";
 	public static final String MEMBER_API_TAG = "2. Member APIs";
 	public static final String PUBLISHER_API_TAG = "3. Publisher APIs";
+	public static final String CHANNEL_API_TAG = "4. Channel APIs";
 	@Bean
 	public Docket api() {
 		List<Parameter> params = createGlobalParamters();
@@ -44,7 +45,8 @@ public class SwaggerConfiguration {
 					new Tag(DEV_TOOLS_API_TAG, "개발자 편의 기능 제공 API", 1),
 					new Tag(CODE_API_TAG, "전체 시스템에서 사용하는 코드 관련 API", 2),
 					new Tag(MEMBER_API_TAG, "회원(사용자) 관련 API", 3),
-					new Tag(PUBLISHER_API_TAG, "발행자 관련 API", 4)
+					new Tag(PUBLISHER_API_TAG, "발행자 관련 API", 4),
+					new Tag(CHANNEL_API_TAG, "채널 관련 API", 5)
 				)
 				.apiInfo(apiInfo())
 				.useDefaultResponseMessages(false);

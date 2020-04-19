@@ -71,7 +71,7 @@ public class PublisherService {
 	 * @param request 요청
 	 */
 	@Transactional
-	public void updatePublisher(Long publisherId, PublisherModifyingRequest request) {
+	public void modifyPublisher(Long publisherId, PublisherModifyingRequest request) {
 		Publisher publisher = findPublisher(publisherId);
 		publisher.changeContent(request);
 	}

@@ -3,12 +3,12 @@ package com.hst.reminder.publisher.ui;
 import com.hst.reminder.configuration.SwaggerConfiguration;
 import com.hst.reminder.publisher.application.PublisherService;
 import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
-import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,29 +22,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("publishers")
+@RequiredArgsConstructor
 @Api(tags = SwaggerConfiguration.PUBLISHER_API_TAG)
 public class PublisherController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PublisherController.class);
 
-	@Autowired
-	private PublisherService publisherService;
-
-	@ApiOperation(value = "회원 발행자 목록 조회", notes = "회원의 발행자 목록을 조회합니다.")
-	@ApiImplicitParams({
-			@ApiImplicitParam(
-					name = "memberId",
-					value = "조회할 회원의 ID",
-					required = true,
-					dataType = "long",
-					paramType = "path"
-			),
-	})
-	@GetMapping("by-member/{memberId}")
-	public ResponseEntity<PublisherListResponse> getPublisherByMemberId(@PathVariable Long memberId) {
-		PublisherListResponse response = publisherService.getPublishersByMemberId(memberId);
-		return ResponseEntity.ok(response);
-	}
+	private final PublisherService publisherService;
 
 	@ApiOperation(value = "발행자 조회", notes = "발행자를 조회합니다.")
 	@ApiImplicitParams({
@@ -80,9 +64,9 @@ public class PublisherController {
 			),
 	})
 	@PutMapping("{publisherId}")
-	public ResponseEntity<String> updatePublisher(@PathVariable("publisherId") Long publisherId,
+	public ResponseEntity<String> modifyPublisher(@PathVariable("publisherId") Long publisherId,
 												  @RequestBody PublisherModifyingRequest request) {
-		publisherService.updatePublisher(publisherId, request);
+		publisherService.modifyPublisher(publisherId, request);
 		return ResponseEntity.ok().build();
 	}
 

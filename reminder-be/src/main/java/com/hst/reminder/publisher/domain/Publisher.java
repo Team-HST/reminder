@@ -1,5 +1,6 @@
 package com.hst.reminder.publisher.domain;
 
+import com.hst.reminder.channel.domain.ChannelPublisher;
 import com.hst.reminder.common.entity.BaseTimeEntity;
 import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -35,6 +38,9 @@ public class Publisher extends BaseTimeEntity implements Serializable {
 
 	@Column(name = "member_id")
 	private Long memberId;
+
+	@OneToMany(mappedBy = "publisher")
+	private List<ChannelPublisher> channels = new ArrayList<>();
 
 	public static Publisher from(PublisherModifyingRequest request) {
 		Publisher publisher = new Publisher();
