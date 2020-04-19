@@ -18,6 +18,8 @@ public class PublisherMapper {
 				.target(entity.getDestination().getTarget())
 				.parameters(entity.getDestination().getParamterValue())
 				.description(entity.getDescription())
+				.createdDate(entity.getCreatedDate())
+				.modifiedDate(entity.getModifiedDate())
 				.build();
 	}
 

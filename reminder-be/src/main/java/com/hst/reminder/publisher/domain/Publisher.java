@@ -1,5 +1,6 @@
 package com.hst.reminder.publisher.domain;
 
+import com.hst.reminder.common.entity.BaseTimeEntity;
 import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.Objects;
 @Table(name = "PUBLISHER")
 @NoArgsConstructor
 @Getter
-public class Publisher implements Serializable {
+public class Publisher extends BaseTimeEntity implements Serializable {
 	private static final long serialVersionUID = 1865565771900706900L;
 
 	@Id
