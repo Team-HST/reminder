@@ -21,7 +21,7 @@ public class ChannelController {
 
 	@GetMapping
 	public void getChannels() {
-
+		
 	}
 
 }

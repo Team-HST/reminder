@@ -1,5 +1,7 @@
 package com.hst.reminder.member.ui;
 
+import com.hst.reminder.channel.application.ChannelService;
+import com.hst.reminder.channel.ui.response.ChannelListResponse;
 import com.hst.reminder.configuration.SwaggerConfiguration;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.ui.response.MemberProfileResponse;
@@ -27,6 +29,7 @@ public class MemberController {
 
 	private final MemberService memberService;
 	private final PublisherService publisherService;
+	private final ChannelService channelService;
 
 	@ApiOperation(value = "회원 프로필 조회", notes = "회원 프로필을 조회합니다.")
 	@ApiImplicitParams({
@@ -56,6 +59,22 @@ public class MemberController {
 	@GetMapping("{memberId}/publishers")
 	public ResponseEntity<PublisherListResponse> getPublisherByMemberId(@PathVariable Long memberId) {
 		PublisherListResponse response = publisherService.getPublishersByMemberId(memberId);
+		return ResponseEntity.ok(response);
+	}
+
+	@ApiOperation(value = "회원 등록한 채널 조회", notes = "회원이 등록한 채널을 조회합니다.")
+	@ApiImplicitParams({
+			@ApiImplicitParam(
+					name = "memberId",
+					value = "조회할 회원의 ID",
+					required = true,
+					dataType = "long",
+					paramType = "path"
+			),
+	})
+	@GetMapping("{memberId}/channels")
+	public ResponseEntity<ChannelListResponse> getMyChannels(@PathVariable Long memberId) {
+		ChannelListResponse response = channelService.getChannelsByMemberId(memberId);
 		return ResponseEntity.ok(response);
 	}
 }
