@@ -16,12 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Api(tags = SwaggerConfiguration.CHANNEL_API_TAG)
 public class ChannelController {
-
 	private final ChannelService channelService;
 
 	@GetMapping
 	public void getChannels() {
-		
+
 	}
 
 }

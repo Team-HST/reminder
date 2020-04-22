@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Api(tags = SwaggerConfiguration.MEMBER_API_TAG)
 public class MemberController {
-
 	private final MemberService memberService;
 	private final PublisherService publisherService;
 	private final ChannelService channelService;

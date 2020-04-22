@@ -7,6 +7,7 @@ import com.hst.reminder.publisher.mapper.PublisherMapper;
 import com.hst.reminder.publisher.ui.request.PublisherModifyingRequest;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import com.hst.reminder.publisher.ui.response.PublisherResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +17,9 @@ import java.util.List;
  * @author dlgusrb0808@gmail.com
  */
 @Service
+@RequiredArgsConstructor
 public class PublisherService {
-
 	private final PublisherRepository publisherRepository;
-
-	public PublisherService(PublisherRepository publisherRepository) {
-		this.publisherRepository = publisherRepository;
-	}
 
 	/***
 	 * 발행자 조회

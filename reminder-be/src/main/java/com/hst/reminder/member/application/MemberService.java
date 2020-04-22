@@ -5,6 +5,7 @@ import com.hst.reminder.member.domain.MemberRepository;
 import com.hst.reminder.member.application.exception.MemberNotFoundException;
 import com.hst.reminder.member.mapper.MemberMapper;
 import com.hst.reminder.member.ui.response.MemberProfileResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,13 +17,10 @@ import java.util.Optional;
  * @author dlgusrb0808@gmail.com
  */
 @Service
+@RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 
 	private final MemberRepository memberRepository;
-
-	public MemberService(MemberRepository memberRepository) {
-		this.memberRepository = memberRepository;
-	}
 
 	/***
 	 * 멤버 프로필 조회

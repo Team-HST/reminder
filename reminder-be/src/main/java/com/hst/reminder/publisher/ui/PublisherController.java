@@ -25,7 +25,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Api(tags = SwaggerConfiguration.PUBLISHER_API_TAG)
 public class PublisherController {
-
 	private static final Logger logger = LoggerFactory.getLogger(PublisherController.class);
 
 	private final PublisherService publisherService;
