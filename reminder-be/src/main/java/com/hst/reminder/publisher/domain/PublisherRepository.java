@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface PublisherRepository {
 	Optional<Publisher> findById(Long publisherId);
 
+	List<Publisher> findByIdIn(List<Long> publisherIds);
+
 	Publisher save(Publisher publisher);
 
 	List<Publisher> findByMemberId(Long memberId);

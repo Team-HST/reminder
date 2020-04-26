@@ -26,7 +26,7 @@ public class PublisherService {
 	 * @param publisherId 발행자 ID
 	 * @return 발행자
 	 */
-	private Publisher findPublisher(Long publisherId) {
+	public Publisher findPublisher(Long publisherId) {
 		return publisherRepository.findById(publisherId)
 				.orElseThrow(() -> new PublisherNotFoundException(publisherId));
 	}

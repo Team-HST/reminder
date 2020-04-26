@@ -12,5 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface JpaPublisherRepository extends PublisherRepository, JpaRepository<Publisher, Long> {
+	List<Publisher> findByIdIn(List<Long> publisherIds);
+
 	void deleteByIdIn(List<Long> publisherIds);
 }

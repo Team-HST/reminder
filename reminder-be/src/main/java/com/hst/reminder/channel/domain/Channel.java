@@ -1,5 +1,6 @@
 package com.hst.reminder.channel.domain;
 
+import com.hst.reminder.channel.ui.request.ChannelModifyingRequest;
 import com.hst.reminder.common.entity.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,4 +35,20 @@ public class Channel extends BaseTimeEntity implements Serializable {
 
 	@OneToMany(mappedBy = "channel")
 	private List<ChannelPublisher> publishers = new ArrayList<>();
+
+	/***
+	 * 채널에 발행자 할당
+	 * @param publisher 할당할 발행자
+	 */
+	public void linkPublisher(ChannelPublisher publisher) {
+		this.publishers.add(publisher);
+	}
+
+	public static Channel from(ChannelModifyingRequest request) {
+		Channel channel = new Channel();
+		channel.title = request.getTitle();
+		channel.description = request.getDescription();
+		channel.memberId = request.getMemberId();
+		return channel;
+	}
 }
