@@ -17,7 +17,7 @@
       <v-col style="text-align: center;" align-self="center" cols="12" md="4" sm="6" xs="12">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" fab dark v-on="on">
+            <v-btn color="primary" fab dark v-on="on" @click="showChannelCreatePopup">
               <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
@@ -25,20 +25,41 @@
         </v-tooltip>
       </v-col>
     </v-row>  
-  </v-container>                
+    <ChannelCreatePopup
+      v-model="popup.dialog"
+      :popup="popup"
+    />
+  </v-container>
 </template>
 
 <script>
 import Channel from '@/components/channel/Channel'
+import ChannelCreatePopup from '@/components/channel/ChannelCreatePopup'
 
 export default {
   name: 'ChannelView',
   components: {
+    ChannelCreatePopup,
     Channel
+  },
+  data() {
+    return {
+      popup: {
+        dialog: false,
+        notifications: false,
+        sound: true,
+        widgets: false
+      }
+    }
+  },
+  methods: {
+    showChannelCreatePopup() {
+      this.popup.dialog = true;
+      console.log("showChannelCreate Modal");
+    }
   }
 }
 </script>
 
 <style>
-
 </style>
