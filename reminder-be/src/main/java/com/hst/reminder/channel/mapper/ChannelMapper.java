@@ -1,7 +1,6 @@
 package com.hst.reminder.channel.mapper;
 
 import com.hst.reminder.channel.domain.Channel;
-import com.hst.reminder.channel.ui.request.ChannelModifyingRequest;
 import com.hst.reminder.channel.ui.response.ChannelResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,7 @@ public class ChannelMapper {
 				.id(channel.getId())
 				.title(channel.getTitle())
 				.description(channel.getDescription())
+				.active(channel.getActive())
 				.ownerId(channel.getMemberId())
 				.createdDate(channel.getCreatedDate())
 				.modifiedDate(channel.getModifiedDate())

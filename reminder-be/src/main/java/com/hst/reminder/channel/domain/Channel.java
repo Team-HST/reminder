@@ -4,6 +4,7 @@ import com.hst.reminder.channel.ui.request.ChannelModifyingRequest;
 import com.hst.reminder.common.entity.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,25 +31,21 @@ public class Channel extends BaseTimeEntity implements Serializable {
 	@Column
 	private String description;
 
+	@Type(type = "yes_no")
+	private Boolean active;
+
 	@Column(name = "member_id")
 	private Long memberId;
 
 	@OneToMany(mappedBy = "channel")
 	private List<ChannelPublisher> publishers = new ArrayList<>();
 
-	/***
-	 * 채널에 발행자 할당
-	 * @param publisher 할당할 발행자
-	 */
-	public void linkPublisher(ChannelPublisher publisher) {
-		this.publishers.add(publisher);
-	}
-
 	public static Channel from(ChannelModifyingRequest request) {
 		Channel channel = new Channel();
 		channel.title = request.getTitle();
 		channel.description = request.getDescription();
 		channel.memberId = request.getMemberId();
+		channel.active = request.isActive();
 		return channel;
 	}
 }

@@ -22,14 +22,17 @@ public class ChannelResponse {
 	@ApiModelProperty(position = 3, value = "채널 설명", example = "2717283")
 	private String description;
 
-	@ApiModelProperty(position = 4, value = "채널 등록자 ID", example = "2717283")
+	@ApiModelProperty(position = 4, value = "채널 활성상태", example = "true")
+	private boolean active;
+
+	@ApiModelProperty(position = 5, value = "채널 등록자 ID", example = "2717283")
 	private Long ownerId;
 
-	@ApiModelProperty(position = 5, value = "등록일자", example = "2020-04-19 11:22:33")
+	@ApiModelProperty(position = 6, value = "등록일자", example = "2020-04-19 11:22:33")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createdDate;
 
-	@ApiModelProperty(position = 6, value = "변경일자", example = "2020-04-19 11:22:33")
+	@ApiModelProperty(position = 7, value = "변경일자", example = "2020-04-19 11:22:33")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime modifiedDate;
 }

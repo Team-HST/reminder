@@ -11,8 +11,8 @@
     <!-- 채널목록 -->
     <h2>List of Channel</h2>
     <v-row>
-      <v-col v-for="n in 4" :key="n" cols="12" md="4" sm="6" xs="12">
-        <Channel></Channel>
+      <v-col v-for="channel in channels" :key="channel.id" cols="12" md="4" sm="6" xs="12">
+        <Channel :channel="channel" />
       </v-col>
       <v-col style="text-align: center;" align-self="center" cols="12" md="4" sm="6" xs="12">
         <v-tooltip bottom>
@@ -44,6 +44,10 @@ export default {
   },
   data() {
     return {
+      channels: [
+        { id: 1, title: '채널A', description: '채널A 입니다.', active: false },
+        { id: 2, title: '채널B', description: '채널B 입니다.', active: true }        
+      ],
       popup: {
         dialog: false,
         notifications: false,
