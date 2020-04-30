@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PublisherMapper {
-
 	public static PublisherResponse toPublisherResponse(Publisher entity) {
 		return PublisherResponse.builder()
 				.id(entity.getId())

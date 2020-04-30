@@ -71,9 +71,26 @@ public class MemberController {
 					paramType = "path"
 			),
 	})
-	@GetMapping("{memberId}/channels")
-	public ResponseEntity<ChannelListResponse> getMyChannels(@PathVariable Long memberId) {
-		ChannelListResponse response = channelService.getChannelsByMemberId(memberId);
+	@GetMapping("{memberId}/channels/created")
+	public ResponseEntity<ChannelListResponse> getCreatedChannels(@PathVariable Long memberId) {
+		ChannelListResponse response = channelService.getCreatedChannelsByMemberId(memberId);
 		return ResponseEntity.ok(response);
 	}
+
+	@ApiOperation(value = "회원 소속된 채널 조회", notes = "회원이 소속되어있는 채널을 조회합니다.")
+	@ApiImplicitParams({
+			@ApiImplicitParam(
+					name = "memberId",
+					value = "조회할 회원의 ID",
+					required = true,
+					dataType = "long",
+					paramType = "path"
+			),
+	})
+	@GetMapping("{memberId}/channels/involved")
+	public ResponseEntity<ChannelListResponse> getInvolvedChannels(@PathVariable Long memberId) {
+		ChannelListResponse response = channelService.getInvolvedChannelsByMemberId(memberId);
+		return ResponseEntity.ok(response);
+	}
+
 }

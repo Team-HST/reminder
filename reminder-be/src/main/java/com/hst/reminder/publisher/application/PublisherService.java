@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+import static java.util.stream.Collectors.*;
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -50,6 +50,17 @@ public class PublisherService {
 	public PublisherListResponse getPublishersByMemberId(Long memberId) {
 		List<Publisher> publishers = publisherRepository.findByMemberId(memberId);
 		return PublisherListResponse.from(publishers);
+	}
+
+	/***
+	 * 멤버ID로 발행자 ID 목록 조회
+	 * @param memberId 멤버ID
+	 * @return 발행자 ID 목록
+	 */
+	public List<Long> getPublisherIdsByMemberId(Long memberId) {
+		return publisherRepository.findByMemberId(memberId).stream()
+				.map(Publisher::getId)
+				.collect(toList());
 	}
 
 	/***

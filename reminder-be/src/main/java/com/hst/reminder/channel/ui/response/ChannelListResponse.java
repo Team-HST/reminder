@@ -18,9 +18,15 @@ public class ChannelListResponse {
 		return channels;
 	}
 
+	public static ChannelListResponse empty() {
+		return from(null);
+	}
+
 	public static ChannelListResponse from(List<Channel> channels) {
 		ChannelListResponse response = new ChannelListResponse();
-		response.channels = channels.stream().map(ChannelMapper::toChannelResponse).collect(Collectors.toList());
+		if (channels != null) {
+			response.channels = channels.stream().map(ChannelMapper::toChannelResponse).collect(Collectors.toList());
+		}
 		return response;
 	}
 }

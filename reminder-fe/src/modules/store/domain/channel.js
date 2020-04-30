@@ -1,13 +1,18 @@
 import channelService from '@/modules/service/channelService'
 
 const state = {
-  createdChannels: [],
-  involvedChannels: []
+  channels: {
+    created: [],
+    involved: []    
+  }
 }
 
 const mutations = {
   setCreatedChannels(state, createdChannels) {
-    state.createdChannels = createdChannels;
+    state.channels.created = createdChannels;
+  },
+  setInvolvedChannels(state, involvedChannels) {
+    state.channels.involved = involvedChannels;
   }
 }
 
@@ -18,6 +23,10 @@ const actions = {
   async getCreatedChannels({ commit }, memberId) {
     let response = await channelService.getCreatedChannels(memberId);
     commit('setCreatedChannels', response.data.channels);
+  },
+  async getInvolvedChannels({ commit }, memberId) {
+    let response = await channelService.getInvolvedChannels(memberId);
+    commit('setInvolvedChannels', response.data.channels);
   }
 }
 
