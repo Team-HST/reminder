@@ -10,6 +10,8 @@ import vuetify from '@/modules/vuetify'
 import router from '@/router'
 import axiosAuth from '@/modules/axios-auth'
 
+import '@/components'
+
 Vue.config.productionTip = false
 
 new Vue({

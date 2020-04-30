@@ -1,61 +1,50 @@
 <template>
   <v-container fluid>
     <!-- Information Card -->
-    <v-card>
-      <v-toolbar color="success" dark flat>
-        <v-toolbar-title>
-          <b>My Account</b>
-        </v-toolbar-title>
-      </v-toolbar>
-      <v-card-text>
-        <v-row align="start" justify="center">
-          <!-- Profile Image -->
-          <v-col cols="2">
-            <v-avatar size="128px">
-              <img alt="Avatar" :src="profile.profileImageUrl" />
-            </v-avatar>
-          </v-col>
-          <!-- Profile Email & Name -->
-          <v-col class="pt-7" cols="10">
-            <span>{{profile.email}}</span>
-            <v-divider class="my-3"></v-divider>
-            <span class="headline">
-              <b>{{profile.name}}</b>
-            </span>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <app-card title="My Account" color="success">
+      <v-row align="start" justify="center">
+        <!-- Profile Image -->
+        <v-col cols="2">
+          <v-avatar size="128px">
+            <img alt="Avatar" :src="profile.profileImageUrl" />
+          </v-avatar>
+        </v-col>
+        <!-- Profile Email & Name -->
+        <v-col class="pt-7" cols="10">
+          <span>{{profile.email}}</span>
+          <v-divider class="my-3"></v-divider>
+          <span class="headline">
+            <b>{{profile.name}}</b>
+          </span>
+        </v-col>
+      </v-row>
+    </app-card>
+
     <v-divider class="my-10"></v-divider>
+
     <!-- Publisher Management Card -->
-    <v-card>
-      <v-toolbar color="warning" dark flat>
-        <v-toolbar-title>
-          <b>Publisher Management</b>
-        </v-toolbar-title>
-      </v-toolbar>
-      <v-card-text>
-        <v-data-table 
-          v-model="publisherListTable.selectedItems" 
-          :headers="publisherListTable.headers" 
-          :items="publisherListTable.items"
-          show-select
-          hide-default-footer
-        >
-          <template v-slot:top>
-            <v-row justify="end">
-              <v-btn class="mr-2" tile text color="success" @click="openAddPopup()">
-                <v-icon left>mdi-pencil-plus</v-icon> Add
-              </v-btn> 
-              <v-btn class="mr-2" tile text color="warning" @click="deletePublisher">
-                <v-icon left>mdi-delete</v-icon> Delete
-              </v-btn> 
-            </v-row>
-          </template>
-        </v-data-table>
-      </v-card-text>
-    </v-card>
-    <PublisherAddPopup :show="addPopupVisible" @save="createPublisher" @close="closeAddPopup" />
+    <app-card title="Publisher Management" color="warning">
+      <v-data-table 
+        v-model="publisherListTable.selectedItems" 
+        :headers="publisherListTable.headers" 
+        :items="publisherListTable.items"
+        show-select
+        hide-default-footer
+      >
+        <template v-slot:top>
+          <v-row justify="end">
+            <v-btn class="mr-2" tile text color="success" @click="openAddPopup()">
+              <v-icon left>mdi-pencil-plus</v-icon> Add
+            </v-btn> 
+            <v-btn class="mr-2" tile text color="warning" @click="deletePublisher">
+              <v-icon left>mdi-delete</v-icon> Delete
+            </v-btn> 
+          </v-row>
+        </template>
+      </v-data-table>
+    </app-card>
+
+    <publisher-add-popup :show="addPopupVisible" @save="createPublisher" @close="closeAddPopup" />    
   </v-container>
 </template>
 
