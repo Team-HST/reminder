@@ -63,7 +63,7 @@ export default {
         headers: [
           { text: 'Protocol', value: 'protocol', align: 'center' },
           { text: 'Target', value: 'target', align: 'center' },
-          { text: 'Paramters', value: 'parameters', align: 'center' },
+          { text: 'Parameters', value: 'parameters', align: 'center' },
           { text: 'Description', value: 'description', align: 'center' }
         ],
         items: []
