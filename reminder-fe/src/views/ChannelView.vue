@@ -47,7 +47,7 @@
 <script>
 // 사용보류!!!!!!
 // import ChannelList from '@/components/channel/ChannelList'
-import ChannelCreatePopup from '@/components/channel/ChannelCreatePopup'
+import ChannelCreatePopup from '@/components/channel/createPopup/ChannelCreatePopup'
 
 import { mapState, mapActions } from 'vuex'
 
