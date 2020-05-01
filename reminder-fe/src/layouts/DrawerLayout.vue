@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppDrawer />
+    <app-drawer></app-drawer>
     <v-content>
       <v-container>
         <router-view></router-view>
@@ -13,12 +13,7 @@
 </template>
 
 <script>
-import AppDrawer from '@/components/app/AppDrawer'
-
 export default {
-  name: 'DrawerLayout',
-  components: {
-    AppDrawer
-  }
+  name: 'DrawerLayout'
 }
 </script>

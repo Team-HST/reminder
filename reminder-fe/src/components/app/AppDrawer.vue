@@ -1,7 +1,9 @@
 <template>
   <div>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <ProfileCard v-if="authorized"></ProfileCard>
+      <template v-if="authorized">
+        <profile-card  />
+      </template>
       <Menu></Menu>
       <template v-slot:append>
         <div class="pa-2">
@@ -29,8 +31,12 @@ export default {
       drawer: true
     };
   },
+  created() {
+    console.log('WTF!!!!', this.authorized)
+    console.log('WTF!!!!', this.profile)
+  },
   computed: {
-    ...mapState('member', ['authorized'])
+    ...mapState('member', ['authorized', 'profile'])
   },
   methods: {
     ...mapActions("member", ["deAuthorize"]),

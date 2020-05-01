@@ -7,13 +7,6 @@ import paths from './paths'
 
 Vue.use(VueRouter);
 
-const router = new VueRouter({
-  mode: 'history',
-  routes: paths.map((path) => {
-    return route(path.path, path.component, path.name, path.meta)
-  })
-})
-
 function route (path, component, name, meta) {
   return {
     name,
@@ -24,6 +17,11 @@ function route (path, component, name, meta) {
     )
   }
 }
+
+const router = new VueRouter({
+  mode: 'history',
+  routes: paths.map(path => route(path.path, path.component, path.name, path.meta))
+})
 
 function checkValidPage(to) {
   let link = router.resolve(to)
@@ -38,16 +36,16 @@ router.beforeEach((to, from, next) => {
     return next('/dashboard')
   }
 
-  if (to.meta.publicView == false && store.getters['member/authorized'] == false) {
-    return next('/login')
-  } else if (to.path === '/') {
-    if (store.getters['member/authorized'] == true) {
-      return next('/dashboard')
-    } else {
-      return next('/login')
-    }
-  } 
-  return next();
+  let isPublicView = to.meta.publicView;
+  let isAuthorizedUser = store.getters['member/authorized'];
+
+  console.log('to: ', to.name, 'isPublicView?', isPublicView, 'currentUserAuthorized?', isAuthorizedUser)
+
+  if (isPublicView) {
+    return next();
+  } else {
+    return isAuthorizedUser ? next() : next('/login');
+  }
 })
 
 export default router;

@@ -9,7 +9,7 @@ export default {
   name: 'loginSuccessView',
   created() {
     this.authorize(this.$route.query)
-    this.setLayout('drawer-layout')
+    this.setLayout('drawer-layout')    
     this.initCodeMap()
   },
   methods: {

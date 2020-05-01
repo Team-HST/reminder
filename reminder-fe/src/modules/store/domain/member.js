@@ -1,5 +1,5 @@
-import router from '@/router'
-import axios from 'axios'
+import router from '@/modules/router'
+import axios from '@/modules/axios-auth'
 
 const state = {
   authenticationToken: null,
@@ -38,13 +38,13 @@ const actions = {
   },
   authorize({ commit }, params) {
     commit('setAuthorizeToken', params.token) 
-
     axios.get(`/api/members/${params.memberId}`)
       .then((response) => { 
-        commit('setProfile', response.data)
-        commit('processAuthorize', params)
-        router.push('/dashboard').catch(()=>{})
-      }).catch((e) => console.error(e))
+        commit('setProfile', response.data);
+        commit('processAuthorize');
+        router.push('/')
+      })
+      .catch((e) => console.error(e))  
   }
 }
 

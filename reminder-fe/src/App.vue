@@ -15,11 +15,6 @@ export default {
     'drawer-layout': DrawerLayout,
     'single-layout': SingleLayout
   },
-  created() {
-    if (this.authorized) {
-      this.getProfile()
-    }
-  },
   computed: {
     ...mapState('member', ['authorized']),
     ...mapState('common', ['layout'])
