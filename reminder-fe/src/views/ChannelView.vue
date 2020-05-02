@@ -45,8 +45,6 @@
 </template>
 
 <script>
-// 사용보류!!!!!!
-// import ChannelList from '@/components/channel/ChannelList'
 import ChannelCreatePopup from '@/components/channel/createPopup/ChannelCreatePopup'
 
 import { mapState, mapActions } from 'vuex'
@@ -55,13 +53,13 @@ export default {
   name: 'ChannelView',
   components: {
     ChannelCreatePopup,
-//    ChannelList
   },
   data() {
     return {
       channelTable: {
         selectedItems: [],
         headers: [
+          { text: 'ID', value: 'id', align: 'center' },          
           { text: 'Title', value: 'title', align: 'center' },
           { text: 'Description', value: 'description', align: 'center' },
           { text: 'Active', value: 'active', align: 'center' }
@@ -81,17 +79,22 @@ export default {
   },
   created() {
     this.getCreatedChannels(this.profile.id);
-    this.getInvolvedChannels(this.profile.id);        
+    this.getInvolvedChannels(this.profile.id);
   },
   methods: {
-    ...mapActions('channel', ['getCreatedChannels', 'getInvolvedChannels']),
+    ...mapActions('channel', ['getCreatedChannels', 'getInvolvedChannels', 'deleteChannels']),
     openChannelCreatePopup() {
       this.popup.dialog = true;
       console.log("showChannelCreate Modal");
     },
+    refreshChannel() {
+
+    },
     deleteChannel() {
       let selectedChannelIds = this.channelTable.selectedItems.map(channel => channel.id);
-      console.log('delete ', selectedChannelIds)
+      console.log(selectedChannelIds)
+      this.deleteChannels(selectedChannelIds);
+      this.channelTable.selectedItems = []
     }
   }
 }

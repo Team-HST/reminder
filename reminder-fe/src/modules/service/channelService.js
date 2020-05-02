@@ -1,6 +1,6 @@
 import axios from '@/modules/axios-auth'
 
-// const API = '/api/channels';
+const API = '/api/channels';
 const MEMBER_API = '/api/members';
 
 /**
@@ -27,4 +27,13 @@ export default {
   getInvolvedChannels(memberId) {
     return axios.get(`${MEMBER_API}/${memberId}/channels/involved`);
   },
+  /**
+   * 채널 삭제
+   * 
+   * @param channelIds 삭제할 채널 ID 목록
+   * @returns `Promise`
+   */
+  deleteChannel(channelIds) {
+    return axios.delete(`${API}`, {data: channelIds})
+  }
 }

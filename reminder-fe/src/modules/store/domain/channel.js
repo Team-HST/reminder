@@ -1,5 +1,7 @@
 import channelService from '@/modules/service/channelService'
 
+import { CollectionUtils } from '@/utils/common'
+
 const state = {
   channels: {
     created: [],
@@ -13,6 +15,12 @@ const mutations = {
   },
   setInvolvedChannels(state, involvedChannels) {
     state.channels.involved = involvedChannels;
+  },
+  removeChannel(state, channelIds) {
+    channelIds.forEach(channelId => {
+      CollectionUtils.remove(state.channels.created, e => e.id === channelId)
+      CollectionUtils.remove(state.channels.involved, e => e.id === channelId)
+    })
   }
 }
 
@@ -27,6 +35,11 @@ const actions = {
   async getInvolvedChannels({ commit }, memberId) {
     let response = await channelService.getInvolvedChannels(memberId);
     commit('setInvolvedChannels', response.data.channels);
+  },
+  deleteChannels({ commit }, channelIds) {
+    channelService.deleteChannel(channelIds).then(() => {
+      commit('removeChannel', channelIds)
+    })
   }
 }
 

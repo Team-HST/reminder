@@ -16,6 +16,19 @@ const StringUtils = {
   }
 }
 
+/***
+ * @description 객체, 배열 관련 유틸
+ */
+const CollectionUtils = {
+  remove: (array, predicate) => {
+    let index = array.findIndex(predicate);
+    if (index !== -1) {
+      array.splice(index, 1)
+    }
+  }
+}
+
 export {
-  StringUtils
+  StringUtils,
+  CollectionUtils
 }
