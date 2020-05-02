@@ -40,11 +40,12 @@ const actions = {
     commit('setAuthorizeToken', params.token) 
     axios.get(`/api/members/${params.memberId}`)
       .then((response) => { 
+        console.log(response);
         commit('setProfile', response.data);
         commit('processAuthorize');
-        router.push('/')
+        router.push('/');
       })
-      .catch((e) => console.error(e))  
+      .catch((e) => console.error('dd', e))  
   }
 }
 
