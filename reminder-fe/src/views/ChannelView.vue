@@ -59,10 +59,10 @@ export default {
       channelTable: {
         selectedItems: [],
         headers: [
-          { text: 'ID', value: 'id', align: 'center' },          
-          { text: 'Title', value: 'title', align: 'center' },
-          { text: 'Description', value: 'description', align: 'center' },
-          { text: 'Active', value: 'active', align: 'center' }
+          { text: 'ID', value: 'id', align: 'start' },          
+          { text: 'Title', value: 'title', align: 'start' },
+          { text: 'Description', value: 'description', align: 'start' },
+          { text: 'Active', value: 'active', align: 'start' }
         ]
       },
       popup: {
