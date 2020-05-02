@@ -1,5 +1,6 @@
 package com.hst.reminder.member.ui.response;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
 import lombok.Getter;
 
@@ -9,6 +10,7 @@ import lombok.Getter;
 @Getter
 public class MemberDetailResponse {
 	private MemberProfileResponse profile;
+	@JsonUnwrapped
 	private PublisherListResponse publishers;
 
 	public static MemberDetailResponse of(MemberProfileResponse profile, PublisherListResponse publishers) {
