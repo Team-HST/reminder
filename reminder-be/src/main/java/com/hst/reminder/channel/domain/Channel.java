@@ -37,7 +37,7 @@ public class Channel extends BaseTimeEntity implements Serializable {
 	@Column(name = "member_id")
 	private Long memberId;
 
-	@OneToMany(mappedBy = "channel")
+	@OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
 	private List<ChannelPublisher> publishers = new ArrayList<>();
 
 	public static Channel from(ChannelModifyingRequest request) {

@@ -14,23 +14,32 @@ public class ErrorDescription {
 	private int statusCode;
 	private String message;
 
-	/***
-	 * 401 UNAUTHORIZED ErrorDescription 생성
-	 * @param e 오류 원인
-	 * @return Error
-	 */
-	public static ErrorDescription unauthorized(Exception e) {
-		return create(HttpStatus.UNAUTHORIZED, e);
-	}
-
-	/***
-	 * 500 INTERNAL_SERVER_ERROR ErrorDescription 생성
-	 * @param e 오류 원인
-	 * @return ErrorDescription
-	 */
-	public static ErrorDescription internalServerError(Exception e) {
-		return create(HttpStatus.INTERNAL_SERVER_ERROR, e);
-	}
+//	/***
+//	 * 401 UNAUTHORIZED ErrorDescription 생성
+//	 * @param e 오류 원인
+//	 * @return ErrorDescription
+//	 */
+//	public static ErrorDescription unauthorized(Exception e) {
+//		return create(HttpStatus.UNAUTHORIZED, e);
+//	}
+//
+//	/***
+//	 * 403 FORBIDDEN ErrorDescription 생성
+//	 * @param e 오류 원인
+//	 * @return ErrorDescription
+//	 */
+//	public static ErrorDescription forbidden(Exception e) {
+//		return create(HttpStatus.FORBIDDEN, e);
+//	}
+//
+//	/***
+//	 * 500 INTERNAL_SERVER_ERROR ErrorDescription 생성
+//	 * @param e 오류 원인
+//	 * @return ErrorDescription
+//	 */
+//	public static ErrorDescription internalServerError(Exception e) {
+//		return create(HttpStatus.INTERNAL_SERVER_ERROR, e);
+//	}
 
 	/***
 	 * ErrorDescription 생성

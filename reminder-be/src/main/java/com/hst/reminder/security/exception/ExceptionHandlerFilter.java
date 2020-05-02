@@ -40,7 +40,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
 		}
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-		response.getWriter().write(JsonUtils.serialize(ErrorDescription.unauthorized(e)));
+		response.getWriter().write(JsonUtils.serialize(ErrorDescription.create(HttpStatus.UNAUTHORIZED, e)));
 	}
 
 }

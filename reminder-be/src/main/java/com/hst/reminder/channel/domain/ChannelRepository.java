@@ -16,4 +16,5 @@ public interface ChannelRepository {
 
 	void delete(Channel channel);
 
+	void deleteByIdIn(List<Long> channelIds);
 }

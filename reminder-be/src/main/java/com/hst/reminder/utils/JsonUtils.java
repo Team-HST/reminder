@@ -3,7 +3,7 @@ package com.hst.reminder.utils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.hst.reminder.common.exception.ReportableException;
+import com.hst.reminder.common.exception.SystemException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +20,7 @@ public class JsonUtils {
 		try {
 			return OBJECT_MAPPER.writeValueAsString(obj);
 		} catch (Exception e) {
-			throw new ReportableException(e);
+			throw new SystemException(e);
 		}
 	}
 
@@ -28,7 +28,7 @@ public class JsonUtils {
 		try {
 			return OBJECT_MAPPER.readValue(json, clazz);
 		} catch (Exception e) {
-			throw new ReportableException(e);
+			throw new SystemException(e);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class JsonUtils {
 		try {
 			return OBJECT_MAPPER.readValue(json, typeReference);
 		} catch (Exception e) {
-			throw new ReportableException(e);
+			throw new SystemException(e);
 		}
 	}
 
@@ -44,7 +44,7 @@ public class JsonUtils {
 		try {
 			return OBJECT_MAPPER.readValue(json, TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
 		} catch (Exception e) {
-			throw new ReportableException(e);
+			throw new SystemException(e);
 		}
 	}
 

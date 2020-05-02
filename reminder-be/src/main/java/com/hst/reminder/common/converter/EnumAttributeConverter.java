@@ -1,6 +1,6 @@
 package com.hst.reminder.common.converter;
 
-import com.hst.reminder.common.exception.ReportableException;
+import com.hst.reminder.common.exception.ServiceException;
 import com.hst.reminder.common.type.PersistableType;
 
 import java.util.EnumSet;
@@ -27,7 +27,7 @@ public abstract class EnumAttributeConverter<X extends Enum<X> & PersistableType
 		return EnumSet.allOf(targetClass).stream()
 				.filter(e -> e.getCode().equals(code))
 				.findAny()
-				.orElseThrow(() -> new ReportableException("변환할 수 없는 타입입니다. %s - %s", targetClass.getSimpleName(), code));
+				.orElseThrow(() -> new ServiceException("변환할 수 없는 타입입니다. %s - %s", targetClass.getSimpleName(), code));
 	}
 
 }
