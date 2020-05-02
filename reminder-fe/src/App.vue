@@ -16,7 +16,7 @@ export default {
     'single-layout': SingleLayout
   },
   computed: {
-    ...mapState('member', ['authorized']),
+    ...mapState('member', ['authorized', 'authenticationToken']),
     ...mapState('common', ['layout'])
   },
   methods: {

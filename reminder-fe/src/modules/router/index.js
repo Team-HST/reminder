@@ -8,13 +8,11 @@ import paths from './paths'
 Vue.use(VueRouter);
 
 function route (path, component, name, meta) {
-  return {
+  return {    
     name,
     path,
     meta,
-    component: () => import(
-        `@/views/${component}`
-    )
+    component: () => import(`@/views/${component}`)
   }
 }
 
@@ -37,9 +35,7 @@ router.beforeEach((to, from, next) => {
   }
 
   let isPublicView = to.meta.publicView;
-  let isAuthorizedUser = store.getters['member/authorized'];
-
-  console.log('to: ', to.name, 'isPublicView?', isPublicView, 'currentUserAuthorized?', isAuthorizedUser)
+  let isAuthorizedUser = store.getters['member/authorized']
 
   if (isPublicView) {
     return next();

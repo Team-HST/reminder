@@ -31,10 +31,6 @@ export default {
       drawer: true
     };
   },
-  created() {
-    console.log('WTF!!!!', this.authorized)
-    console.log('WTF!!!!', this.profile)
-  },
   computed: {
     ...mapState('member', ['authorized', 'profile'])
   },
@@ -44,6 +40,7 @@ export default {
     logout() {
       this.deAuthorize();
       this.setLayout('single-layout');
+      this.$router.push('/login')
     }
   }
 };

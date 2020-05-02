@@ -14,10 +14,13 @@ Vue.config.productionTip = false
 
 // sync(store, router);
 
+console.log('Load App')
+
 new Vue({
+  el: '#app',
   store,
   vuetify,
   router,
   axiosAuth,
   render: h => h(App)
-}).$mount('#app')
+});

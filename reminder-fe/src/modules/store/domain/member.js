@@ -1,5 +1,4 @@
-import router from '@/modules/router'
-import axios from '@/modules/axios-auth'
+import memberService from '@/modules/service/memberService'
 
 const state = {
   authenticationToken: null,
@@ -8,10 +7,10 @@ const state = {
 }
 
 const getters = {
-  authorized() {
+  authorized(state) {
     return state.authorized
   },
-  getAuthorizeToken() {
+  getAuthorizeToken(state) {
     return state.authenticationToken
   }
 }
@@ -34,18 +33,13 @@ const mutations = {
 const actions = {
   deAuthorize(context) {
     context.commit('processDeAuthorize')
-    router.push('/login')
   },
-  authorize({ commit }, params) {
+  async authorize({ commit }, params) {
     commit('setAuthorizeToken', params.token) 
-    axios.get(`/api/members/${params.memberId}`)
-      .then((response) => { 
-        console.log(response);
-        commit('setProfile', response.data);
-        commit('processAuthorize');
-        router.push('/');
-      })
-      .catch((e) => console.error('dd', e))  
+    
+    let response = await memberService.getProfile(params.memberId);
+    commit('setProfile', response.data);
+    commit('processAuthorize');
   }
 }
 
