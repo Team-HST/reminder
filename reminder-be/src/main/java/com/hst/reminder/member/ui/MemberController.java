@@ -4,6 +4,8 @@ import com.hst.reminder.channel.application.ChannelService;
 import com.hst.reminder.channel.ui.response.ChannelListResponse;
 import com.hst.reminder.configuration.SwaggerConfiguration;
 import com.hst.reminder.member.application.MemberService;
+import com.hst.reminder.common.ui.request.SearchCriteria;
+import com.hst.reminder.member.ui.response.MemberDetailListResponse;
 import com.hst.reminder.member.ui.response.MemberProfileResponse;
 import com.hst.reminder.publisher.application.PublisherService;
 import com.hst.reminder.publisher.ui.response.PublisherListResponse;
@@ -13,10 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author dlgusrb0808@gmail.com
@@ -91,6 +90,28 @@ public class MemberController {
 	public ResponseEntity<ChannelListResponse> getInvolvedChannels(@PathVariable Long memberId) {
 		ChannelListResponse response = channelService.getInvolvedChannelsByMemberId(memberId);
 		return ResponseEntity.ok(response);
+	}
+
+	@ApiOperation(value = "회원 검색", notes = "회원을 검색합니다.")
+	@ApiImplicitParams({
+			@ApiImplicitParam(
+					name = "type",
+					value = "검색 타입",
+					example = "id | email | name",
+					required = true,
+					dataType = "string",
+					paramType = "query"
+			),
+			@ApiImplicitParam(
+					name = "keyword",
+					value = "검색어",
+					dataType = "string",
+					paramType = "query"
+			),
+	})
+	@GetMapping("search")
+	public ResponseEntity<MemberDetailListResponse> searchMembers(SearchCriteria criteria) {
+		return ResponseEntity.ok(memberService.findMembers(criteria));
 	}
 
 }
