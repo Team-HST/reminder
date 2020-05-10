@@ -1,4 +1,4 @@
-import codeService from '@/modules/service/codeService'
+import { codeService } from '@/modules/service'
 
 const state = {
   codeMap: {}

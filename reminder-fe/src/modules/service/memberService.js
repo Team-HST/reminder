@@ -16,5 +16,9 @@ export default {
    */
   getProfile(memberId) {
     return axios.get(`${MEMBER_API}/${memberId}`);
+  },
+
+  getSearchMembers(keyword) {
+    return axios.get(`${MEMBER_API}/search?keyword=${keyword}`);
   }
 }

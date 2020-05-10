@@ -10,7 +10,7 @@
           class="pa-2"
         >
           <v-text-field 
-            label="Channels Title"
+            label="Channel Title"
             hint="Enter the channel title."
           ></v-text-field>
         </v-list-item-content>
@@ -21,7 +21,7 @@
         >
           <v-textarea
             name="channel-testarea"
-            label="Channels Description"
+            label="Channel Description"
             value=""
             hint="Enter the channel description."
             rows=3
@@ -63,6 +63,7 @@
               label="Search"
               single-line
               hide-details
+              @click:append="searchInvolvedPublisher"
             />
           </v-col>
           <v-data-table 
@@ -91,7 +92,13 @@ export default {
           { text: 'Target', value: 'target', align: 'center' },
           { text: 'Parameters', value: 'parameters', align: 'center', sortable: false }
         ]
-      }
+      },
+      search: ''
+    }
+  },
+  methods: {
+    searchInvolvedPublisher() {
+      alert(this.search);
     }
   }
 }

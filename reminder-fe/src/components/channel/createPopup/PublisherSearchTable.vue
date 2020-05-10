@@ -22,12 +22,14 @@
               label="Search"
               single-line
               hide-details
+              @click:append="searchMemberPublisher"
+              @keyup.enter="searchMemberPublisher"
             />
           </v-col>
           <v-data-table 
             v-model="table.selectedItems" 
             :headers="table.headers" 
-            :items="table.items"
+            :items="this.getSearchMemberPublishers"
             show-select
             hide-default-footer
           >
@@ -39,6 +41,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'PublisherSearchTable',
   data() {
@@ -46,15 +50,26 @@ export default {
       table: {
         selectedItems: [],
         headers: [
+          { text: 'Name', value: 'name', align: 'center' },
           { text: 'Protocol', value: 'protocol', align: 'center' },
           { text: 'Target', value: 'target', align: 'center' },
           { text: 'Parameters', value: 'parameters', align: 'center' },
           { text: 'Description', value: 'description', align: 'center', ortable: false }
-        ],
-        items: []
-      }
+        ]
+      },
+      search: ''
+    }
+  },
+  computed: {
+    ...mapState('channel', ['searchMembers']),
+    ...mapGetters('channel', ['getSearchMemberPublishers'])
+  },
+  methods: {
+    ...mapActions('channel', ['getSearchMembers']),
+    ...mapMutations('channel', ['initCreatePopup']),
+    async searchMemberPublisher() {
+      await this.getSearchMembers(this.search); // todo 팝업 종료 시 검색 데이터 삭제
     }
   }
-  
 }
 </script>

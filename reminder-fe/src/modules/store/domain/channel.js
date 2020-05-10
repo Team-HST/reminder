@@ -1,4 +1,7 @@
-import channelService from '@/modules/service/channelService'
+import  { 
+  channelService,
+  memberService
+} from '@/modules/service'
 
 import { CollectionUtils } from '@/utils/common'
 
@@ -6,10 +9,39 @@ const state = {
   channels: {
     created: [],
     involved: []    
+  },
+  createPopup: {
+    createChannel: {
+      title: '',
+      description: '',
+      active: false,
+      publisherIds: []
+    },
+    searchMembers: [],
+    selectPublisher: []
+  }
+}
+
+const getters = {
+  getSearchMemberPublishers(state) {
+    const members = state.createPopup.searchMembers;
+    const searchMemberPublishers = [];
+
+    for(const member of members) {
+      member.publishers.map(publisher => {
+        publisher.name = member.profile.name;
+        searchMemberPublishers.push(publisher);
+      })
+    }
+
+    return searchMemberPublishers;
   }
 }
 
 const mutations = {
+  initCreatePopup(state) { // todo
+    state.createPopup = {};
+  },
   setCreatedChannels(state, createdChannels) {
     state.channels.created = createdChannels;
   },
@@ -21,10 +53,13 @@ const mutations = {
       CollectionUtils.remove(state.channels.created, e => e.id === channelId)
       CollectionUtils.remove(state.channels.involved, e => e.id === channelId)
     })
+  },
+  setCreateChannel(state, createChannel) {
+    state.createPopup.createChannel = createChannel;
+  },
+  setSearchMembers(state, searchMembers) {
+    state.createPopup.searchMembers = searchMembers;
   }
-}
-
-const getters = {
 }
 
 const actions = {
@@ -36,9 +71,13 @@ const actions = {
     let response = await channelService.getInvolvedChannels(memberId);
     commit('setInvolvedChannels', response.data.channels);
   },
+  async getSearchMembers({ commit }, keyword) {
+    let response = await memberService.getSearchMembers(keyword);
+    commit('setSearchMembers', response.data.memberDetails);
+  },
   deleteChannels({ commit }, channelIds) {
     channelService.deleteChannel(channelIds).then(() => {
-      commit('removeChannel', channelIds)
+      commit('removeChannel', channelIds);
     })
   }
 }

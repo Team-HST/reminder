@@ -116,3 +116,4 @@ public class Member implements UserDetails, OAuth2User, Serializable {
 		return this.ssoType == oAuth2ProviderType;
 	}
 }
+

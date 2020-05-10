@@ -1,4 +1,4 @@
-import memberService from '@/modules/service/memberService'
+import { memberService } from '@/modules/service'
 
 const state = {
   authenticationToken: null,

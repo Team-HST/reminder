@@ -1,4 +1,4 @@
-import publisherService from '@/modules/service/publisherService'
+import { publisherService } from '@/modules/service'
 
 const state = {
   publishers: []
