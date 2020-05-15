@@ -1,7 +1,6 @@
 package com.hst.reminder.utils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 import org.springframework.util.SerializationUtils;
 
 import javax.servlet.http.Cookie;
@@ -13,7 +12,7 @@ import java.util.Optional;
 /**
  * @author dlgusrb0808@gmail.com
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class CookieUtils {
 	public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {
 		Cookie[] cookies = request.getCookies();

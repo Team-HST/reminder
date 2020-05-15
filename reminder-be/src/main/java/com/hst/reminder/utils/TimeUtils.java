@@ -1,7 +1,6 @@
 package com.hst.reminder.utils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +9,7 @@ import java.util.Date;
 /**
  * @author dlgusrb0808@gmail.com
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class TimeUtils {
 
 	/***

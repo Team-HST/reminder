@@ -1,16 +1,20 @@
 package com.hst.reminder.common.ui.request;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author dlgusrb0808@gmail.com
  */
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 public class SearchCriteria {
+	@NotEmpty
 	private String type;
+	@NotEmpty(message = "검색어를 입력하세요")
 	private String keyword;
 }

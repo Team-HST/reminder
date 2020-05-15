@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author dlgusrb0808@gmail.com
  */
@@ -110,7 +112,7 @@ public class MemberController {
 			),
 	})
 	@GetMapping("search")
-	public ResponseEntity<MemberDetailListResponse> searchMembers(SearchCriteria criteria) {
+	public ResponseEntity<MemberDetailListResponse> searchMembers(@Valid SearchCriteria criteria) {
 		return ResponseEntity.ok(memberService.findMembers(criteria));
 	}
 
