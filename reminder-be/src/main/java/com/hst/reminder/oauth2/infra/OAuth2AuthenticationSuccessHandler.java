@@ -2,7 +2,7 @@ package com.hst.reminder.oauth2.infra;
 
 import com.hst.reminder.authentication.domain.AuthenticationToken;
 import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
-import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.configuration.app.AppProperties;
 import com.hst.reminder.configuration.aware.AppPropertiesAware;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.utils.CookieUtils;

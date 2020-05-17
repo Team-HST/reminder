@@ -2,7 +2,6 @@ package com.hst.reminder.common.exception.handler;
 
 import com.hst.reminder.common.exception.ErrorDescription;
 import com.hst.reminder.common.exception.ReportableException;
-import com.hst.reminder.utils.EnumUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +23,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorDescription error = e.toErrorDescription();
 		return ResponseEntity.status(error.getStatusCode()).body(error);
 	}
-
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
-//	public ResponseEntity<ErrorDescription> handleApiBadRequest(MethodArgumentNotValidException e) {
-//		System.out.println("Fuck");
-//		ErrorDescription error = ErrorDescription.builder()
-//				.statusCode(HttpStatus.BAD_REQUEST.value())
-//				.message(e.getMessage()).build();
-//		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
-//	}
-
 
 	@Override
 	protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,

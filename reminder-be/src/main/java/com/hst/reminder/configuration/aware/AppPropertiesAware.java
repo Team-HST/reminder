@@ -1,6 +1,6 @@
 package com.hst.reminder.configuration.aware;
 
-import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.configuration.app.AppProperties;
 import org.springframework.beans.factory.Aware;
 
 /**

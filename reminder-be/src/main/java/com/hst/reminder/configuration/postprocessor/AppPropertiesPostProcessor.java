@@ -1,6 +1,6 @@
 package com.hst.reminder.configuration.postprocessor;
 
-import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.configuration.app.AppProperties;
 import com.hst.reminder.configuration.aware.AppPropertiesAware;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

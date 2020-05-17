@@ -1,7 +1,8 @@
 package com.hst.reminder.oauth2.ui;
 
 import com.google.common.collect.ImmutableMap;
-import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.configuration.app.AppProperties;
+import com.hst.reminder.configuration.app.OAuth2Properties;
 import com.hst.reminder.configuration.aware.AppPropertiesAware;
 import com.hst.reminder.utils.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class OAuth2Controller implements AppPropertiesAware {
 
 	// Template: ${host}/login-success?token=${token}&memberId=${memberId}
 	private String buildAuthorizationFinalizeUrl(String token, Long memberId) {
-		AppProperties.OAuth2 oAuth2 = appProperties.getOauth2();
+		OAuth2Properties oAuth2 = appProperties.getOauth2();
 
 		return StringUtils.template(oAuth2.getAuthorizationFinalizeUrlTemplate(),
 				ImmutableMap.of("host", oAuth2.getReminderServiceFE(), "token", token, "memberId", memberId));

@@ -1,7 +1,7 @@
 package com.hst.reminder.security.filter;
 
-import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
 import com.hst.reminder.authentication.application.exception.InvalidAuthenticationTokenException;
+import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
 import com.hst.reminder.member.application.MemberService;
 import com.hst.reminder.member.domain.Member;
 import com.hst.reminder.utils.StringUtils;
@@ -48,6 +48,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	// HTTP 요청에서 인증토근 취득
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
 		if (StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {

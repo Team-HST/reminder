@@ -9,6 +9,9 @@ app:
   auth:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
     tokenExpirationMs: 864000000 # 10 days
+    freepass:
+      enable: true
+      masterToken: hst
   oauth2:
     authorizationFinalizeUrlTemplate: '${host}/login-success?token=${token}&memberId=${memberId}'
     reminderServiceFE: ${app.host}:8080

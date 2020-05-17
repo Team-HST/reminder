@@ -2,12 +2,14 @@ package com.hst.reminder.authentication.infra;
 
 import com.hst.reminder.authentication.domain.AuthenticationToken;
 import com.hst.reminder.authentication.domain.AuthenticationTokenProvider;
-import com.hst.reminder.configuration.AppProperties;
+import com.hst.reminder.configuration.app.AppProperties;
 import com.hst.reminder.utils.StringUtils;
 import com.hst.reminder.utils.TimeUtils;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ import java.time.temporal.ChronoUnit;
  * @author dlgusrb0808@gmail.com
  */
 @Component
+@Primary
+@ConditionalOnProperty(prefix = "app", name = "auth.freepass.enable", havingValue = "false")
 public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvider {
 
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationTokenProvider.class);
@@ -72,7 +76,6 @@ public class JwtAuthenticationTokenProvider implements AuthenticationTokenProvid
 			}
 		}
 		return false;
-
 	}
 
 	@Override
