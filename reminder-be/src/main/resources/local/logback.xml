@@ -6,7 +6,7 @@
 	<!-- Console Appender -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>[%d{ISO8601} %d{Z}] [%level] [%logger{10}] %msg%n</pattern>
+			<pattern>%clr([%d{ISO8601} %d{Z}]){blue} %clr([%level]){green} %clr([%logger{30}]){cyan} %msg%n</pattern>
 		</layout>
 	</appender>
 

@@ -24,10 +24,10 @@ spring:
   profiles:
     active: develop
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://133.186.219.16:3306/reminder_db?characterEncoding=utf8&useUnicode=true&serverTimezone=Asia/Seoul
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://database-1.clozyxtm7nwy.ap-northeast-2.rds.amazonaws.com:3306/reminder_db
     username: hst
-    password: hst123!@#
+    password: hstqweQWE
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5Dialect
